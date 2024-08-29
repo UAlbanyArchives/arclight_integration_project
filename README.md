@@ -1,2 +1,2 @@
-# Arclight Intergration Project
+# Arclight Integration Project
 Intergrating Arclight with Digital Content, IIIF, and ArchivesSpace
