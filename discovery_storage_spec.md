@@ -1,0 +1,1 @@
+# Digital Object Discovery Storage Specification
