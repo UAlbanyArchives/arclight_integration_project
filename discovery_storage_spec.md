@@ -2,20 +2,37 @@
 This is a display version of the specification, which is managed and versioned with markdown in a [Github repository](https://github.com/UAlbanyArchives/arclight_intergration_project).
 
 ## Contributors
-* Gregory Wiedeman
-* Katherine Martinez
-* Mark Wolfe
+*Gregory Wiedeman, (PI & Project Director), UAlbany
+*Katherine Mules, UAlbany
+*Jennifer Palmentiero, SENYLC, EmpireADC
+*Mark Wolfe, UAlbany
+*Zachary Spalding, SENYLC, EmpireADC
+*Meghan Slaff, UAlbany
 
 ## 1. Introduction
 
 ### 1.1 Purpose
-Archival methods and best practices are designed specifically to allow repositories to efficiently manage tremendous volumes of materials. Repositories can easily contain tens of thousands of cubic feet of physical materials where everything should be discoverable and retrievable.Existing archival description methods and best practices are a perfect fit for addressing these challenges. Archivists must describe digital materials hierarchically by prioritizing aggregate groups of materials first, and further describing materials more granularly based on user needs and available resources. This is the only way archivists can grapple with ever-larger volumes of materials they need to make discoverable. Archival approaches can also readily incorporate new methods to automate description from digital records.  
+The University at Albany Libraries, together with the Empire State Library Network (ESLN), are further developing ArcLight into a single platform for digital archives and special collections materials. Supported by the Institute of Museum and Library Services (IMLS) National Leadership Grants for Libraries program, this project will enable ArcLight to provide discovery and access to digital materials, metadata, and full-text content using International Image Interoperability Framework (IIIF) manifests alongside archival description traditionally contained in finding aids.
 
-Automated metadata creation is necessary to manage large volumes of digital records, but archivists must also account for the risks in these methods of perpetuating biases and generating inaccurate or incomplete information that will always reduce the quality of automated metadata. Hierarchical description allows archivists to manage these risks by supplementing automated description at lower levels with higher quality upper level description directly created by professional archivists.
+### 1.2 Status of this Document 
+In Progress
+###1.3 License
 
-There is also some intriguing potential for indexing that inherited description along with the digital object at a lower weight. In many cases, this existing description could be sufficient for discovery without the need to create a more detailed metadata record for a digital repository. This would often make digitization viable where it otherwise would not be feasible. This should include digitization requests made by users, allowing repositories to slowly digitize their most requested items over time. Arclight would also allow the creation of more detailed metadata records, when archivists have user-driven reasons to increase discoverability – consistent with archival description best practices as stated in the DACS Statement of Principles.
+###1.4 Requirements
+The key words “MAY”, “MUST”, “MUST NOT” ,“RECOMMENDED”, “REQUIRED”, “OPTIONAL”, “SHOULD”, and “SHOULD NOT” in this document are to be interpreted as described in BCP 14 [RFC2119](https://tools.ietf.org/html/rfc2119) [RFC8174](https://tools.ietf.org/html/rfc8174) when, and only when, they appear in all capitals, as shown here.
 
-Using Arclight as a single system for both archival description and digital materials will enable repositories to apply the same archival methods and best practices that work well for large volumes of physical materials to digital materials. Instead of requiring detailed metadata records for every digital object, this will empower practitioners to use their professional judgment to match their limited time and resources to best meet user needs like they do for physical materials. This model also makes it possible to provide integrated access to born-digital materials, which often include large volumes of files that must be described in aggregate. Emerging methods of automated description are necessary to manage this volume, and archival hierarchy helps to mitigate the risks of these methods by connecting automated description with professional quality metadata records created by humans.
+###1.5 Terminology
+The following terms have precise definitions as used in this documnent:
+**version:** The unique individual object that is uploaded to Hyrax is the version. There can be multiple versions of the same object, but there are enough discrepencies in the content to justify creating another digital object with its own unique identifier, instead of uploading multiple objects to the same ID. File format changes do not qualify as a large enough discrepency. For the preexisting digital objects in our current system, there will be at least one version folder with accompanying metadata. The new system will create another version utilizing the metadata and the new IIIF formatsw. Both will be saved for historical data and review.
+**representation:** The various forms that files can appear in are the representations. For example, a document can appear as a ".docx" file and/or a ".pdf" file or an image could appear as a ".jpg" file and/or a ".png" file. There is no difference in the content of the object, rather the extenesion that it was created, saved, or changed to. Hyrax automatically uploads all Word documents, spreadsheets, and Powerpoint presentations as PDF files. All photos are uploaded as "JPG" files. 
+**representative image:** or **thumbnail:** The thumbnail image previews the IIIF file of the digital object. It is a representative image of the file, otherwise referred to as a "smaller version" of the object, but tneither of these descriptions should beconfused with the definitions of "representation" or "version" seen above. Though thumbnails will be included in the metadata files for the migration, they do nots serve the same purpose as the representation or version files. 
+**TIFF:** Stands for "Tag Image File Format" [(TIFF)] (https://www.adobe.com/creativecloud/file-types/image/raster/tiff-file.html) and is a computer file used to store raster graphics and image information. The IIIF files that will be uploaded in the new system will display a pyramidal TIFF. 
+**NOID:** Stands for "Nice opaque identifier generator commands" [(NOID)] (https://metacpan.org/dist/Noid/view/noid) that creates globally unique names for identification. For objects taht currently exist on the "aarchives.albany.edu" website, Hyrax has generated these identifiers, and they will be transitioned with the preexisiting identifiers to the new system. Any new objects uploaded after the transition will be given NOIDs generated by our system.
 
-Using Arclight as a common platform for description and digital objects also allows repositories to maintain the important connections between these records. Due to current system limitations, many repositories nationwide currently digitize items and separate them from existing description to place them in incompatible digital repositories which risks losing the valuable archival context that preserves how these materials were created and used. Using Arclight for both description and digital objects allows repositories to maintain these important relationships.
 
+##2. Overview
+
+1. The collection folder MUST start with "apap" "ger" "mss" or "ua" and be followed by a combination of three numbers. If the collection begins with "ua" the three numbers MAY also be followed by a period and an additional three numbers.
+2.  
+
+##3. Example of Deviations
