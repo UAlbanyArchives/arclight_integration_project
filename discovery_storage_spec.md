@@ -44,17 +44,29 @@ The following terms have precise definitions as used in this documnent:
 Folder structure within the SPE_DAO folder will be as follows: (I don't know if this should go here?) 
 
 └── SPE_DAO
+
     └── collection folder
+    
             └── NOID
+            
                 ├── version folder
+                
                 │   ├── format folder
+                
                 │   ├── format folder
+                
                 │   └── format folder
+                
                 ├── content.hocr
+                
                 ├── content.txt
+                
                 ├── content.vtt
+                
                 ├── manifest.json
+                
                 ├── metadata. yml
+                
                 └── thumbnail.jpg
 
 The format folders will be named after the corresponding file extension suchas ".pptx" ".docx" ".pdf" etc. In the above structure several objects may exist within a single object (such as multiple different photos within a single pdf), all files will appear in the files that are most appropriate. The "original file" will be saved in the format folder that matches its type, and the Hyrax-generated PDF file will appear in the PDF folder. 
