@@ -82,135 +82,85 @@ All digital object identifiers must be NOIDs, and must be valid directory names 
 
 The format folders will be named after the corresponding file extension suchas ".pptx" ".docx" ".pdf" etc. In the above structure several objects may exist within a single object (such as multiple different photos within a single pdf), all files will appear in the files that are most appropriate. The "original file" will be saved in the format folder that matches its type, and the Hyrax-generated PDF file will appear in the PDF folder. 
 
-### 4.1 Versions
-	
-Digital objects can and will change over time. 
-
-## 5. Examples
-
 ### 4.1 Digital object generic structure example
 
-    └── SPE_DAO (root)
-
-		└── collection folder
-		
-			└── NOID
-			
-				├── version folder
-				
-					├── format folder
-				
-					├── format folder
-				
-					└── format folder
-				
+	└── SPE_DAO/ (root)
+		├── collection folder/
+		│   ├── NOID/
+		│   │   └── version folder/
+		│   │       ├── format folder/
+		│   │       ├── format folder/
+		│   │       ├── format folder/
+		│   │       ├── content.hocr
+		│   │       ├── content.txt
+		│   │       ├── content.vtt
+		│   │       ├── manifest.json
+		│   │       ├── metadata.yml
+		│   │       └── thumbnail.jpg
+		│   └── NOID/
+		│       └── version folder/
+		│           ├── format folder/
+		│           ├── format folder/
+		│           ├── format folder/
+		│           ├── content.hocr
+		│           ├── content.txt
+		│           ├── content.vtt
+		│           ├── manifest.json
+		│           ├── metadata.yml
+		│           └── thumbnail.jpg
+		└── collection folder/
+			└── NOID/
+				└── version folder/
+					├── format folder/
+					├── format folder/
+					├── format folder/
 					├── content.hocr
-					
 					├── content.txt
-					
 					├── content.vtt
-					
 					├── manifest.json
-					
 					├── metadata.yml
-					
-					└── thumbnail.jpg
-					
-		└── collection folder
-
-			└── NOID
-			
-				├── version folder
-				
-					├── format folder
-				
-					├── format folder
-				
-					└── format folder
-				
-					├── content.hocr
-					
-					├── content.txt
-					
-					├── content.vtt
-					
-					├── manifest.json
-					
-					├── metadata.yml
-					
 					└── thumbnail.jpg
 
-### 4.2 Digital object example
+### 4.2 Collection folders
 
-    └── apap138
-    
-		└── 6w924x89w
-		
-			└── v1
-			
-				├── mp3
-			
-				├── content.vtt
-				
-				├── manifest.json
-				
-				├── metadata.yml
-				
-				└── thumbnail.jpg
-    └── ua807
-    
-		└── 5t34t462n
-		
-			└── v1
-			
-				├── jpg
-			
-				├── pdf
-			
-				├── tiff
-			
-				├── content.hocr
-				
-				├── manifest.json
-				
-				├── metadata.yml
-				
-				└── thumbnail.jpg
-					
-### 4.3 Example with multiple versions
+### 4.3 Versions
+	
+Digital objects can and will change over time. Any change to a digital object, including content or metadata, MUST result in an additional version folder.
+
+	* Version folders MUST begin with a lower case "v" directly followed by a sequential integer.
+	* All digital objects MUST contain a `v1` version folder.
+	* The number of version folders is not limited, `v10` is valid, as is `v9999`.
+
+The most recent version of a digital object MUST be the largest integer in the version folders once the leading `v`s are removed.
+	* `v11` is more recent than `v5`
+	
+The most recent version of a digital object MUST contain all the files for a digital Object
+
+Previous versions MUST not contain any files that were unchanged in the next sequential version.
+	* This means that all unchanged files MUST be moved to the next version folder during a change. Only the previous version of changed files MUST stay in the previous version folder.
+
+#### 4.3.1 Example with multiple versions
 
 In this example, the `metadata.yml` changed for version 2, and the `thumbnail.jpg` file changed in version 3.
 
-    └── apap101
-    
-		└── 1n79hq253
-		
-			├── v1
-			
-				
-				└── metadata.yml
-			
-			├── v2
-			
-				
-				└── thumbnail.jpg
-
-			└── v3
-			
-				├── jpg
-			
-				├── pdf
-			
+	└── apap101/
+		└── 1n79hq253/
+			├── v1/
+			│   └── metadata.yml
+			├── v2/
+			│   └── thumbnail.jpg
+			└── v3/
+				├── jpg/
+				├── pdf/
 				├── content.hocr
-				
 				├── manifest.json
-				
-				├── metadata. yml
-				
+				├── metadata.yml
 				└── thumbnail.jpg
-					
+				
+### 4.4 Format folders
 
-## 6. Text files
+
+### 4.5. Text files
 
 The most recent version of a digital objects MUST contain the following files directly within the version directory (`v1`, `v2`, etc.):
 	* `metadata.yml`
@@ -222,25 +172,60 @@ Additonally, The most recent digital object MUST contain one content text file f
 	*` content.txt`
 Of this set, it is RECOMMENDED to have either an HOCR or VTT file.
 
-### 6.1 Text encoding and line endings
+#### 4.5.1 Text encoding and line endings
 
 All text files within a digital object, such as `metadata.yml`, `content.txt`, `content.hocr`, `content.vtt`, and `manifest.json`, MUST use UTF-8 encoding and MUST use a line feed character (LF or \n) for line endings.
 
-### 6.2 `metadata.yml`
+#### 4.5.2 `metadata.yml`
 
 * `metadata.yml` must be a valid [YAML file](https://yaml.org/spec/1.2.2/).
 
-### 6.3 `manifest.json`
+Fields contained in `metadata.yml` are defined in [5. `metadata.yml` fields](#5.)
+
+#### 4.5.3 `manifest.json`
 
 * `manifest.json` must be a valid JSON file according to [[rfc7159]](https://tools.ietf.org/html/rfc7159).
 * `manifest.json` must be a valid IIIF manifest according to the [IIIF Presentation API 3.0](https://iiif.io/api/presentation/3.0/)
 
-## 7. `metadata.yml` fields
+#### 4.5.3 Content files
 
+Content files contain text that can be indexed into Solr for discovery. It is RECOMMENDED to use structured formats such as HOCR or VTT to support IIIF annotations and captioning, but an unstructured `content.txt` file is also permitted for legacy digital objects.
 
+## 5. `metadata.yml` fields
 
 **identifier**: The digital object identifier for the Object
 **date_created**:
+
+## 6. Examples
+
+
+### 6.1 Digital object example
+
+	├── apap138/
+	│   ├── 6w924x89w/
+	│   │   └── v1/
+	│   │       ├── mp3/
+	│   │       ├── content.vtt
+	│   │       ├── manifest.json
+	│   │       └── metadata.yml
+	│   └── 84f1tH58w/
+	│       └── v1/
+	│           ├── mp3/
+	│           ├── content.vtt
+	│           ├── manifest.json
+	│           └── metadata.yml
+	└── ua807/
+		└── 5t34t462n/
+			└── v1/
+				├── jpg/
+				├── pdf/
+				├── tiff/
+				├── content.hocr
+				├── manifest.json
+				├── metadata.yml
+				└── thumbnail.jpg
+					
+					
 
 
 ## References
