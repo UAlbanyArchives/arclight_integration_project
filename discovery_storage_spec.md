@@ -2,23 +2,28 @@
 This is a display version of the specification, which is managed and versioned with markdown in a [Github repository](https://github.com/UAlbanyArchives/arclight_intergration_project).
 
 ## Contributors
-* Gregory Wiedeman, (PI & Project Director), UAlbany
-* Katherine Mules, UAlbany
-* Mark Wolfe, UAlbany
-* Meghan Slaff, UAlbany
+* Gregory Wiedeman
+* Katherine Mules
+* Mark Wolfe
+* Meghan Slaff
 
 ## 1. Introduction
 
 ### 1.1 Purpose
-The University at Albany Libraries, together with the Empire State Library Network (ESLN), are further developing ArcLight into a single platform for digital archives and special collections materials. Supported by the Institute of Museum and Library Services (IMLS) National Leadership Grants for Libraries program, this project will enable ArcLight to provide discovery and access to digital materials, metadata, and full-text content using International Image Interoperability Framework (IIIF) manifests alongside archival description traditionally contained in finding aids.
+
+The M.E. Grenander Department of Special Collections, Archives, & Preservation at the University at Albany, SUNY Libraries has found that Digital Asset Management Systems (DAMS) or digital repositories do not meet the needs of an archival repository [[Wiedeman, 2023](https://journal.code4lib.org/articles/16963)]. Additionally, UAlbany Libraries have struggled o adapt and maintain an open source digital repository to better meet its needs.
+
+Instead of a traditional digital repository, UAlbany is migrating its digital objects described by archival description to filesystem storage. This "Digital Object Discovery Storage" or "SPE_DAO" will be both human readable and editable via a mounted network filesystem, but also well-structured to enable reliable automated use. This specification governs this storage so we can create software to store and access the digital object stored in SPE_DAO, and also so that this storage can be audited or validated against.
+
+The digital objects stored in SPE_DAO will be made available though a International Image Interoperability Framework (IIIF) image server and indexed in ArcLight. This work is part of the [ArcLight Integration Project](https://archives.albany.edu/web/arclight_integration/), made possible in part by the Institute of Museum and Library Services award [LG-256722-OLS-24](https://www.imls.gov/grants/awarded/lg-256722-ols-24). 
 
 ### 1.2 Status of this Document 
 
-In Progress?
+Working draft
 
 ### 1.3 License
 
-???
+[CC0 - “No Rights Reserved”](https://creativecommons.org/share-your-work/public-domain/cc0/) !["CC0 Public Domain logo"](https://i.creativecommons.org/p/zero/1.0/88x31.png)
 
 ### 1.4 Requirements
 The key words “MAY”, “MUST”, “MUST NOT” ,“RECOMMENDED”, “REQUIRED”, “OPTIONAL”, “SHOULD”, and “SHOULD NOT” in this document are to be interpreted as described in BCP 14 [RFC2119](https://tools.ietf.org/html/rfc2119) [RFC8174](https://tools.ietf.org/html/rfc8174) when, and only when, they appear in all capitals, as shown here.
@@ -26,49 +31,237 @@ The key words “MAY”, “MUST”, “MUST NOT” ,“RECOMMENDED”, “REQUI
 ### 1.5 Terminology
 The following terms have precise definitions as used in this documnent:
 
+**SPE_DAO:** an abbreviation for Digital Object Discovery Storage. This is the storage location defined in this specification.
+
+**archival component:** A unit of archival description, governed by [Describing Archives: A Content Standard](https://saa-ts-dacs.github.io/dacs/06_part_I/02_chapter_01.html) (TS-DACS). In common parlance, this could be an archival collection, series, subseries, file, or item. ArchivesSpace is the system of record for archival components. Each archival component may be described as a Collection or Archival Object in ArchivesSpace. Each archival component is a node in a hierarchical graph structure and may describe any meaningful aggregate of physical or digital objects.
+
+**archival collection:** The top level "collection" containing many described or undescribed archival components. Each archival collection has a Collection record in ArchivesSpace and a [collection identifier] as described below.
+
+**digital object:** A meaningful unit of digital content with accompanying metadata. Digital objects are discrete entities that differ meaningfully in content from another digital object, yet the same digital object can substantially change and have different versions over time and may also be represented in different formats.
+
 **version:** The unique individual object that is uploaded to Hyrax is the version. There can be multiple versions of the same object, but there are enough discrepencies in the content to justify creating another digital object with its own unique identifier, instead of uploading multiple objects to the same ID. File format changes do not qualify as a large enough discrepency. For the preexisting digital objects in our current system, there will be at least one version folder with accompanying metadata. The new system will create another version utilizing the metadata and the new IIIF formatsw. Both will be saved for historical data and review.
 
-**format:** There are various forms that files can appear in. For example, a document can appear as a ".docx" file and/or a ".pdf" file or an image could appear as a ".jpg" file and/or a ".png" file. There is no difference in the content of the object, rather the extenesion that it was created, saved, or changed to.  
+**format:** There are various forms that files can appear in. For example, a document can appear as a ".docx" file and/or a ".pdf" file or an image could appear as a ".jpg" file and/or a ".png" file. There is no difference in the content of the object, other than data lossiness between formats (such as when a spreadsheet is converted to a PDF or image compression is applied). 
 
-**representative image:** or **thumbnail:** The thumbnail image previews the IIIF file of the digital object. It is a representative image of the file, otherwise referred to as a "smaller version" of the object, but tneither of these descriptions should beconfused with the definitions of "representation" or "version" seen above. Though thumbnails will be included in the metadata files for the migration, they do nots serve the same purpose as the representation or version files. 
+**thumbnail:** The thumbnail image previews the IIIF file of the digital object. It is a representative image of the file, otherwise referred to as a "smaller version" of the object, but tneither of these descriptions should beconfused with the definitions of "representation" or "version" seen above. Though thumbnails will be included in the metadata files for the migration, they do nots serve the same purpose as the representation or version files. 
 
-**NOID:** Stands for "Nice opaque identifier generator commands" [NOID] (https://metacpan.org/dist/Noid/view/noid) that creates globally unique names for identification. For objects taht currently exist on the "archives.albany.edu" website, Hyrax has generated these identifiers, and they will be transitioned with the preexisiting identifiers to the new system. Any new objects uploaded after the transition will be given NOIDs generated by our system.
+## 2. Collection identifiers
 
-## 2. Overview
+Each archival collection managed by UAlbany Libraries MUST have a collection identifier that is unique within Special Collections & Archives.
 
-1. The collection folder MUST start with "apap" "ger" "mss" or "ua" and be followed by a combination of three numbers. If the collection begins with "ua" the three numbers MAY also be followed by a period and an additional three numbers.
-2.  
-   
-## 3.Examples
+Each collection identifier must start with a two to four character prefix from this set: "apap", "ger", "mss", or "ua".
+	* Prefixs MUST be lower case.
+	* This prefix denoting the relevant collecting area. Collections within the Modern Political Archive, as well as the National Death Penalty Archive use the legacy "apap" code.
 
-Folder structure within the SPE_DAO folder will be as follows: (I don't know if this should go here?) 
+Each collection identifier MUST have a three digit sequential number directly following the prefix. University Archives collections starting with the `ua` prefix MAY also have a period (`.`) and a second three digit sequential number.
 
-└── SPE_DAO
+### 2.1 Valid Collection identifier Examples
+	* apap127
+	* ger017
+	* mss005
+	* ua500
+	* ua600.001
+	* ua902.010
 
-    └── collection folder
-    
-            └── NOID
-            
-                ├── version folder
-                
-                │   ├── format folder
-                
-                │   ├── format folder
-                
-                │   └── format folder
-                
-                ├── content.hocr
-                
-                ├── content.txt
-                
-                ├── content.vtt
-                
-                ├── manifest.json
-                
-                ├── metadata. yml
-                
-                └── thumbnail.jpg
+### 2.2 Invalid Collection identifier Examples
+	* APAP808
+	* ger-117
+	* Ger044
+	* apap100.004
+	* mss_105
+	* apap 100
+	* apap50
+
+## 3. Digital object identifiers
+
+All digital object identifiers must be NOIDs, and must be valid directory names in both Unix-based and Windows operating systems. Thus, they cannot contain characters such as `< > : " / \ | ? *` and are RECOMMENDED to be 36 characters or less.
+
+**NOID:** Stands for "Nice Opaque IDentifier" [NOID](https://metacpan.org/dist/Noid/view/noid) creates globally unique names for identification. Prior to SPE_DAO, Hyrax generated these identifiers which will be maintained during the migtation. Any new objects uploaded after the transition will be given NOIDs generated by our system using the same minter state.
+
+## 4. Overview of SPE_DAO
 
 The format folders will be named after the corresponding file extension suchas ".pptx" ".docx" ".pdf" etc. In the above structure several objects may exist within a single object (such as multiple different photos within a single pdf), all files will appear in the files that are most appropriate. The "original file" will be saved in the format folder that matches its type, and the Hyrax-generated PDF file will appear in the PDF folder. 
 
-An example of several digital objects being linked to a single archival object can be found below: 
+### 4.1 Versions
+	
+Digital objects can and will change over time. 
+
+## 5. Examples
+
+### 4.1 Digital object generic structure example
+
+    └── SPE_DAO (root)
+
+		└── collection folder
+		
+			└── NOID
+			
+				├── version folder
+				
+					├── format folder
+				
+					├── format folder
+				
+					└── format folder
+				
+					├── content.hocr
+					
+					├── content.txt
+					
+					├── content.vtt
+					
+					├── manifest.json
+					
+					├── metadata.yml
+					
+					└── thumbnail.jpg
+					
+		└── collection folder
+
+			└── NOID
+			
+				├── version folder
+				
+					├── format folder
+				
+					├── format folder
+				
+					└── format folder
+				
+					├── content.hocr
+					
+					├── content.txt
+					
+					├── content.vtt
+					
+					├── manifest.json
+					
+					├── metadata.yml
+					
+					└── thumbnail.jpg
+
+### 4.2 Digital object example
+
+    └── apap138
+    
+		└── 6w924x89w
+		
+			└── v1
+			
+				├── mp3
+			
+				├── content.vtt
+				
+				├── manifest.json
+				
+				├── metadata.yml
+				
+				└── thumbnail.jpg
+    └── ua807
+    
+		└── 5t34t462n
+		
+			└── v1
+			
+				├── jpg
+			
+				├── pdf
+			
+				├── tiff
+			
+				├── content.hocr
+				
+				├── manifest.json
+				
+				├── metadata.yml
+				
+				└── thumbnail.jpg
+					
+### 4.3 Example with multiple versions
+
+In this example, the `metadata.yml` changed for version 2, and the `thumbnail.jpg` file changed in version 3.
+
+    └── apap101
+    
+		└── 1n79hq253
+		
+			├── v1
+			
+				
+				└── metadata.yml
+			
+			├── v2
+			
+				
+				└── thumbnail.jpg
+
+			└── v3
+			
+				├── jpg
+			
+				├── pdf
+			
+				├── content.hocr
+				
+				├── manifest.json
+				
+				├── metadata. yml
+				
+				└── thumbnail.jpg
+					
+
+## 6. Text files
+
+The most recent version of a digital objects MUST contain the following files directly within the version directory (`v1`, `v2`, etc.):
+	* `metadata.yml`
+	* `manifest.json`
+	
+Additonally, The most recent digital object MUST contain one content text file from this set:
+	* `content.hocr`
+	*` content.vtt`
+	*` content.txt`
+Of this set, it is RECOMMENDED to have either an HOCR or VTT file.
+
+### 6.1 Text encoding and line endings
+
+All text files within a digital object, such as `metadata.yml`, `content.txt`, `content.hocr`, `content.vtt`, and `manifest.json`, MUST use UTF-8 encoding and MUST use a line feed character (LF or \n) for line endings.
+
+### 6.2 `metadata.yml`
+
+* `metadata.yml` must be a valid [YAML file](https://yaml.org/spec/1.2.2/).
+
+### 6.3 `manifest.json`
+
+* `manifest.json` must be a valid JSON file according to [[rfc7159]](https://tools.ietf.org/html/rfc7159).
+* `manifest.json` must be a valid IIIF manifest according to the [IIIF Presentation API 3.0](https://iiif.io/api/presentation/3.0/)
+
+## 7. `metadata.yml` fields
+
+
+
+**identifier**: The digital object identifier for the Object
+**date_created**:
+
+
+## References
+
+**[RFC2119]**
+Bradner, S., "Key words for use in RFCs to Indicate Requirement Levels", IETF, March 1997.
+DOI 10.17487/RFC2119
+URL: [https://tools.ietf.org/html/rfc2119](https://tools.ietf.org/html/rfc2119)
+
+**[RFC8174]**
+Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words", IETF, May 2017.
+DOI 10.17487/RFC8174
+URL: [https://tools.ietf.org/html/rfc8174](https://tools.ietf.org/html/rfc8174)
+
+**[RFC7159]**
+Bray, T., "JavaScript Object Notation (JSON)", RFC 7159, March 2014.
+URL: [https://tools.ietf.org/html/rfc7159](https://tools.ietf.org/html/rfc7159
+
+**[IIIF-Presentation-3.0]**
+International Image Interoperability Framework (IIIF), "IIIF Presentation API 3.0", version 3.0, January 2023
+URL: [https://iiif.io/api/presentation/3.0/](https://iiif.io/api/presentation/3.0/)
+
+**[Wiedeman, 2023]** Wiedeman, Gregory. "Designing Digital Discovery and Access Systems for Archival Description," Issue 55, 2023-1-20. Available at: [https://journal.code4lib.org/articles/16963](https://journal.code4lib.org/articles/16963).
+
