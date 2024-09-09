@@ -127,17 +127,17 @@ The format folders will be named after the corresponding file extension suchas "
 	
 Digital objects can and will change over time. Any change to a digital object, including content or metadata, MUST result in an additional version folder.
 
-	* Version folders MUST begin with a lower case "v" directly followed by a sequential integer.
-	* All digital objects MUST contain a `v1` version folder.
-	* The number of version folders is not limited, `v10` is valid, as is `v9999`.
+* Version folders MUST begin with a lower case "v" directly followed by a sequential integer.
+* All digital objects MUST contain a `v1` version folder.
+* The number of version folders is not limited, `v10` is valid, as is `v9999`.
 
 The most recent version of a digital object MUST be the largest integer in the version folders once the leading `v`s are removed.
-	* `v11` is more recent than `v5`
+* `v11` is more recent than `v5`
 	
 The most recent version of a digital object MUST contain all the files for a digital Object
 
 Previous versions MUST not contain any files that were unchanged in the next sequential version.
-	* This means that all unchanged files MUST be moved to the next version folder during a change. Only the previous version of changed files MUST stay in the previous version folder.
+* This means that all unchanged files MUST be moved to the next version folder during a change. Only the previous version of changed files MUST stay in the previous version folder.
 
 #### 4.3.1 Example with multiple versions
 
@@ -163,13 +163,13 @@ In this example, the `metadata.yml` changed for version 2, and the `thumbnail.jp
 ### 4.5. Text files
 
 The most recent version of a digital objects MUST contain the following files directly within the version directory (`v1`, `v2`, etc.):
-	* `metadata.yml`
-	* `manifest.json`
+* `metadata.yml`
+* `manifest.json`
 	
 Additonally, The most recent digital object MUST contain one content text file from this set:
-	* `content.hocr`
-	*` content.vtt`
-	*` content.txt`
+* `content.hocr`
+*` content.vtt`
+*` content.txt`
 Of this set, it is RECOMMENDED to have either an HOCR or VTT file.
 
 #### 4.5.1 Text encoding and line endings
@@ -224,8 +224,6 @@ Content files contain text that can be indexed into Solr for discovery. It is RE
 				├── manifest.json
 				├── metadata.yml
 				└── thumbnail.jpg
-
-
 ## References
 
 **[RFC2119]**
