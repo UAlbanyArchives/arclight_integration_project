@@ -33,11 +33,11 @@ The following terms have precise definitions as used in this documnent:
 
 **SPE_DAO:** an abbreviation for Digital Object Discovery Storage. This is the storage location defined in this specification.
 
-**archival component:** A unit of archival description, governed by [Describing Archives: A Content Standard](https://saa-ts-dacs.github.io/dacs/06_part_I/02_chapter_01.html) (TS-DACS). In common parlance, this could be an archival collection, series, subseries, file, or item. ArchivesSpace is the system of record for archival components. Each archival component may be described as a Collection or Archival Object in ArchivesSpace. Each archival component is a node in a hierarchical graph structure and may describe any meaningful aggregate of physical or digital objects.
+**archival component:** A unit of archival description, governed by [Describing Archives: A Content Standard](https://saa-ts-dacs.github.io/dacs/06_part_I/02_chapter_01.html) (TS-DACS). In common parlance, this could be an archival collection, series, subseries, file, or item. ArchivesSpace is the system of record for archival components. Each archival component may be described as a Collection or Archival Object in ArchivesSpace. Each archival component is a node in a hierarchical graph structure and may describe any meaningful aggregate of physical or digital objects. An archival component may have no linked digital objects or many linked digital objects.
 
-**archival collection:** The top level "collection" containing many described or undescribed archival components. Each archival collection has a Collection record in ArchivesSpace and a [collection identifier] as described below.
+**archival collection:** The top level "collection" containing many described or undescribed archival components. Each archival collection has a Collection record in ArchivesSpace and a [collection identifier](#2-collection-identifiers) as described below.
 
-**digital object:** A meaningful unit of digital content with accompanying metadata. Digital objects are discrete entities that differ meaningfully in content from another digital object, yet the same digital object can substantially change and have different versions over time and may also be represented in different formats.
+**digital object:** A meaningful unit of digital content with accompanying metadata. Digital objects are discrete entities that differ meaningfully in content from another digital object, yet the same digital object can substantially change and have different versions over time and may also be represented in different formats. Digital objects are a useful abstraction and can contain a single digital file, a book or other object containing multiple files in a simple structure, or the contents of an entire hard drive with a complex hierarchical structure. A single digital object MUST link to a single archival component.
 
 **version:** The unique individual object that is uploaded to Hyrax is the version. There can be multiple versions of the same object, but there are enough discrepencies in the content to justify creating another digital object with its own unique identifier, instead of uploading multiple objects to the same ID. File format changes do not qualify as a large enough discrepency. For the preexisting digital objects in our current system, there will be at least one version folder with accompanying metadata. The new system will create another version utilizing the metadata and the new IIIF formatsw. Both will be saved for historical data and review.
 
@@ -50,7 +50,7 @@ The following terms have precise definitions as used in this documnent:
 Each archival collection managed by UAlbany Libraries MUST have a collection identifier that is unique within Special Collections & Archives.
 
 Each collection identifier must start with a two to four character prefix from this set: "apap", "ger", "mss", or "ua".
-	* Prefixs MUST be lower case.
+	* Prefixes MUST be lower case.
 	* This prefix denoting the relevant collecting area. Collections within the Modern Political Archive, as well as the National Death Penalty Archive use the legacy "apap" code.
 
 Each collection identifier MUST have a three digit sequential number directly following the prefix. University Archives collections starting with the `ua` prefix MAY also have a period (`.`) and a second three digit sequential number.
@@ -224,8 +224,6 @@ Content files contain text that can be indexed into Solr for discovery. It is RE
 				├── manifest.json
 				├── metadata.yml
 				└── thumbnail.jpg
-					
-					
 
 
 ## References
