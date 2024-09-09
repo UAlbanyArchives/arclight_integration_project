@@ -168,8 +168,8 @@ The most recent version of a digital objects MUST contain the following files di
 	
 Additonally, The most recent digital object MUST contain one content text file from this set:
 * `content.hocr`
-*` content.vtt`
-*` content.txt`
+* `content.vtt`
+* `content.txt`
 Of this set, it is RECOMMENDED to have either an HOCR or VTT file.
 
 #### 4.5.1 Text encoding and line endings
