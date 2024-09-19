@@ -11,9 +11,9 @@ This is a display version of the specification, which is managed and versioned w
 
 ### 1.1 Purpose
 
-The M.E. Grenander Department of Special Collections, Archives, & Preservation at the University at Albany, SUNY Libraries has found that Digital Asset Management Systems (DAMS) or digital repositories do not meet the needs of an archival repository [[Wiedeman, 2023](https://journal.code4lib.org/articles/16963)]. Additionally, UAlbany Libraries have struggled o adapt and maintain an open source digital repository to better meet its needs.
+The M.E. Grenander Department of Special Collections, Archives, & Preservation at the University at Albany, SUNY Libraries has found that Digital Asset Management Systems (DAMS) or digital repositories do not meet the needs of an archival repository [[Wiedeman, 2023](https://journal.code4lib.org/articles/16963)]. Additionally, UAlbany Libraries have struggled to adapt and maintain an open source digital repository to better meet its needs.
 
-Instead of a traditional digital repository, UAlbany is migrating its digital objects described by archival description to filesystem storage. This "Digital Object Discovery Storage" or "SPE_DAO" will be both human readable and editable via a mounted network filesystem, but also well-structured to enable reliable automated use. This specification governs this storage so we can create software to store and access the digital object stored in SPE_DAO, and also so that this storage can be audited or validated against.
+Instead of a traditional digital repository, UAlbany is migrating its digital objects described by archival description to filesystem storage. This "Digital Object Discovery Storage" or "SPE_DAO" will be both human-readable and editable via a mounted network filesystem, but also well-structured to enable reliable automated use. This specification governs this storage so we can create software to store and access the digital object stored in SPE_DAO, and also so that this storage can be audited or validated against.
 
 The digital objects stored in SPE_DAO will be made available though a International Image Interoperability Framework (IIIF) image server and indexed in ArcLight. This work is part of the [ArcLight Integration Project](https://archives.albany.edu/web/arclight_integration/), made possible in part by the Institute of Museum and Library Services award [LG-256722-OLS-24](https://www.imls.gov/grants/awarded/lg-256722-ols-24). 
 
@@ -37,13 +37,13 @@ The following terms have precise definitions as used in this documnent:
 
 **archival collection:** The top level "collection" containing many described or undescribed archival components. Each archival collection has a Collection record in ArchivesSpace and a [collection identifier](#2-collection-identifiers) as described below.
 
-**digital object:** A meaningful unit of digital content with accompanying metadata. Digital objects are discrete entities that differ meaningfully in content from another digital object, yet the same digital object can substantially change and have different versions over time and may also be represented in different formats. Digital objects are a useful abstraction and can contain a single digital file, a book or other object containing multiple files in a simple structure, or the contents of an entire hard drive with a complex hierarchical structure. A single digital object MUST link to a single archival component.
+**digital object:** A meaningful unit of digital content with accompanying metadata. Digital objects are discrete entities that differ meaningfully in content from another digital object, yet the same digital object can substantially change and have different versions over time and may also be represented in different formats. Digital objects are a useful abstraction and can contain a single digital file, a book, or other object containing multiple files in a simple structure, or the contents of an entire hard drive with a complex hierarchical structure. A single digital object MUST link to a single archival component.
 
-**version:** The unique individual object that is uploaded to Hyrax is the version. There can be multiple versions of the same object, but there are enough discrepencies in the content to justify creating another digital object with its own unique identifier, instead of uploading multiple objects to the same ID. File format changes do not qualify as a large enough discrepency. For the preexisting digital objects in our current system, there will be at least one version folder with accompanying metadata. The new system will create another version utilizing the metadata and the new IIIF formatsw. Both will be saved for historical data and review.
+**version:** The unique individual object that is uploaded to Hyrax is the version. There can be multiple versions of the same object, but there are enough discrepencies in the content to justify creating another digital object with its own unique identifier, instead of uploading multiple objects to the same ID. File format changes do not qualify as a large enough discrepency. For the preexisting digital objects in our current system, there will be at least one version folder with accompanying metadata. The new system will create another version utilizing the metadata and the new IIIF formats. Both will be saved for historical data and review.
 
 **format:** There are various forms that files can appear in. For example, a document can appear as a ".docx" file and/or a ".pdf" file or an image could appear as a ".jpg" file and/or a ".png" file. There is no difference in the content of the object, other than data lossiness between formats (such as when a spreadsheet is converted to a PDF or image compression is applied). 
 
-**thumbnail:** The thumbnail image previews the IIIF file of the digital object. It is a representative image of the file, otherwise referred to as a "smaller version" of the object, but tneither of these descriptions should beconfused with the definitions of "representation" or "version" seen above. Though thumbnails will be included in the metadata files for the migration, they do nots serve the same purpose as the representation or version files. 
+**thumbnail:** The thumbnail image previews the IIIF file of the digital object. It is a representative image of the file, otherwise referred to as a "smaller version" of the object, but neither of these descriptions should be confused with the definitions of "format" or "version" seen above. Though thumbnails will be included in the metadata files for the migration, they do not serve the same purpose as the format or version files. 
 
 ## 2. Collection identifiers
 
@@ -134,7 +134,7 @@ Digital objects can and will change over time. Any change to a digital object, i
 The most recent version of a digital object MUST be the largest integer in the version folders once the leading `v`s are removed.
 * `v11` is more recent than `v5`
 	
-The most recent version of a digital object MUST contain all the files for a digital Object
+The most recent version of a digital object MUST contain all the files for a digital object
 
 Previous versions MUST not contain any files that were unchanged in the next sequential version.
 * This means that all unchanged files MUST be moved to the next version folder during a change. Only the previous version of changed files MUST stay in the previous version folder.
@@ -194,7 +194,9 @@ Content files contain text that can be indexed into Solr for discovery. It is RE
 ## 5. `metadata.yml` fields
 
 **identifier**: The digital object identifier for the Object
-**date_created**:
+**date_created**: (If we are going by Hyrax terms) The date of creation determined and added to the archival object by the archivist, not necessarily the date the digital object was created. 
+**resource_type**: Types determined by the DACS Standards (Document, Image, Pamphlet, Slides etc.) Resource type should not be confused with format of the digital object. 
+
 
 ## 6. Examples
 
