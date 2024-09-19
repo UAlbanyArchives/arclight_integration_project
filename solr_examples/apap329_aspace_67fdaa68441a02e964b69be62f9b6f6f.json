@@ -1,0 +1,123 @@
+{
+    "ref_ssi": "aspace_67fdaa68441a02e964b69be62f9b6f6f",
+    "ref_ssm": [
+        "aspace_67fdaa68441a02e964b69be62f9b6f6f",
+        "aspace_67fdaa68441a02e964b69be62f9b6f6f"
+    ],
+    "id": "apap329_aspace_67fdaa68441a02e964b69be62f9b6f6f",
+    "title_filing_ssi": "Material from the Defenders' Association of Philadelphia",
+    "title_ssm": [
+        "Material from the Defenders' Association of Philadelphia"
+    ],
+    "title_tesim": [
+        "Material from the Defenders' Association of Philadelphia"
+    ],
+    "unitdate_inclusive_ssm": [
+        "1985-2008"
+    ],
+    "normalized_date_ssm": [
+        "1985-2008"
+    ],
+    "normalized_title_ssm": [
+        "Material from the Defenders' Association of Philadelphia, 1985-2008"
+    ],
+    "text": [
+        "Material from the Defenders' Association of Philadelphia, 1985-2008",
+        "David Baldus Papers, 1965-2011",
+        "12",
+        "This series contains the Charging and Sentencing Study Case Files for both Pennsylvania and Philadelphia, the Data Collection Instruments, the Severity Study, the Venire Study, and the Subject Files."
+    ],
+    "component_level_isim": [
+        1
+    ],
+    "parent_ssim": [
+        "apap329"
+    ],
+    "parent_ssi": "apap329",
+    "parent_ids_ssim": [
+        "apap329"
+    ],
+    "parent_unittitles_ssm": [
+        "David Baldus Papers, 1965-2011"
+    ],
+    "parent_unittitles_tesim": [
+        "David Baldus Papers, 1965-2011"
+    ],
+    "parent_levels_ssm": [
+        "collection"
+    ],
+    "unitid_ssm": [
+        "12"
+    ],
+    "repository_ssim": [
+        "National Death Penalty Archive"
+    ],
+    "collection_ssim": [
+        "David Baldus Papers, 1965-2011"
+    ],
+    "extent_ssm": [
+        "84.7 cubic ft."
+    ],
+    "extent_tesim": [
+        "84.7 cubic ft."
+    ],
+    "has_online_content_ssim": [
+        "true"
+    ],
+    "child_component_count_isi": 7,
+    "level_ssm": [
+        "Series"
+    ],
+    "level_ssim": [
+        "Series"
+    ],
+    "sort_isi": 3141,
+    "parent_access_restrict_tesm": [
+        "Access to this record group is unrestricted."
+    ],
+    "parent_access_terms_tesm": [
+        "This page may contain links to digital objects. Access to these images and the technical capacity to download them does not imply permission for re-use. Digital objects may be used freely for personal reference use, referred to, or linked to from other web sites.",
+        " Researchers do not have permission to publish or disseminate material from these collections without permission from an archivist and/or the copyright holder.",
+        " The researcher assumes full responsibility for conforming to the laws of copyright. Some materials in these collections may be protected by the U.S. Copyright Law (Title 17, U.S.C.) and/or by the copyright or neighboring-rights laws of other nations. More information about U.S. Copyright is provided by the Copyright Office. Additionally, re-use may be restricted by terms of University Libraries gift or purchase agreements, donor restrictions, privacy and publicity rights, licensing and trademarks.",
+        " The University Archives are eager to hear from any copyright owners who are not properly identified so that appropriate information may be provided in the future."
+    ],
+    "date_range_isim": [
+        1985,
+        1986,
+        1987,
+        1988,
+        1989,
+        1990,
+        1991,
+        1992,
+        1993,
+        1994,
+        1995,
+        1996,
+        1997,
+        1998,
+        1999,
+        2000,
+        2001,
+        2002,
+        2003,
+        2004,
+        2005,
+        2006,
+        2007,
+        2008
+    ],
+    "scopecontent_html_tesm": [
+        "<p>This series contains the Charging and Sentencing Study Case Files for both Pennsylvania and Philadelphia, the Data Collection Instruments, the Severity Study, the Venire Study, and the Subject Files.</p>"
+    ],
+    "scopecontent_heading_ssm": [
+        "Scope and Contents"
+    ],
+    "scopecontent_tesim": [
+        "This series contains the Charging and Sentencing Study Case Files for both Pennsylvania and Philadelphia, the Data Collection Instruments, the Severity Study, the Venire Study, and the Subject Files."
+    ],
+    "_nest_path_": "/components#11",
+    "_nest_parent_": "apap329",
+    "_root_": "apap329",
+    "timestamp": "2024-09-04T18:34:28.158Z"
+}
