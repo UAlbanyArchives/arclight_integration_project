@@ -1,0 +1,5 @@
+PyYAML==6.0.2
+pypdf==3.14.0
+requests==2.32.3
+pycryptodome==3.15.0
+iiif-prezi3==1.2.1
