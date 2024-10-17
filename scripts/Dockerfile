@@ -17,6 +17,9 @@ RUN apt update && \
     ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone && \
     apt clean && rm -rf /var/lib/apt/lists/*
 
+# Install ffmpeg
+RUN apt update && apt install -y ffmpeg
+
 # Copy the policy file (if needed)
 COPY policy.xml /etc/ImageMagick-6/policy.xml
 
