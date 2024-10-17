@@ -1,4 +1,4 @@
-import os
+import os, sys
 import yaml
 import requests
 import urllib.parse
@@ -50,26 +50,41 @@ if os.name == "nt":
 else:
     root = "/media/Library/SPE_DAO"
 
-for colID in os.listdir(root):
-    colPath = os.path.join(root, colID)
-    if os.path.isdir(colPath):
-        for objID in os.listdir(colPath):
-            objPath = os.path.join(colPath, objID, "v1")
-            metadataPath = os.path.join(objPath, "metadata.yml")
-            manifestPath = os.path.join(objPath, "manifest.json")
-            jpgPath = os.path.join(objPath, "jpg")
-            if os.path.exists(jpgPath):
-                with open(metadataPath, 'r') as yml_file:
-                    data = yaml.safe_load(yml_file)
+def read_objects(collection_id=None):
+    for col in os.listdir(root):
+            col_path = os.path.join(root, col)
 
-                id_root = f"http://lib-arcimg-p101.lib.albany.edu/meta/{colID}/{objID}/v1"
-                manifest_label = f"{data['title'].strip()}, {data['date_created'].strip()}"
+            # Check if collection_id is provided and matches the current collection
+            if collection_id and collection_id not in col:
+                continue  # Skip this collection if it doesn't match
 
-                # Create the manifest
-                iiif_manifest = create_iiif_manifest(jpgPath, id_root, manifest_label, colID, objID)
+            if os.path.isdir(col_path):
+                for obj in os.listdir(col_path):
+                    objPath = os.path.join(col_path, obj, "v1")
+                    metadataPath = os.path.join(objPath, "metadata.yml")
+                    manifestPath = os.path.join(objPath, "manifest.json")
+                    jpgPath = os.path.join(objPath, "jpg")
+                    if os.path.exists(jpgPath):
+                        with open(metadataPath, 'r') as yml_file:
+                            data = yaml.safe_load(yml_file)
 
-                # Save the manifest to a JSON file
-                with open(manifestPath, 'w') as f:
-                    f.write(iiif_manifest.json(indent=2))  # Changed to json()
+                        id_root = f"http://lib-arcimg-p101.lib.albany.edu/meta/{col}/{obj}/v1"
+                        manifest_label = f"{data['title'].strip()}, {data['date_created'].strip()}"
 
-                print("IIIF manifest created successfully!")
+                        # Create the manifest
+                        iiif_manifest = create_iiif_manifest(jpgPath, id_root, manifest_label, col, obj)
+
+                        # Save the manifest to a JSON file
+                        with open(manifestPath, 'w') as f:
+                            f.write(iiif_manifest.json(indent=2))  # Changed to json()
+
+                        print("IIIF manifest created successfully!")
+
+
+if __name__ == "__main__":
+    # Check for command-line arguments
+    if len(sys.argv) > 1:
+        collection_id_arg = sys.argv[1]
+        read_objects(collection_id=collection_id_arg)
+    else:
+        read_objects()
