@@ -200,9 +200,7 @@ Content files contain text that can be indexed into Solr for discovery. It is RE
 
 ## 6. Examples
 
-
 ### 6.1 Digital object example
-
 	├── apap138/
 	│   ├── 6w924x89w/
 	│   │   └── v1/
@@ -225,7 +223,11 @@ Content files contain text that can be indexed into Solr for discovery. It is RE
 				├── content.hocr
 				├── manifest.json
 				├── metadata.yml
-				└── thumbnail.jpg
+				└── thumbnail.jp
+### 6.2 Edge Cases
+In the event that there are multiple, different file types for an archival object, a distinction between representation and version needs to be made. This distinction should be made based on the content of the object. If significant content changes exist between the two files, they should be considered two digital objects, linked to the same archival object. But if the only distinction is file type, and the content remains the same, both files should be added to the same digital object, which is linked to one archival object. Transcripts of a video and the video file do not constitute a difference in content and should be linked to the same digital object, as should a video and its thumbnail. If, for instance, a record includes a video package (i.e. branding elements, the video file, the transcript), all elements should be linked to the same digital object as all elements combined create a singular representation.  
+
+
 ## References
 
 **[RFC2119]**
