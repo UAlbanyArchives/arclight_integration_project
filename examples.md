@@ -20,6 +20,7 @@ SPE_DAO\ua200\rr172g43c
 SPE_DAO\apap390\7d279d23k
 
 * .xlsx file with pdf derivative 
+* landscape format creates two jpgs for the xlsx
 
 ## Edge cases
 

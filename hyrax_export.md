@@ -4,8 +4,10 @@
 2. Export thumbnails
 3. Export derivatives
 4. Extract images
-5. Generate OCR or transcription
+5. Extract text
 6. Create manifest
+
+Export scripts are in \scripts
 
 ## 1. Inital file export
 
@@ -80,7 +82,19 @@ python extractImages.py
 python extractImages.py apap214
 ```
 
-## 5. Generate OCR or transcription
+## 5. Extract Text
+
+### Option 1: Extract text from PDFs (fastest)
+
+```
+python extractText.py apap015
+```
+
+This will also run for everything in `SPE_DAO` if you don't give it a collection ID.
+
+### Option 2: Recognize text with tesseract
+
+This creates better structured text, but will take much longer.
 
 `docker compose up`
 
@@ -88,6 +102,16 @@ In new terminal:
 ```
 docker exec -it python1 bash
 python tesseract.py apap042
+```
+
+### Option 3: Generate Transcript with Whisper
+
+`docker compose up`
+
+In new terminal:
+```
+docker exec -it python1 bash
+python create_transcription.py apap138
 ```
 
 ## 6. Create manifest
@@ -100,4 +124,11 @@ python getDerivatives.py apa042
 
 This will also run for everything in `SPE_DAO` if you don't give it a collection ID.
 
-_only currently works for images, not audio or video objects
+_only currently works for images, not audio or video objects_
+
+
+## Useful links
+
+* [HTRflow](https://huggingface.co/blog/Gabriel/htrflow)
+* [Whisper normalization](https://github.com/IUBLibTech/fantastic_futures_2024_whisper/blob/main/normalize_content_media.py)
+
