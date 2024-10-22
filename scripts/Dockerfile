@@ -6,7 +6,7 @@ WORKDIR /code
 
 # Update and install dependencies
 RUN apt update && \
-    apt install -y apt-transport-https gnupg wget aptitude poppler-utils && \
+    apt install -y apt-transport-https gnupg wget aptitude poppler-utils libvips-tools && \
     echo 'deb [trusted=yes] https://notesalexp.org/tesseract-ocr5/buster/ buster main' >> /etc/apt/sources.list && \
     apt update -oAcquire::AllowInsecureRepositories=true && \
     apt install -y notesalexp-keyring -oAcquire::AllowInsecureRepositories=true && \

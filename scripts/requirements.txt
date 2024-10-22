@@ -7,3 +7,4 @@ PyMuPDF==1.24.11
 openai-whisper==20240930
 mutagen==1.47.0
 ffmpeg-python==0.2.0
+pyvips==2.2.3
