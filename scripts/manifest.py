@@ -3,6 +3,7 @@ import sys
 import yaml
 import requests
 import urllib.parse
+from PIL import Image
 from get_media_info import get_media_info
 from iiif_prezi3 import Manifest, Canvas, Annotation, AnnotationPage, config
 
@@ -14,8 +15,8 @@ else:
     root = "/media/Library/SPE_DAO"
 
 
-def create_iiif_canvas(manifest, id_root, label, resource_type, resource_path, page_count, **kwargs):
-    """Create a IIIF Canvas for images, videos, or audio."""
+def create_iiif_canvas(manifest, url_root, label, resource_type, resource_path, page_count, thumbnail_data, **kwargs):
+    """Create a IIIF Canvas for images, videos, or audio, with optional thumbnail."""
     
     # Default to not setting height and width
     height = kwargs.get("height", None)
@@ -23,35 +24,38 @@ def create_iiif_canvas(manifest, id_root, label, resource_type, resource_path, p
     
     if resource_type == "Image":
         # Handle image resources
-        canvas = manifest.make_canvas(id=f"{id_root}/canvas/{page_count}", label=label, height=height, width=width)
+        canvas = manifest.make_canvas(id=f"{url_root}/canvas/p{page_count}", label=label, height=height, width=width)
         canvas.add_image(image_url=kwargs["image_url"],
-                         anno_page_id=f"{id_root}/page/{page_count}",
-                         anno_id=f"{id_root}/annotation/{kwargs['filename']}",
+                         anno_page_id=f"{url_root}/page/p{page_count}/{page_count}",
+                         anno_id=f"{url_root}/annotation/{kwargs['filename']}",
                          format="image/jpeg",
                          height=height,
                          width=width)
     else:
         # Use ffprobe to get duration and format for audio/video
-        duration, format_type = get_media_info(resource_path)
+        duration, mimetype, video_width, video_height = get_media_info(resource_path)
+
         
         # Create canvas for audio or video (height/width for video only)
-        canvas = manifest.make_canvas(id=f"{id_root}/canvas/{page_count}", label=label)
+        canvas = manifest.make_canvas(id=f"{url_root}/canvas/p{page_count}", label=label)
         canvas.duration = duration
 
         # Create the AnnotationPage
-        anno_page_id = f"{id_root}/canvas/{page_count}/page"
+        anno_page_id = f"{url_root}/canvas/page/p{page_count}/{page_count}"
         annotation_page = AnnotationPage(id=anno_page_id)
 
         # Create media annotation with painting motivation
-        annotation = Annotation(id=f"{id_root}/canvas/{page_count}/page/annotation",
+        annotation = Annotation(id=f"{url_root}/canvas/{page_count}/page/annotation",
                                 motivation="painting",
                                 body={
                                     "id": kwargs["media_url"],
                                     "type": "Video" if resource_type == "Video" else "Sound",
-                                    "format": format_type,
-                                    "duration": duration
+                                    "format": mimetype,
+                                    "duration": duration,
+                                    "width": video_width,
+                                    "height": video_height 
                                 },
-                                target=f"{id_root}/canvas/{page_count}")  # Target the canvas ID
+                                target=f"{url_root}/canvas/p{page_count}")  # Target the canvas ID
 
         # Add the annotation to the annotation page
         annotation_page.items.append(annotation)
@@ -59,13 +63,31 @@ def create_iiif_canvas(manifest, id_root, label, resource_type, resource_path, p
         # Add the annotation page to the canvas
         canvas.items.append(annotation_page)
 
+    # Add thumbnail if thumbnail_url is provided
+    if page_count == 1 and "url" in thumbnail_data:
+        thumbnail_width = thumbnail_data.get("width", None)
+        thumbnail_height = thumbnail_data.get("height", None)
+
+        thumbnail = {
+            "id": thumbnail_data["url"],
+            "type": "Image",
+            "format": "image/jpeg",
+        }
+
+        # Add optional width and height if provided
+        if thumbnail_width and thumbnail_height:
+            thumbnail["width"] = thumbnail_width
+            thumbnail["height"] = thumbnail_height
+
+        canvas.thumbnail = [thumbnail]
+
     return canvas
 
 
 
-def create_iiif_manifest(file_dir, id_root, label, colID, objID, resource_type):
+def create_iiif_manifest(file_dir, url_root, obj_url_root, iiif_url_root, label, thumbnail_data, resource_type):
     # Create a new IIIF Manifest
-    manifest = Manifest(id=f"{id_root}/manifest.json", label=label, behavior=["paged"])
+    manifest = Manifest(id=f"{obj_url_root}/manifest.json", label=label, behavior=["paged"])
     page_count = 0
 
     # Loop through the resources in the directory
@@ -77,19 +99,17 @@ def create_iiif_manifest(file_dir, id_root, label, colID, objID, resource_type):
 
         if resource_type in ["Audio", "Video"]:
             # Use the media URL (modify this to suit your media hosting environment)
-            media_url = f"http://lib-arcimg-p101.lib.albany.edu/meta/{colID}/{objID}/v1/{os.path.basename(file_dir)}/{quoted_file}"
-            create_iiif_canvas(manifest, id_root, resource_file, resource_type, resource_path, page_count,
+            media_url = f"{obj_url_root}/{os.path.basename(file_dir)}/{quoted_file}"
+            create_iiif_canvas(manifest, url_root, resource_file, resource_type, resource_path, page_count, thumbnail_data,
                                media_url=media_url, filename=filename)
         elif resource_file.lower().endswith(('.png', '.jpg', '.jpeg', '.tiff')):
-            image_info = f"http://lib-arcimg-p101.lib.albany.edu/iiif/3/%2F{colID}%2F{objID}%2Fv1%2Fjpg%2F{resource_file}/info.json"
-            #print (resource_file)
-            #print (image_info)
+            image_info = f"{iiif_url_root}%2F{quoted_file}/info.json"
             r = requests.get(image_info)
             #print (r.status_code)
             response = r.json()
 
-            image_url = f"http://lib-arcimg-p101.lib.albany.edu/iiif/3/%2F{colID}%2F{objID}%2Fv1%2Fjpg%2F{quoted_file}/full/max/0/default.jpg"
-            create_iiif_canvas(manifest, id_root, resource_file, "Image", resource_path, page_count,
+            image_url = f"{iiif_url_root}%2F{quoted_file}/full/max/0/default.jpg"
+            create_iiif_canvas(manifest, url_root, resource_file, "Image", resource_path, page_count, thumbnail_data,
                                height=response["height"], width=response["width"], image_url=image_url, filename=filename)
 
     return manifest
@@ -120,11 +140,26 @@ def read_objects(collection_id=None):
                 if os.path.exists(filesPath):
                     print(f"{collection}/{obj}")
 
-                    id_root = f"http://lib-arcimg-p101.lib.albany.edu/meta/{collection}/{obj}/v1"
+                    #url_root = f"https://media.archives.albany.edu"
+                    url_root = f"http://lib-arcimg-p101.lib.albany.edu"
+                    obj_url_root = f"{url_root}/meta/{collection}/{obj}/v1"
+                    iiif_url_root = f"{url_root}/iiif/3/%2F{collection}%2F{obj}%2Fv1%2Fjpg"
                     manifest_label = f"{metadata['title'].strip()}, {metadata['date_created'].strip()}"
 
+                    thumbnail_path = os.path.join(objPath, "thumbnail.jpg")
+                    thumbnail_url = f"{obj_url_root}/thumbnail.jpg"
+                    # Get the width and height of the thumbnail image
+                    try:
+                        with Image.open(thumbnail_path) as img:
+                            thumbnail_width, thumbnail_height = img.size
+                    except Exception as e:
+                        print(f"Error reading thumbnail image: {e}")
+                        thumbnail_width = None
+                        thumbnail_height = None
+                    thumbnail_data = {"url": thumbnail_url, "width": thumbnail_width, "height": thumbnail_height}
+
                     # Create the manifest
-                    iiif_manifest = create_iiif_manifest(filesPath, id_root, manifest_label, collection, obj, resource_type)
+                    iiif_manifest = create_iiif_manifest(filesPath, url_root, obj_url_root, iiif_url_root, manifest_label, thumbnail_data, resource_type)
 
                     # Save the manifest to a JSON file
                     with open(manifestPath, 'w') as f:
