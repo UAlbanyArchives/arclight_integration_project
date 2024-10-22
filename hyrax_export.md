@@ -118,14 +118,17 @@ python create_transcription.py apap138
 
 IIIF Presentation API v3 manifests
 
+`docker compose up`
+
+In new terminal:
 ```
-python getDerivatives.py apa042
+docker exec -it python1 bash
+python manifest.py apa042
 ```
 
 This will also run for everything in `SPE_DAO` if you don't give it a collection ID.
 
-_only currently works for images, not audio or video objects_
-
+This still needs work.
 
 ## Useful links
 
