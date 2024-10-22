@@ -32,10 +32,14 @@ def create_iiif_canvas(manifest, url_root, label, resource_type, resource_path, 
                     "type": "ImageService3"
                   }
                 ]
+        if kwargs.get("image_format", None) == "tiff":
+            image_mime = "image/tiff"
+        else:
+            image_mime = "image/jpeg"
         canvas.add_image(image_url=kwargs["image_url"] + "/full/max/0/default.jpg",
                          anno_page_id=f"{url_root}/page/p{page_count}/{page_count}",
                          anno_id=f"{url_root}/annotation/{kwargs['filename']}",
-                         format="image/jpeg",
+                         format=image_mime,
                          height=height,
                          width=width,
                          service=service)
@@ -93,7 +97,7 @@ def create_iiif_canvas(manifest, url_root, label, resource_type, resource_path, 
 
 
 
-def create_iiif_manifest(file_dir, url_root, obj_url_root, iiif_url_root, label, behavior, thumbnail_data, resource_type):
+def create_iiif_manifest(file_dir, url_root, obj_url_root, iiif_url_root, image_format, label, behavior, thumbnail_data, resource_type):
     # Create a new IIIF Manifest
     manifest = Manifest(id=f"{obj_url_root}/manifest.json", label=label, behavior=[behavior])
     page_count = 0
@@ -110,15 +114,15 @@ def create_iiif_manifest(file_dir, url_root, obj_url_root, iiif_url_root, label,
             media_url = f"{obj_url_root}/{os.path.basename(file_dir)}/{quoted_file}"
             create_iiif_canvas(manifest, url_root, resource_file, resource_type, resource_path, page_count, thumbnail_data,
                                media_url=media_url, filename=filename)
-        elif resource_file.lower().endswith(('.png', '.jpg', '.jpeg', '.tiff')):
+        elif resource_file.lower().endswith(image_format.lower()):
             image_info = f"{iiif_url_root}%2F{quoted_file}/info.json"
             r = requests.get(image_info)
             #print (r.status_code)
             response = r.json()
 
-            image_url = f"{iiif_url_root}%2F{quoted_file}"#/full/max/0/default.jpg"
+            image_url = f"{iiif_url_root}%2F{quoted_file}"
             create_iiif_canvas(manifest, url_root, resource_file, "Image", resource_path, page_count, thumbnail_data,
-                               height=response["height"], width=response["width"], image_url=image_url, filename=filename)
+                               image_format=image_format, height=response["height"], width=response["width"], image_url=image_url, filename=filename)
 
     return manifest
 
@@ -143,7 +147,12 @@ def read_objects(collection_id=None):
                 elif resource_type == "Video":
                     filesPath = os.path.join(objPath, "webm")
                 else:
-                    filesPath = os.path.join(objPath, "jpg")
+                    filesPath = os.path.join(objPath, "tiff")
+                    if not os.path.isdir(filesPath):
+                        filesPath = os.path.join(objPath, "jpg")
+                        image_format = "jpg"
+                    else:
+                        image_format = "tiff"
 
                 if os.path.isdir(filesPath):
                     print(f"{collection}/{obj}")
@@ -157,7 +166,7 @@ def read_objects(collection_id=None):
                     #url_root = f"https://media.archives.albany.edu"
                     url_root = f"http://lib-arcimg-p101.lib.albany.edu"
                     obj_url_root = f"{url_root}/meta/{collection}/{obj}/v1"
-                    iiif_url_root = f"{url_root}/iiif/3/%2F{collection}%2F{obj}%2Fv1%2Fjpg"
+                    iiif_url_root = f"{url_root}/iiif/3/%2F{collection}%2F{obj}%2Fv1%2F{image_format}"
                     manifest_label = f"{metadata['title'].strip()}, {metadata['date_created'].strip()}"
 
                     thumbnail_path = os.path.join(objPath, "thumbnail.jpg")
@@ -173,7 +182,7 @@ def read_objects(collection_id=None):
                     thumbnail_data = {"url": thumbnail_url, "width": thumbnail_width, "height": thumbnail_height}
                     
                     # Create the manifest
-                    iiif_manifest = create_iiif_manifest(filesPath, url_root, obj_url_root, iiif_url_root, manifest_label, behavior, thumbnail_data, resource_type)
+                    iiif_manifest = create_iiif_manifest(filesPath, url_root, obj_url_root, iiif_url_root, image_format, manifest_label, behavior, thumbnail_data, resource_type)
 
                     # Save the manifest to a JSON file
                     with open(manifestPath, 'w') as f:
