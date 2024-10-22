@@ -45,8 +45,9 @@ def extract_images(collection_id=None):
                                 os.mkdir(convertDir)
                             outfile = os.path.join(convertDir, filename)
 
-                            pdfimagesCmd = ["pdftoppm", filepath, outfile, "-jpeg"]
-                            print (pdfimagesCmd)
+                            #pdfimagesCmd = ["pdftoppm", filepath, outfile, "-jpeg"]
+                            pdfimagesCmd =["pdfimages", "-all", filepath, outfile]
+                            #print (pdfimagesCmd)
                             pdfimages = Popen(pdfimagesCmd, stdout=PIPE, stderr=PIPE)
                             stdout, stderr = pdfimages.communicate()
                             
