@@ -41,7 +41,7 @@ def create_iiif_canvas(manifest, url_root, label, resource_type, resource_path, 
         canvas.duration = duration
 
         # Create the AnnotationPage
-        anno_page_id = f"{url_root}/canvas/page/p{page_count}/{page_count}"
+        anno_page_id = f"{url_root}/canvas/page/p{page_count}{page_count}"
         annotation_page = AnnotationPage(id=anno_page_id)
 
         # Create media annotation with painting motivation
@@ -87,7 +87,7 @@ def create_iiif_canvas(manifest, url_root, label, resource_type, resource_path, 
 
 def create_iiif_manifest(file_dir, url_root, obj_url_root, iiif_url_root, label, thumbnail_data, resource_type):
     # Create a new IIIF Manifest
-    manifest = Manifest(id=f"{obj_url_root}/manifest.json", label=label, behavior=["paged"])
+    manifest = Manifest(id=f"{obj_url_root}/manifest.json", label=label)
     page_count = 0
 
     # Loop through the resources in the directory
