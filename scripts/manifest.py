@@ -25,12 +25,20 @@ def create_iiif_canvas(manifest, url_root, label, resource_type, resource_path, 
     if resource_type == "Image":
         # Handle image resources
         canvas = manifest.make_canvas(id=f"{url_root}/canvas/p{page_count}", label=label, height=height, width=width)
-        canvas.add_image(image_url=kwargs["image_url"],
+        service = [
+                  {
+                    "id": kwargs["image_url"],
+                    "profile": "level1",
+                    "type": "ImageService3"
+                  }
+                ]
+        canvas.add_image(image_url=kwargs["image_url"] + "/full/max/0/default.jpg",
                          anno_page_id=f"{url_root}/page/p{page_count}/{page_count}",
                          anno_id=f"{url_root}/annotation/{kwargs['filename']}",
                          format="image/jpeg",
                          height=height,
-                         width=width)
+                         width=width,
+                         service=service)
     else:
         # Use ffprobe to get duration and format for audio/video
         duration, mimetype, video_width, video_height = get_media_info(resource_path)
@@ -85,9 +93,9 @@ def create_iiif_canvas(manifest, url_root, label, resource_type, resource_path, 
 
 
 
-def create_iiif_manifest(file_dir, url_root, obj_url_root, iiif_url_root, label, thumbnail_data, resource_type):
+def create_iiif_manifest(file_dir, url_root, obj_url_root, iiif_url_root, label, behavior, thumbnail_data, resource_type):
     # Create a new IIIF Manifest
-    manifest = Manifest(id=f"{obj_url_root}/manifest.json", label=label)
+    manifest = Manifest(id=f"{obj_url_root}/manifest.json", label=label, behavior=[behavior])
     page_count = 0
 
     # Loop through the resources in the directory
@@ -108,7 +116,7 @@ def create_iiif_manifest(file_dir, url_root, obj_url_root, iiif_url_root, label,
             #print (r.status_code)
             response = r.json()
 
-            image_url = f"{iiif_url_root}%2F{quoted_file}/full/max/0/default.jpg"
+            image_url = f"{iiif_url_root}%2F{quoted_file}"#/full/max/0/default.jpg"
             create_iiif_canvas(manifest, url_root, resource_file, "Image", resource_path, page_count, thumbnail_data,
                                height=response["height"], width=response["width"], image_url=image_url, filename=filename)
 
@@ -137,8 +145,14 @@ def read_objects(collection_id=None):
                 else:
                     filesPath = os.path.join(objPath, "jpg")
 
-                if os.path.exists(filesPath):
+                if os.path.isdir(filesPath):
                     print(f"{collection}/{obj}")
+
+                    # set IIIF manifest behavior
+                    behavior = "individuals"
+                    if "original_format" in metadata.keys():
+                        if metadata["original_format"] == "pdf":
+                            behavior = "paged"
 
                     #url_root = f"https://media.archives.albany.edu"
                     url_root = f"http://lib-arcimg-p101.lib.albany.edu"
@@ -157,9 +171,9 @@ def read_objects(collection_id=None):
                         thumbnail_width = None
                         thumbnail_height = None
                     thumbnail_data = {"url": thumbnail_url, "width": thumbnail_width, "height": thumbnail_height}
-
+                    
                     # Create the manifest
-                    iiif_manifest = create_iiif_manifest(filesPath, url_root, obj_url_root, iiif_url_root, manifest_label, thumbnail_data, resource_type)
+                    iiif_manifest = create_iiif_manifest(filesPath, url_root, obj_url_root, iiif_url_root, manifest_label, behavior, thumbnail_data, resource_type)
 
                     # Save the manifest to a JSON file
                     with open(manifestPath, 'w') as f:
