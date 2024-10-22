@@ -8,7 +8,7 @@ if os.name == "nt":
 else:
     root = "/media/Library/SPE_DAO"
 
-def extract_images(collection_id=None):
+def extract_images(collection_id=None, object_id=None):
     for col in os.listdir(root):
         col_path = os.path.join(root, col)
 
@@ -18,6 +18,9 @@ def extract_images(collection_id=None):
 
         if os.path.isdir(col_path):
             for obj in os.listdir(col_path):
+                if object_id and object_id not in obj:
+                    continue  # Skip this object if it doesn't match
+                    
                 objPath = os.path.join(col_path, obj, "v1")
                 metadataPath = os.path.join(objPath, "metadata.yml")
                 pdfPath = os.path.join(objPath, "pdf")
@@ -54,7 +57,11 @@ def extract_images(collection_id=None):
 
 if __name__ == "__main__":
     # Check for command-line arguments
-    if len(sys.argv) > 1:
+    if len(sys.argv) > 2:
+        collection_id_arg = sys.argv[1]
+        object_id_arg = sys.argv[2]
+        extract_images(collection_id=collection_id_arg, object_id=object_id_arg)
+    elif len(sys.argv) > 1:
         collection_id_arg = sys.argv[1]
         extract_images(collection_id=collection_id_arg)
     else:
