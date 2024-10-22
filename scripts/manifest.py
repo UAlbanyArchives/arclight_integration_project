@@ -104,9 +104,8 @@ def create_iiif_manifest(file_dir, url_root, obj_url_root, iiif_url_root, label,
                                media_url=media_url, filename=filename)
         elif resource_file.lower().endswith(('.png', '.jpg', '.jpeg', '.tiff')):
             image_info = f"{iiif_url_root}%2F{quoted_file}/info.json"
-            print (image_info)
             r = requests.get(image_info)
-            print (r.status_code)
+            #print (r.status_code)
             response = r.json()
 
             image_url = f"{iiif_url_root}%2F{quoted_file}/full/max/0/default.jpg"
