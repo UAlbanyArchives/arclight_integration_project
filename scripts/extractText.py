@@ -19,14 +19,17 @@ def extract_text(collection_id=None):
             for obj in os.listdir(col_path):
                 objPath = os.path.join(col_path, obj, "v1")
                 metadataPath = os.path.join(objPath, "metadata.yml")
-                output_txt_path = os.path.join(objPath, "content.txt")
 
                 pdfPath = os.path.join(objPath, "pdf")
-                if os.path.exists(pdfPath):
+                if os.path.isdir(pdfPath):
 
                     pdfCount = 0
                     for pdf in os.listdir(pdfPath):
                         pdfFilePath = os.path.join(pdfPath, pdf)
+                        output_path = os.path.join(objPath, "txt")
+                        if not os.path.isdir(output_path):
+                            os.mkdir(output_path)
+                        output_txt_path = os.path.join(output_path, os.path.splitext(pdf)[0] + ".txt")
                         if os.path.isfile(pdfFilePath) and pdf.lower().endswith(".pdf"):
                             pdfCount += 1
 
