@@ -16,23 +16,29 @@ def format_timestamp(seconds):
     milliseconds = int((seconds % 1) * 1000)
     return f"{hours:02}:{minutes:02}:{seconds:02}.{milliseconds:03}"
 
-def transcribe_file(file_path, transcription_file):
+def transcribe_file(file_path, vtt_file_path, txt_file_path):
     # Load the Whisper model
     model = whisper.load_model("base")
     result = model.transcribe(file_path, task="transcribe", language="en")
 
-    # Open the output VTT file
-    with open(transcription_file, 'w', encoding='utf-8') as vtt_file:
+    # Open the output VTT and TXT files
+    with open(vtt_file_path, 'w', encoding='utf-8') as vtt_file, \
+         open(txt_file_path, 'w', encoding='utf-8') as txt_file:
+        
+        # Write to VTT file
         vtt_file.write("WEBVTT\n\n")
-        # Iterate over the segments and format them as VTT
+        
+        # Iterate over the segments and format them as VTT and plain text
         for segment in result["segments"]:
             start = format_timestamp(segment["start"])
             end = format_timestamp(segment["end"])
             # Write the VTT cue
             vtt_file.write(f"{start} --> {end}\n")
             vtt_file.write(f"{segment['text'].strip()}\n\n")
-    
-    print(f"Transcription saved to {transcription_file}")
+            # Write the plain text transcription (no timestamps)
+            txt_file.write(f"{segment['text'].strip()}\n")
+
+    print(f"Transcription saved to {vtt_file_path} and {txt_file_path}")
 
 def transcribe(collection_id=None):
     for col in os.listdir(root):
@@ -46,11 +52,8 @@ def transcribe(collection_id=None):
             for obj in os.listdir(col_path):
                 obj_path = os.path.join(col_path, obj, "v1")
                 metadata_path = os.path.join(obj_path, "metadata.yml")
-                output_dir = os.path.join(obj_path, "vtt")
-
-                # Create transcription output directory if it doesn't exist
-                if not os.path.exists(output_dir):
-                    os.mkdir(output_dir)
+                vtt_output_dir = os.path.join(obj_path, "vtt")
+                txt_output_dir = os.path.join(obj_path, "txt")
 
                 # Load metadata
                 with open(metadata_path, 'r') as yml_file:
@@ -59,30 +62,41 @@ def transcribe(collection_id=None):
                 # Determine file type and paths based on resource type
                 file_paths = []
                 if metadata["resource_type"].lower() == "audio":
-                    audio_formats = ["mp3", "ogg"]
+                    # In preferential order
+                    audio_formats = ["ogg", "mp3"]
                     for audio_format in audio_formats:
                         format_path = os.path.join(obj_path, audio_format)
-                        if os.path.exists(format_path):
+                        if os.path.isdir(format_path) and len(os.listdir(format_path)) > 0:
                             file_paths.extend(
                                 [os.path.join(format_path, f) for f in os.listdir(format_path) if f.lower().endswith(f".{audio_format}")]
                             )
+                            break
                 elif metadata["resource_type"].lower() == "video":
-                    video_formats = ["mp4", "mov", "webm"]
+                    # In preferential order
+                    video_formats = ["webm", "mp4", "mov"]
                     for video_format in video_formats:
                         format_path = os.path.join(obj_path, video_format)
-                        if os.path.exists(format_path):
+                        if os.path.isdir(format_path) and len(os.listdir(format_path)) > 0:
                             file_paths.extend(
                                 [os.path.join(format_path, f) for f in os.listdir(format_path) if f.lower().endswith(f".{video_format}")]
                             )
-
+                            break
+                
                 # Process each file
                 for file_path in file_paths:
+                    # Create transcription output directories if they don't exist
+                    if not os.path.isdir(vtt_output_dir):
+                        os.mkdir(vtt_output_dir)
+                    if not os.path.isdir(txt_output_dir):
+                        os.mkdir(txt_output_dir)
+
                     filename, file_extension = os.path.splitext(os.path.basename(file_path))
-                    transcription_file = os.path.join(output_dir, f"{filename}{file_extension}.vtt")
+                    vtt_file_path = os.path.join(vtt_output_dir, f"{filename}.vtt")
+                    txt_file_path = os.path.join(txt_output_dir, f"{filename}.txt")
                     print(f"Transcribing file: {file_path}")
 
-                    # Transcribe and save in VTT format
-                    transcribe_file(file_path, transcription_file)
+                    # Transcribe and save in both VTT and TXT formats
+                    transcribe_file(file_path, vtt_file_path, txt_file_path)
 
 if __name__ == "__main__":
     # Check for command-line arguments

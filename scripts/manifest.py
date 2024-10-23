@@ -1,11 +1,12 @@
 import os
 import sys
 import yaml
+import json
 import requests
 import urllib.parse
 from PIL import Image
 from get_media_info import get_media_info
-from iiif_prezi3 import Manifest, Canvas, Annotation, AnnotationPage, config
+from iiif_prezi3 import Manifest, Canvas, Annotation, AnnotationPage, KeyValueString, config
 
 config.configs['helpers.auto_fields.AutoLang'].auto_lang = "en"
 
@@ -14,9 +15,19 @@ if os.name == "nt":
 else:
     root = "/media/Library/SPE_DAO"
 
+def remove_nulls(d):
+    """Recursively remove keys with None values from a dictionary or list."""
+    if isinstance(d, dict):
+        return {k: remove_nulls(v) for k, v in d.items() if v is not None}
+    elif isinstance(d, list):
+        return [remove_nulls(v) for v in d if v is not None]
+    else:
+        return d
 
-def create_iiif_canvas(manifest, url_root, label, resource_type, resource_path, page_count, thumbnail_data, **kwargs):
+def create_iiif_canvas(manifest, url_root, obj_url_root, label, resource_type, resource_path, page_count, thumbnail_data, **kwargs):
     """Create a IIIF Canvas for images, videos, or audio, with optional thumbnail."""
+    supplementing_annotations = []
+    renderings = []
     
     # Default to not setting height and width
     height = kwargs.get("height", None)
@@ -32,7 +43,7 @@ def create_iiif_canvas(manifest, url_root, label, resource_type, resource_path, 
                     "type": "ImageService3"
                   }
                 ]
-        if kwargs.get("image_format", None) == "tiff":
+        if kwargs.get("resource_format", None) == "tiff":
             image_mime = "image/tiff"
         else:
             image_mime = "image/jpeg"
@@ -43,11 +54,23 @@ def create_iiif_canvas(manifest, url_root, label, resource_type, resource_path, 
                          height=height,
                          width=width,
                          service=service)
+
+        # Check for HOCR file for the image
+        hocr_file = os.path.join(os.path.dirname(os.path.dirname(resource_path)), "ocr", f"{os.path.splitext(os.path.basename(resource_path))[0]}.hocr")
+        if os.path.exists(hocr_file):
+            seeAlso = {
+                "id": f"{obj_url_root}/ocr/{os.path.basename(hocr_file)}",
+                "label": "HOCR data (OCR)",
+                "type": "Text",
+                "format": "text/vnd.hocr+html",
+                "profile": "http://kba.cloud/hocr-spec/1.2/"
+            }
+            canvas.seeAlso = [seeAlso]
+
     else:
         # Use ffprobe to get duration and format for audio/video
         duration, mimetype, video_width, video_height = get_media_info(resource_path)
-
-        
+    
         # Create canvas for audio or video (height/width for video only)
         canvas = manifest.make_canvas(id=f"{url_root}/canvas/p{page_count}", label=label)
         canvas.duration = duration
@@ -75,6 +98,46 @@ def create_iiif_canvas(manifest, url_root, label, resource_type, resource_path, 
         # Add the annotation page to the canvas
         canvas.items.append(annotation_page)
 
+        # Check for VTT file for the video/audio
+        vtt_file = os.path.join(os.path.dirname(os.path.dirname(resource_path)), "vtt", f"{os.path.splitext(os.path.basename(resource_path))[0]}.vtt")
+        if os.path.exists(vtt_file):
+            supplementing_annotations.append({
+                "id": f"{obj_url_root}/vtt/{os.path.basename(vtt_file)}",
+                "type": "Text",
+                "format": "text/vtt",
+                "label": { "en": [ "WebVTT (captions)" ] }
+            })
+        
+        # Check for TXT transcription file
+        txt_file = os.path.join(os.path.dirname(os.path.dirname(resource_path)), "txt", f"{os.path.splitext(os.path.basename(resource_path))[0]}.txt")
+        if os.path.exists(txt_file):
+            renderings.append({
+                "id": f"{obj_url_root}/txt/{os.path.basename(txt_file)}",
+                "type": "Text",
+                "format": "text/plain",
+                "label": { "en": [ "Text transcription" ] }
+            })
+
+    # Add supplementing annotations for VTT files
+    if supplementing_annotations:
+        canvas.annotations = [{
+            "id": f"{url_root}/canvas/{page_count}/supplementing",
+            "type": "AnnotationPage",
+            "items": [
+                {
+                    "id": f"{url_root}/canvas/{page_count}/annotation",
+                    "type": "Annotation",
+                    "motivation": "supplementing",
+                    "body": supplementing_annotations,
+                    "target": f"{url_root}/canvas/p{page_count}"
+                }
+            ]
+        }]
+
+    # Add any alternative renderings
+    if renderings:
+        canvas.rendering = renderings
+
     # Add thumbnail if thumbnail_url is provided
     if page_count == 1 and "url" in thumbnail_data:
         thumbnail_width = thumbnail_data.get("width", None)
@@ -97,12 +160,60 @@ def create_iiif_canvas(manifest, url_root, label, resource_type, resource_path, 
 
 
 
-def create_iiif_manifest(file_dir, url_root, obj_url_root, iiif_url_root, image_format, label, behavior, thumbnail_data, resource_type):
+
+def create_iiif_manifest(file_dir, url_root, obj_url_root, iiif_url_root, resource_format, label, metadata, thumbnail_data, resource_type):
+    orgText = "M.E. Grenander Department of Special Collections and Archives, University Libraries, University at Albany, State University of New York"
+
+    # Set IIIF manifest behavior
+    behavior = ["individuals"]
+    if "original_format" in metadata.keys() and metadata["original_format"] == "pdf":
+        behavior = ["paged"]
+
+    # Set rights and metadata
+    attributionStatement = orgText
+    rights = None  # Initialize rights
+    if "license" in metadata and metadata['license']:
+        rights = metadata["license"]
+        if "publicdomain" in rights:
+            attributionStatement = f"<span>This object is in the public domain, but you are encouraged to attribute: <br/> {orgText} <br/> <a href=\"{rights}\" title=\"Public Domain\"><img src=\"https://licensebuttons.net/p/88x31.png\"/></a></span>"
+        elif "by-nc-nd" in rights:
+            attributionStatement = f"<span>{orgText} <br/> <a href=\"{rights}\" title=\"CC BY-NC-ND 4.0\"><img src=\"https://licensebuttons.net/l/by-nc-nd/4.0/88x31.png\"/></a></span>"
+    elif "rights_statement" in metadata and metadata['rights_statement']:
+        rights = metadata["rights_statement"]
+        if "InC-EDU" in rights:
+            rights = "https://rightsstatements.org/page/InC-EDU/1.0/"
+            stmt = "In Copyright - Educational Use Permitted"
+            attributionStatement = f"<span>{orgText} <br/> <a href=\"{rights}\" title=\"{stmt}\"><img src=\"https://rightsstatements.org/files/buttons/InC-EDU.dark.svg\"/></a></span>"
+    else:
+        rights = "https://rightsstatements.org/page/InC-EDU/1.0/"
+        stmt = "In Copyright - Educational Use Permitted"
+        attributionStatement = f"<span>{orgText} <br/> <a href=\"{rights}\" title=\"{stmt}\"><img src=\"https://rightsstatements.org/files/buttons/InC-EDU.dark.svg\"/></a></span>"
+
+    # Correct structure for requiredStatement using KeyValueString
+    requiredStatement = KeyValueString(label="Attribution", value=attributionStatement)
+
     # Create a new IIIF Manifest
-    manifest = Manifest(id=f"{obj_url_root}/manifest.json", label=label, behavior=[behavior])
-    page_count = 0
+    manifest = Manifest(
+        id=f"{obj_url_root}/manifest.json",
+        label=label,
+        behavior=behavior,
+        rights=rights,
+        requiredStatement=requiredStatement
+    )
+
+    # Add metadata fields to the manifest
+    fields = ["title", "date_created", "resource_type", "coverage", "extent", "collection", "collecting_area", "description", "processing_activity"]
+    manifest.metadata = []
+    for key, value in metadata.items():
+        if key in fields:
+            if value:  # Only add metadata if the value is not empty
+                manifest.metadata.append({
+                    "label": {"en": [key]},
+                    "value": {"en": [value]}
+                })
 
     # Loop through the resources in the directory
+    page_count = 0
     for resource_file in os.listdir(file_dir):
         resource_path = os.path.join(file_dir, resource_file)
         filename = urllib.parse.quote(os.path.splitext(resource_file)[0])
@@ -112,17 +223,70 @@ def create_iiif_manifest(file_dir, url_root, obj_url_root, iiif_url_root, image_
         if resource_type in ["Audio", "Video"]:
             # Use the media URL (modify this to suit your media hosting environment)
             media_url = f"{obj_url_root}/{os.path.basename(file_dir)}/{quoted_file}"
-            create_iiif_canvas(manifest, url_root, resource_file, resource_type, resource_path, page_count, thumbnail_data,
+            create_iiif_canvas(manifest, url_root, obj_url_root, resource_file, resource_type, resource_path, page_count, thumbnail_data,
                                media_url=media_url, filename=filename)
-        elif resource_file.lower().endswith(image_format.lower()):
+        elif resource_file.lower().endswith(resource_format.lower()):
             image_info = f"{iiif_url_root}%2F{quoted_file}/info.json"
             r = requests.get(image_info)
-            #print (r.status_code)
+            if not r.status_code == 200:
+                print (image_info)
+                print (r.status_code)
             response = r.json()
 
             image_url = f"{iiif_url_root}%2F{quoted_file}"
-            create_iiif_canvas(manifest, url_root, resource_file, "Image", resource_path, page_count, thumbnail_data,
-                               image_format=image_format, height=response["height"], width=response["width"], image_url=image_url, filename=filename)
+            create_iiif_canvas(manifest, url_root, obj_url_root, resource_file, "Image", resource_path, page_count, thumbnail_data,
+                               resource_format=resource_format, height=response["height"], width=response["width"], image_url=image_url, filename=filename)
+    manifest_renderings = []
+    # Check for alternative renderings to add
+    alt_rendering_formats = {
+        "pdf": {
+            "mimetype": "application/pdf",
+            "label": "Download PDF"
+        },
+        "docx": {
+            "mimetype": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+            "label": "Download DOCX"
+        },
+        "doc": {
+            "mimetype": "application/msword",
+            "label": "Download DOC"
+        },
+        "xlsx": {
+            "mimetype": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+            "label": "Download XLSX"
+        },
+        "xls": {
+            "mimetype": "application/vnd.ms-excel",
+            "label": "Download XLS"
+        },
+        "pptx": {
+            "mimetype": "application/vnd.openxmlformats-officedocument.presentationml.presentation",
+            "label": "Download PPTX"
+        },
+        "ppt": {
+            "mimetype": "application/vnd.ms-powerpoint",
+            "label": "Download PPT"
+        },
+        "txt": {
+            "mimetype": "text/plain",
+            "label": "Download Text transcription"
+        }
+    }
+    for format_ext in alt_rendering_formats.keys():
+        rendering_format = os.path.join(os.path.dirname(file_dir), format_ext)
+        # If there is a single file
+        if os.path.isdir(rendering_format) and len(os.listdir(rendering_format)) == 1:
+            rendering_file = os.path.join(rendering_format, os.listdir(rendering_format)[0])
+            if os.path.isfile(rendering_file):
+                manifest_renderings.append({
+                    "id": f"{obj_url_root}/{format_ext}/{os.path.basename(rendering_file)}",
+                    "type": "Text",
+                    "format": alt_rendering_formats[format_ext]["mimetype"],
+                    "label": alt_rendering_formats[format_ext]["label"],
+                    #"label": { "en": [ "Text transcription" ] }
+                })
+    if manifest_renderings:
+        manifest.rendering = manifest_renderings
 
     return manifest
 
@@ -143,30 +307,26 @@ def read_objects(collection_id=None):
                     metadata = yaml.safe_load(yml_file)
                 resource_type = metadata["resource_type"]
                 if resource_type == "Audio":
-                    filesPath = os.path.join(objPath, "ogg")
+                    resource_format = "ogg"
+                    filesPath = os.path.join(objPath, resource_format)
                 elif resource_type == "Video":
-                    filesPath = os.path.join(objPath, "webm")
+                    resource_format = "webm"
+                    filesPath = os.path.join(objPath, resource_format)
                 else:
                     filesPath = os.path.join(objPath, "tiff")
                     if not os.path.isdir(filesPath):
                         filesPath = os.path.join(objPath, "jpg")
-                        image_format = "jpg"
+                        resource_format = "jpg"
                     else:
-                        image_format = "tiff"
+                        resource_format = "tiff"
 
                 if os.path.isdir(filesPath):
                     print(f"{collection}/{obj}")
 
-                    # set IIIF manifest behavior
-                    behavior = "individuals"
-                    if "original_format" in metadata.keys():
-                        if metadata["original_format"] == "pdf":
-                            behavior = "paged"
-
                     #url_root = f"https://media.archives.albany.edu"
                     url_root = f"http://lib-arcimg-p101.lib.albany.edu"
                     obj_url_root = f"{url_root}/meta/{collection}/{obj}/v1"
-                    iiif_url_root = f"{url_root}/iiif/3/%2F{collection}%2F{obj}%2Fv1%2F{image_format}"
+                    iiif_url_root = f"{url_root}/iiif/3/%2F{collection}%2F{obj}%2Fv1%2F{resource_format}"
                     manifest_label = f"{metadata['title'].strip()}, {metadata['date_created'].strip()}"
 
                     thumbnail_path = os.path.join(objPath, "thumbnail.jpg")
@@ -182,11 +342,15 @@ def read_objects(collection_id=None):
                     thumbnail_data = {"url": thumbnail_url, "width": thumbnail_width, "height": thumbnail_height}
                     
                     # Create the manifest
-                    iiif_manifest = create_iiif_manifest(filesPath, url_root, obj_url_root, iiif_url_root, image_format, manifest_label, behavior, thumbnail_data, resource_type)
+                    iiif_manifest = create_iiif_manifest(filesPath, url_root, obj_url_root, iiif_url_root, resource_format, manifest_label, metadata, thumbnail_data, resource_type)
+                    manifest_dict = iiif_manifest.dict()
+                    manifest_dict = remove_nulls(manifest_dict)
+                    manifest_dict["logo"] = f"{url_root}/meta/logo.png"
 
                     # Save the manifest to a JSON file
                     with open(manifestPath, 'w') as f:
-                        f.write(iiif_manifest.json(indent=2))
+                        #f.write(iiif_manifest.json(indent=2))
+                        json.dump(manifest_dict, f, indent=2)
 
                     print("\t --> IIIF manifest created successfully!")
                 else:
