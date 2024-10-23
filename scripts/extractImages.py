@@ -20,7 +20,7 @@ def extract_images(collection_id=None, object_id=None):
             for obj in os.listdir(col_path):
                 if object_id and object_id not in obj:
                     continue  # Skip this object if it doesn't match
-                    
+
                 objPath = os.path.join(col_path, obj, "v1")
                 metadataPath = os.path.join(objPath, "metadata.yml")
                 pdfPath = os.path.join(objPath, "pdf")
@@ -48,8 +48,8 @@ def extract_images(collection_id=None, object_id=None):
                                 os.mkdir(convertDir)
                             outfile = os.path.join(convertDir, filename)
 
-                            #pdfimagesCmd = ["pdftoppm", filepath, outfile, "-jpeg"]
-                            pdfimagesCmd =["pdfimages", "-all", filepath, outfile]
+                            pdfimagesCmd = ["pdftoppm", filepath, outfile, "-jpeg"]
+                            #pdfimagesCmd =["pdfimages", "-all", filepath, outfile]
                             #print (pdfimagesCmd)
                             pdfimages = Popen(pdfimagesCmd, stdout=PIPE, stderr=PIPE)
                             stdout, stderr = pdfimages.communicate()

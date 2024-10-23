@@ -24,7 +24,12 @@ def convert_images(collection_id=None, object_id=None):
                 objPath = os.path.join(col_path, obj, "v1")
                 metadataPath = os.path.join(objPath, "metadata.yml")
                 jpgPath = os.path.join(objPath, "jpg")
-                if os.path.exists(jpgPath):
+                if not os.path.isdir(jpgPath):
+                    # Try tiffs?
+                    jpgPath = os.path.join(objPath, "tif")
+                if not os.path.isdir(jpgPath):
+                    print (f"ERROR: Could not find jpg or tif folder in {objPath}.")
+                else:
                     tiffPath = os.path.join(objPath, "tiff")
                     if not os.path.isdir(tiffPath):
                         os.mkdir(tiffPath)
