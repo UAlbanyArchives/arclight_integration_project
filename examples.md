@@ -37,3 +37,9 @@ SPE_DAO\ua531\9019sk86q
 * 303 page images
 * csv and xslx transcripts
 * pdf derivative of xslx transcripts
+
+SPE_DAO\ua809\2801q198z
+
+* PDF is made from smaller images
+* found original tifs from preservation package instead of extracting jpgs from pdf
+* created pyramidal tiffs from .tif, which is why there is both tif and tiff folders and no jpg
