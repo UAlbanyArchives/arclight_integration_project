@@ -59,7 +59,7 @@ def create_iiif_canvas(manifest, url_root, obj_url_root, label, resource_type, r
         hocr_file = os.path.join(os.path.dirname(os.path.dirname(resource_path)), "ocr", f"{os.path.splitext(os.path.basename(resource_path))[0]}.hocr")
         if os.path.exists(hocr_file):
             seeAlso = {
-                "id": f"{obj_url_root}/ocr/{os.path.basename(hocr_file)}",
+                "id": f"{obj_url_root}/ocr/{urllib.parse.quote(os.path.basename(hocr_file))}",
                 "label": "HOCR data (OCR)",
                 "type": "Text",
                 "format": "text/vnd.hocr+html",
@@ -267,22 +267,51 @@ def create_iiif_manifest(file_dir, url_root, obj_url_root, iiif_url_root, resour
             "mimetype": "application/vnd.ms-powerpoint",
             "label": "Download PPT"
         },
+        "mp3": {
+            "mimetype": "audio/mpeg",
+            "label": "Download MP3"
+        },
+        "mp4": {
+            "mimetype": "video/mp4",
+            "label": "Download MP4"
+        },
+        "mov": {
+            "mimetype": "video/quicktime",
+            "label": "Download MOV"
+        },
         "txt": {
             "mimetype": "text/plain",
             "label": "Download Text transcription"
         }
     }
+    original_file = metadata.get("original_file", None)
+    original_format = metadata.get("original_format", None)
+    plaintext_switch = False
     for format_ext in alt_rendering_formats.keys():
         rendering_format = os.path.join(os.path.dirname(file_dir), format_ext)
         # If there is a single file
         if os.path.isdir(rendering_format) and len(os.listdir(rendering_format)) == 1:
             rendering_file = os.path.join(rendering_format, os.listdir(rendering_format)[0])
             if os.path.isfile(rendering_file):
+                if format_ext == "txt":
+                    plaintext_switch = True
+                if os.listdir(rendering_format)[0] == original_file:
+                    alt_label = f"Download Original {original_format.upper()}"
+                else:
+                    alt_label = alt_rendering_formats[format_ext]["label"]
                 manifest_renderings.append({
-                    "id": f"{obj_url_root}/{format_ext}/{os.path.basename(rendering_file)}",
+                    "id": f"{obj_url_root}/{format_ext}/{urllib.parse.quote(os.path.basename(rendering_file))}",
                     "type": "Text",
                     "format": alt_rendering_formats[format_ext]["mimetype"],
-                    "label": alt_rendering_formats[format_ext]["label"]
+                    "label": alt_label
+                })
+    contentTxt = os.path.join(os.path.dirname(file_dir), "content.txt")
+    if plaintext_switch is False and os.path.isfile(contentTxt):
+        manifest_renderings.append({
+                    "id": f"{obj_url_root}/content.txt",
+                    "type": "Text",
+                    "format": "text/plain",
+                    "label": "Download Text transcription"
                 })
     if manifest_renderings:
         manifest.rendering = manifest_renderings
