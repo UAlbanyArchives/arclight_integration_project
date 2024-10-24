@@ -193,10 +193,57 @@ Content files contain text that can be indexed into Solr for discovery. It is RE
 
 ## 5. `metadata.yml` fields
 
-**identifier**: The digital object identifier for the Object
-**date_created**: (If we are going by Hyrax terms) The date of creation determined and added to the archival object by the archivist, not necessarily the date the digital object was created. 
+**identifier**: The digital object identifier for the object
+
+**title**: The file name of the digital object
+
+**date_uploaded**: The date the digital object was uploaded to Hyrax
+
+**archivesspace_record**: The identifier number for the archival record that the digital object is linked to
+
+**collecting_area**: Archival collecting area of digital object
+
+**collection_number**: Collection identifier number of digital object
+
+**collection**: Collection name of digital object
+
+**record_parent**: The series that the digital object exists under, can be multiple to include sub-series
+
+**coverage**: Determines if the digital object is the only file that represents the archival object (the whole) or if it is one component of multiple (a part) that make up the archival object
+
+**accession**: Name of accession package that the digital object was added to the collection in
+
+**creator**: Name of user that uploaded digital object to Hyrax or SPE_DAO system
+
+**contributor**: Name of user that aided in the description of the digital object
+
+**description**: IF the digital object is an image, the description provides additional searchable content as well as a depiction for accessibility purposes (i.e. if an user 
+
+**processing_activity**: The location of processing documentation
+
 **resource_type**: Types determined by the DACS Standards (Document, Image, Pamphlet, Slides etc.) Resource type should not be confused with format of the digital object. 
 
+**license**: Licensing and distribution information governing access to the digital object.
+
+**original_file**: Name of original file
+
+**original_format**: Format (Doc, Png, Jpg, Ppt etc.) of the file before it was uploaded to Hyrax
+
+**date_created**: (If we are going by Hyrax terms) The date of creation determined and added to the archival object by the archivist, not necessarily the date the digital object was created. 
+
+**representative_id**: Same as thumbnail_id, the Hyrax generated identifiers for the digital objects, which will be maintained during the migtation, as well as the new NOIDs that will be created for objects. Object folders within collection folders in SPE_DAO will be named with their representative_id
+
+**thumbnail_id**: Same as representative_id, the Hyrax generated identifiers for the digital objects, which will be maintained during the migtation, as well as the new NOIDs that will be created for objects
+
+**embargo_id**: IF there is an embargo on the visibility of the object, the identification number will appear here 
+
+**lease_id**: ???
+
+**visibility**: A field in Hyrax that determined who viewing access of the object, including: Public, Restricted to M.E. Grenander Department of Special Collections & Archives, Embargoed for future release, Leased for future reduced access, and Private
+
+**rights_statement**: Known copyright permissions of the digital object.
+
+**file sets**: ???
 
 ## 6. Examples
 
