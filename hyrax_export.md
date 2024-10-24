@@ -4,8 +4,9 @@
 2. Export thumbnails
 3. Export derivatives
 4. Extract images
-5. Extract text
-6. Create manifest
+5. Convert to Pyramidal Tiffs
+6. Extract text
+7. Create manifest
 
 Export scripts are in \scripts
 
@@ -80,9 +81,33 @@ In new terminal:
 docker exec -it python1 bash
 python extractImages.py
 python extractImages.py apap214
+python extractImages.py apap214 pk02cv45j
 ```
 
-## 5. Extract Text
+Add Collection and object ids to limit to those collections/objects.
+
+### Alternatively, look for originals in preservation packages
+
+Needs to be run either on Windows or railsdev for access.
+```
+python findOriginals.py
+```
+
+## 5. Convert to Pyramidal Tiffs
+
+`docker compose up`
+
+In new terminal:
+```
+docker exec -it python1 bash
+python makeTiffs.py
+python makeTiffs.py ua807
+python makeTiffs.py ua807 pk02cv4fj
+```
+
+Add Collection and object ids to limit to those collections/objects.
+
+## 6. Extract Text
 
 ### Option 1: Extract text from PDFs (fastest)
 
@@ -114,7 +139,7 @@ docker exec -it python1 bash
 python create_transcription.py apap138
 ```
 
-## 6. Create manifest
+## 7. Create manifest
 
 IIIF Presentation API v3 manifests
 

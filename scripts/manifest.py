@@ -198,7 +198,7 @@ def create_iiif_manifest(file_dir, url_root, obj_url_root, iiif_url_root, resour
         label=label,
         behavior=behavior,
         rights=rights,
-        requiredStatement=requiredStatement
+        requiredStatement=requiredStatement,
     )
 
     # Add metadata fields to the manifest
@@ -282,8 +282,7 @@ def create_iiif_manifest(file_dir, url_root, obj_url_root, iiif_url_root, resour
                     "id": f"{obj_url_root}/{format_ext}/{os.path.basename(rendering_file)}",
                     "type": "Text",
                     "format": alt_rendering_formats[format_ext]["mimetype"],
-                    "label": alt_rendering_formats[format_ext]["label"],
-                    #"label": { "en": [ "Text transcription" ] }
+                    "label": alt_rendering_formats[format_ext]["label"]
                 })
     if manifest_renderings:
         manifest.rendering = manifest_renderings
@@ -345,12 +344,16 @@ def read_objects(collection_id=None):
                     iiif_manifest = create_iiif_manifest(filesPath, url_root, obj_url_root, iiif_url_root, resource_format, manifest_label, metadata, thumbnail_data, resource_type)
                     manifest_dict = iiif_manifest.dict()
                     manifest_dict = remove_nulls(manifest_dict)
-                    manifest_dict["logo"] = f"{url_root}/meta/logo.png"
+                    manifest_output = {
+                        '@context': "http://iiif.io/api/presentation/3/context.json",
+                        'logo': f"{url_root}/meta/logo.png",
+                        **manifest_dict
+                    }
 
                     # Save the manifest to a JSON file
                     with open(manifestPath, 'w') as f:
                         #f.write(iiif_manifest.json(indent=2))
-                        json.dump(manifest_dict, f, indent=2)
+                        json.dump(manifest_output, f, indent=2)
 
                     print("\t --> IIIF manifest created successfully!")
                 else:
