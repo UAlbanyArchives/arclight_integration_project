@@ -24,10 +24,13 @@ def run_tesseract(collection_id=None, object_id=None):
         objDir = os.path.join(versionDir, get_latest_version(versionDir))
         jpgDir = os.path.join(objDir, "jpg")
         ocrDir = os.path.join(objDir, "ocr")
+        txtDir = os.path.join(objDir, "txt")
 
-        # Ensure the output directory exists
+        # Ensure the output directories exist
         if not os.path.isdir(ocrDir):
             os.mkdir(ocrDir)
+        if not os.path.isdir(txtDir):
+            os.mkdir(txtDir)
 
         print (f"Processing {collection_id}/{obj}...")
 
@@ -37,20 +40,39 @@ def run_tesseract(collection_id=None, object_id=None):
         if not os.path.isdir(jpgDir):
             print (f"ERROR: Could not find jpg or tif folder in {objDir}.")
         else:
+            # Create a content.txt file that will aggregate all text files
+            content_file_path = os.path.join(objDir, "content.txt")
+            with open(content_file_path, "w") as content_file:
 
-            for filename in os.listdir(jpgDir):
-                if filename.endswith('.jpg') or filename.endswith('.tif'):
-                    # Remove the .jpg extension to get the base name
-                    base_name = os.path.splitext(filename)[0]
-                    
-                    # Define the full path for input and output files
-                    input_path = os.path.join(jpgDir, filename)
-                    output_path = os.path.join(ocrDir, base_name)
-                    
-                    # Run the Tesseract command to create HOCR output
-                    subprocess.run(['tesseract', input_path, output_path, '-c', 'tessedit_create_hocr=1'])
-                    
-                    print(f"\tProcessed jpg/{filename} to ocr/{base_name}.hocr")
+                for filename in os.listdir(jpgDir):
+                    if filename.endswith('.jpg') or filename.endswith('.tif'):
+                        # Remove the .jpg or .tif extension to get the base name
+                        base_name = os.path.splitext(filename)[0]
+                        
+                        # Define the full path for input and output files
+                        input_path = os.path.join(jpgDir, filename)
+                        ocr_output_path = os.path.join(ocrDir, base_name)
+                        txt_output_path = os.path.join(txtDir, base_name)
+                        
+                        # Run Tesseract to create both HOCR and TXT output
+                        subprocess.run([
+                            'tesseract', input_path, ocr_output_path, 
+                            '-c', 'tessedit_create_hocr=1',
+                            '-c', 'tessedit_create_txt=1'
+                        ])
+
+                        # Move the generated .txt file to the txt directory
+                        generated_txt_path = ocr_output_path + ".txt"
+                        if os.path.exists(generated_txt_path):
+                            os.rename(generated_txt_path, txt_output_path + ".txt")
+
+                            # Append the contents of the individual .txt file to content.txt
+                            with open(txt_output_path + ".txt", "r") as txt_file:
+                                content = txt_file.read()
+                                content_file.write(f"\n\n--- {base_name}.txt ---\n\n")
+                                content_file.write(content)
+
+                        print(f"\tProcessed {filename} to ocr/{base_name}.hocr and txt/{base_name}.txt")
 
 if __name__ == "__main__":
     # Check for command-line arguments
