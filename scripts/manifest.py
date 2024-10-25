@@ -202,15 +202,39 @@ def create_iiif_manifest(file_dir, url_root, obj_url_root, iiif_url_root, resour
     )
 
     # Add metadata fields to the manifest
-    fields = ["title", "date_created", "resource_type", "coverage", "extent", "collection", "collecting_area", "description", "processing_activity"]
+    fields = [
+        "title", 
+        "date_created", 
+        "resource_type", 
+        "coverage", 
+        "extent", 
+        "collection", 
+        "collecting_area", 
+        "description", 
+        "subject",
+        "processing_activity",
+        "creator",
+        "contributor",
+        "identifier",
+        "source",
+        "master_format",
+        "date_digitized",
+        "date_uploaded"
+    ]
     manifest.metadata = []
     for key, value in metadata.items():
         if key in fields:
             if value:  # Only add metadata if the value is not empty
-                manifest.metadata.append({
-                    "label": {"en": [key]},
-                    "value": {"en": [value]}
-                })
+                if isinstance(value, list):  # Handle list of values
+                    manifest.metadata.append({
+                        "label": {"en": [key]},
+                        "value": {"en": value}  # Directly use the list
+                    })
+                else:  # Handle single value
+                    manifest.metadata.append({
+                        "label": {"en": [key]},
+                        "value": {"en": [value]}
+                    })
 
     # Loop through the resources in the directory
     page_count = 0
@@ -281,6 +305,10 @@ def create_iiif_manifest(file_dir, url_root, obj_url_root, iiif_url_root, resour
         },
         "txt": {
             "mimetype": "text/plain",
+            "label": "Download Text transcription"
+        },
+        "csv": {
+            "mimetype": "text/csv",
             "label": "Download Text transcription"
         }
     }
