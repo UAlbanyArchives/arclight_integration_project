@@ -42,7 +42,7 @@ def run_tesseract(collection_id=None, object_id=None):
         else:
             # Create a content.txt file that will aggregate all text files
             content_file_path = os.path.join(objDir, "content.txt")
-            with open(content_file_path, "w") as content_file:
+            with open(content_file_path, "w", encoding="utf-8") as content_file:
 
                 for filename in os.listdir(jpgDir):
                     if filename.endswith('.jpg') or filename.endswith('.tif'):
@@ -67,7 +67,7 @@ def run_tesseract(collection_id=None, object_id=None):
                             os.rename(generated_txt_path, txt_output_path + ".txt")
 
                             # Append the contents of the individual .txt file to content.txt
-                            with open(txt_output_path + ".txt", "r") as txt_file:
+                            with open(txt_output_path + ".txt", "r", encoding="utf-8") as txt_file:
                                 content = txt_file.read()
                                 content_file.write(f"\n\n--- {base_name}.txt ---\n\n")
                                 content_file.write(content)
