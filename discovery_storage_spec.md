@@ -11,9 +11,10 @@ This is a display version of the specification, which is managed and versioned w
 
 ### 1.1 Purpose
 
+
 The M.E. Grenander Department of Special Collections, Archives, & Preservation at the University at Albany, SUNY Libraries has found that Digital Asset Management Systems (DAMS) or digital repositories do not meet the needs of an archival repository [[Wiedeman, 2023](https://journal.code4lib.org/articles/16963)]. Additionally, UAlbany Libraries have struggled to adapt and maintain an open source digital repository to better meet its needs.
 
-Instead of a traditional digital repository, UAlbany is migrating its digital objects described by archival description to filesystem storage. This "Digital Object Discovery Storage" or "SPE_DAO" will be both human-readable and editable via a mounted network filesystem, but also well-structured to enable reliable automated use. This specification governs this storage so we can create software to store and access the digital object stored in SPE_DAO, and also so that this storage can be audited or validated against.
+Instead of a traditional digital repository, UAlbany is migrating its digital objects described by archival description to filesystem storage. This "Digital Object Discovery Storage," or "SPE_DAO" for "Special Collections Digital Archival Objects," will be both human-readable and editable via a mounted network filesystem, but also well-structured to enable reliable automated use. This specification governs this storage so we can create software to store and access the digital object stored in SPE_DAO, and also so that this storage can be audited or validated against.
 
 The digital objects stored in SPE_DAO will be made available though a International Image Interoperability Framework (IIIF) image server and indexed in ArcLight. This work is part of the [ArcLight Integration Project](https://archives.albany.edu/web/arclight_integration/), made possible in part by the Institute of Museum and Library Services award [LG-256722-OLS-24](https://www.imls.gov/grants/awarded/lg-256722-ols-24). 
 
@@ -31,13 +32,19 @@ The key words “MAY”, “MUST”, “MUST NOT” ,“RECOMMENDED”, “REQUI
 ### 1.5 Terminology
 The following terms have precise definitions as used in this documnent:
 
-**SPE_DAO:** an abbreviation for Digital Object Discovery Storage. This is the storage location defined in this specification.
+**SPE_DAO:** This is the storage location defined in this specification. It is a shortened name for Digital Object Discovery Storage based on abbrevations for Special Collections Digital Archival Objects which is a term from [EAD](https://www.loc.gov/ead/tglib1998/tlin044.html). 
 
 **archival component:** A unit of archival description, governed by [Describing Archives: A Content Standard](https://saa-ts-dacs.github.io/dacs/06_part_I/02_chapter_01.html) (TS-DACS). In common parlance, this could be an archival collection, series, subseries, file, or item. ArchivesSpace is the system of record for archival components. Each archival component may be described as a Collection or Archival Object in ArchivesSpace. Each archival component is a node in a hierarchical graph structure and may describe any meaningful aggregate of physical or digital objects. An archival component may have no linked digital objects or many linked digital objects.
 
 **archival collection:** The top level "collection" containing many described or undescribed archival components. Each archival collection has a Collection record in ArchivesSpace and a [collection identifier](#2-collection-identifiers) as described below.
 
 **digital object:** A meaningful unit of digital content with accompanying metadata. Digital objects are discrete entities that differ meaningfully in content from another digital object, yet the same digital object can substantially change and have different versions over time and may also be represented in different formats. Digital objects are a useful abstraction and can contain a single digital file, a book, or other object containing multiple files in a simple structure, or the contents of an entire hard drive with a complex hierarchical structure. A single digital object MUST link to a single archival component.
+
+**work:** An intellecual entity in a _common form_ that may or may not have accompanying metadata. Works are typically expressed either as a single file, or as a set of common files such as images. While works can have representations in multiple formats, a work can typically be expresed using a single format. 
+
+ A work is essentially a [PCDM Object](https://pcdm.org/2016/04/18/models#Object).
+
+**representation:** an instance of a work. Thus, a work can be represented as a PDF file, a set of JPG files, a TXT file,
 
 **version:** The unique individual object that is uploaded to Hyrax is the version. There can be multiple versions of the same object, but there are enough discrepencies in the content to justify creating another digital object with its own unique identifier, instead of uploading multiple objects to the same ID. File format changes do not qualify as a large enough discrepency. For the preexisting digital objects in our current system, there will be at least one version folder with accompanying metadata. The new system will create another version utilizing the metadata and the new IIIF formats. Both will be saved for historical data and review.
 
@@ -88,35 +95,79 @@ The format folders will be named after the corresponding file extension suchas "
 		├── collection folder/
 		│   ├── NOID/
 		│   │   └── version folder/
-		│   │       ├── format folder/
-		│   │       ├── format folder/
-		│   │       ├── format folder/
-		│   │       ├── content.hocr
+		│   │       ├── representation folder/
+		│   │       ├── representation folder/
+		│   │       ├── representation folder/
+		│   │       ├── representation folder/
 		│   │       ├── content.txt
-		│   │       ├── content.vtt
 		│   │       ├── manifest.json
 		│   │       ├── metadata.yml
 		│   │       └── thumbnail.jpg
 		│   └── NOID/
 		│       └── version folder/
-		│           ├── format folder/
-		│           ├── format folder/
-		│           ├── format folder/
-		│           ├── content.hocr
+		│           ├── representation folder/
+		│           ├── representation folder/
+		│           ├── representation folder/
+		│           ├── representation folder/
 		│           ├── content.txt
-		│           ├── content.vtt
 		│           ├── manifest.json
 		│           ├── metadata.yml
 		│           └── thumbnail.jpg
 		└── collection folder/
 			└── NOID/
 				└── version folder/
-					├── format folder/
-					├── format folder/
-					├── format folder/
-					├── content.hocr
+					├── representation folder/
+					├── representation folder/
+					├── representation folder/
+					├── representation folder/
 					├── content.txt
-					├── content.vtt
+					├── manifest.json
+					├── metadata.yml
+					└── thumbnail.jpg
+
+#### Example Digital Objects
+
+	└── SPE_DAO/ (root)
+		├── apap101/
+		│   ├── nc580m649/
+		│   │   └── v1/
+		│   │       ├── jpg/
+		│   │       ├── tiff/
+		│   │       ├── ocr/
+		│   │       ├── pdf/
+		│   │       ├── txt/
+		│   │       ├── content.txt
+		│   │       ├── manifest.json
+		│   │       ├── metadata.yml
+		│   │       └── thumbnail.jpg
+		│   ├── fx719m44h/
+		│   │   └── v1/
+		│   │       ├── jpg/
+		│   │       ├── ocr/
+		│   │       ├── pdf/
+		│   │       ├── ppt/
+		│   │       ├── tiff/
+		│   │       ├── txt/
+		│   │       ├── content.txt
+		│   │       ├── manifest.json
+		│   │       ├── metadata.yml
+		│   │       └── thumbnail.jpg
+		│   └── tb09j5643/
+		│       └── v1/
+		│           ├── mp3/
+		│           ├── ogg/
+		│           ├── txt/
+		│           ├── vtt/
+		│           ├── manifest.json
+		│           ├── metadata.yml
+		│           └── thumbnail.jpg
+		└── ua500/
+			└── 4j03cz64w/
+				└── v1/
+					├── txt/
+					├── vtt/
+					├── webm/
+					├── content.txt
 					├── manifest.json
 					├── metadata.yml
 					└── thumbnail.jpg
