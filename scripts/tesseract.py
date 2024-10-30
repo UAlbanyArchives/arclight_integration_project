@@ -69,7 +69,7 @@ def run_tesseract(collection_id=None, object_id=None):
                             # Append the contents of the individual .txt file to content.txt
                             with open(txt_output_path + ".txt", "r", encoding="utf-8") as txt_file:
                                 content = txt_file.read()
-                                content_file.write(f"\n\n--- {base_name}.txt ---\n\n")
+                                #content_file.write(f"\n\n--- {base_name}.txt ---\n\n")
                                 content_file.write(content)
 
                         print(f"\tProcessed {filename} to ocr/{base_name}.hocr and txt/{base_name}.txt")

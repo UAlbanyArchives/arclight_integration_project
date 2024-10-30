@@ -109,17 +109,9 @@ Add Collection and object ids to limit to those collections/objects.
 
 ## 6. Extract Text
 
-### Option 1: Extract text from PDFs (fastest)
+### Option 1: Recognize text with tesseract
 
-```
-python extractText.py apap015
-```
-
-This will also run for everything in `SPE_DAO` if you don't give it a collection ID.
-
-### Option 2: Recognize text with tesseract
-
-This creates better structured text, but will take much longer.
+This creates structured text, which we eventially need but will take awhile.
 
 `docker compose up`
 
@@ -128,6 +120,16 @@ In new terminal:
 docker exec -it python1 bash
 python tesseract.py apap042
 ```
+
+### Option 2: Extract text from PDFs (fastest)
+
+```
+python extractText.py apap015
+```
+
+This will either extract existing OCR text within scanned PDFs as a temporary measure, or will extract better text from born-digital PDFs.
+
+For born-digital PDFs, if this is run after tesseract, it will not override the structured HOCR, but will produce better `content.txt` files for indexing.
 
 ### Option 3: Generate Transcript with Whisper
 

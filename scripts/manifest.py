@@ -94,6 +94,42 @@ def create_iiif_canvas(manifest, url_root, obj_url_root, label, resource_type, r
 
         # Add the annotation to the annotation page
         annotation_page.items.append(annotation)
+
+        if resource_type == "Audio":
+            # include both ogg and mp3 audio for broader compatability
+            obj_path = os.path.dirname(os.path.dirname(resource_path))
+            audio_filename, audio_ext = os.path.splitext(os.path.basename(resource_path))
+            ogg_path = os.path.join(obj_path, "ogg")
+            mp3_path = os.path.join(obj_path, "mp3")
+            if audio_ext == ".ogg" and os.path.isdir(mp3_path):
+                audio_url = f"{obj_url_root}/mp3/{urllib.parse.quote(audio_filename)}.mp3"
+                annotation_ogg = Annotation(
+                    id=f"{url_root}/canvas/{page_count}/page/annotation/mp3",
+                    motivation="painting",
+                    body={
+                        "id": audio_url,
+                        "type": "Sound",
+                        "format": "audio/mpeg",
+                        "duration": duration
+                    },
+                    target=f"{url_root}/canvas/p{page_count}"
+                )
+                annotation_page.items.append(annotation_ogg)
+            elif audio_ext == ".mp3" and os.path.isdir(ogg_path):
+                audio_url = f"{obj_url_root}/ogg/{urllib.parse.quote(audio_filename)}.ogg"
+                annotation_mp3 = Annotation(
+                    id=f"{url_root}/canvas/{page_count}/page/annotation/ogg",
+                    motivation="painting",
+                    body={
+                        "id": audio_url,
+                        "type": "Sound",
+                        "format": "audio/ogg",
+                        "duration": duration
+                    },
+                    target=f"{url_root}/canvas/p{page_count}"
+                )
+                annotation_page.items.append(annotation_mp3)
+
         
         # Add the annotation page to the canvas
         canvas.items.append(annotation_page)
@@ -363,8 +399,14 @@ def read_objects(collection_id=None):
                     metadata = yaml.safe_load(yml_file)
                 resource_type = metadata["resource_type"]
                 if resource_type == "Audio":
-                    resource_format = "ogg"
-                    filesPath = os.path.join(objPath, resource_format)
+                    oggPath = os.path.join(objPath, "ogg")
+                    mp3Path = os.path.join(objPath, "mp3")
+                    if os.path.isdir(oggPath) and len(os.listdir(oggPath)) > 0:
+                        resource_format = "ogg"
+                        filesPath = oggPath
+                    elif os.path.isdir(mp3Path) and len(os.listdir(mp3Path)) > 0:
+                        resource_format = "mp3"
+                        filesPath = mp3Path
                 elif resource_type == "Video":
                     resource_format = "webm"
                     filesPath = os.path.join(objPath, resource_format)

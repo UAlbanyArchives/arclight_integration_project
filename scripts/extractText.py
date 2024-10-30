@@ -18,34 +18,43 @@ def extract_text(collection_id=None):
         if os.path.isdir(col_path):
             for obj in os.listdir(col_path):
                 objPath = os.path.join(col_path, obj, "v1")
+                print(f"Reading {obj}...")
                 metadataPath = os.path.join(objPath, "metadata.yml")
 
                 pdfPath = os.path.join(objPath, "pdf")
                 if os.path.isdir(pdfPath):
 
                     pdfCount = 0
-                    for pdf in os.listdir(pdfPath):
-                        pdfFilePath = os.path.join(pdfPath, pdf)
-                        output_path = os.path.join(objPath, "txt")
-                        if not os.path.isdir(output_path):
-                            os.mkdir(output_path)
-                        output_txt_path = os.path.join(output_path, os.path.splitext(pdf)[0] + ".txt")
-                        if os.path.isfile(pdfFilePath) and pdf.lower().endswith(".pdf"):
-                            pdfCount += 1
+                    content_txt_path = os.path.join(objPath, "content.txt")
+                    
+                    with open(content_txt_path, 'w', encoding='utf-8') as content_file:
+                        for pdf in os.listdir(pdfPath):
+                            filename = os.path.splitext(pdf)[0]
+                            pdfFilePath = os.path.join(pdfPath, pdf)
+                            output_path = os.path.join(objPath, "txt")
+                            if not os.path.isdir(output_path):
+                                os.mkdir(output_path)
 
-                            with pymupdf.open(pdfFilePath) as pdf:
-                                with open(output_txt_path, 'w', encoding='utf-8') as txt_file:
+                            if os.path.isfile(pdfFilePath) and pdf.lower().endswith(".pdf"):
+                                pdfCount += 1
+
+                                with pymupdf.open(pdfFilePath) as pdf:
                                     # Loop through each page
                                     for page_num in range(len(pdf)):
                                         page = pdf[page_num]
                                         text = page.get_text()  # Extract the text
 
-                                        # Write the page number and text to the output file
-                                        txt_file.write(f"Page {page_num + 1}\n")
-                                        txt_file.write(text)
-                                        txt_file.write("\n" + "-" * 80 + "\n")  # Separator for pages
+                                        # Save each page to a separate file
+                                        out_file = f"{filename}-{page_num + 1}.txt"
+                                        page_txt_path = os.path.join(output_path, out_file)
+                                        with open(page_txt_path, 'w', encoding='utf-8') as page_file:
+                                            page_file.write(text)
+                                            print(f"\tText extracted and saved to {out_file}")
 
-                                print(f"Text extracted and saved to {output_txt_path}")
+                                        # Append page text to the combined content file
+                                        content_file.write(text)
+
+                    print(f"\tCombined text saved to {content_txt_path}")
 
 
 
