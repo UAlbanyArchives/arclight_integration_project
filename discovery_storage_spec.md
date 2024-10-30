@@ -400,6 +400,12 @@ These fields have strict requirements as they support for automated processes.
 
 **date_published**: (REQUIRED) The date the digital object was first made publicly available. Previously, this field was named date_uploaded. This field MUST be an ISO 8601 compliant date with the "T" separator, such as "2018-12-21T15:30:08+00:00".
 
+**behavior**: (OPTIONAL) Sets the [IIIF behavior](https://iiif.io/api/cookbook/recipe/0011-book-3-behavior/) at the object level. Options:
+	* unordered
+	* individuals
+	* continuous
+	* paged
+
 ### 8.2 Uncontrolled `metadata.yml` fields
 
 `metadata.yml` MAY have any number of metadata fields that are not used for automated purposes, but will be included in the `manifest.json` and later indexed into ArcLight. None of these fields are required and many are present due to legacy systems and practices.
