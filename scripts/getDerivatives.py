@@ -72,7 +72,8 @@ def download_derivatives(collection_id=None):
 
         if os.path.isdir(col_path):
             for obj in os.listdir(col_path):
-                objPath = os.path.join(col_path, obj, "v1")
+                print (f"Checking {obj}...")
+                objPath = os.path.join(col_path, obj)
                 metadataPath = os.path.join(objPath, "metadata.yml")
 
                 if not os.path.exists(metadataPath):

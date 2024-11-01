@@ -20,7 +20,7 @@ def copy_files(collection_id=None):
 
         if os.path.isdir(col_path):
             for obj in os.listdir(col_path):
-                objPath = os.path.join(col_path, obj, "v1")
+                objPath = os.path.join(col_path, obj)
                 metadataPath = os.path.join(objPath, "metadata.yml")
 
                 with open(metadataPath, 'r') as file:

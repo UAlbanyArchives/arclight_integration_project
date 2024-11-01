@@ -1,8 +1,6 @@
 import os
 import sys
 import subprocess
-from utils import get_latest_version
-
 
 if os.name == "nt":
     root = "\\\\Lincoln\\Library\\SPE_DAO"
@@ -20,8 +18,7 @@ def run_tesseract(collection_id=None, object_id=None):
         if object_id and object_id not in obj:
             continue  # Skip this object if it doesn't match
 
-        versionDir = os.path.join(colDir, obj)
-        objDir = os.path.join(versionDir, get_latest_version(versionDir))
+        objDir = os.path.join(colDir, obj)
         jpgDir = os.path.join(objDir, "jpg")
         ocrDir = os.path.join(objDir, "ocr")
         txtDir = os.path.join(objDir, "txt")

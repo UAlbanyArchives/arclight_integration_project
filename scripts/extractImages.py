@@ -21,7 +21,8 @@ def extract_images(collection_id=None, object_id=None):
                 if object_id and object_id not in obj:
                     continue  # Skip this object if it doesn't match
 
-                objPath = os.path.join(col_path, obj, "v1")
+                #print (f"Reading {obj}...")
+                objPath = os.path.join(col_path, obj)
                 metadataPath = os.path.join(objPath, "metadata.yml")
                 pdfPath = os.path.join(objPath, "pdf")
                 if os.path.exists(pdfPath):
@@ -51,8 +52,12 @@ def extract_images(collection_id=None, object_id=None):
                             pdfimagesCmd = ["pdftoppm", filepath, outfile, "-jpeg"]
                             #pdfimagesCmd =["pdfimages", "-all", filepath, outfile]
                             #print (pdfimagesCmd)
-                            pdfimages = Popen(pdfimagesCmd, stdout=PIPE, stderr=PIPE)
-                            stdout, stderr = pdfimages.communicate()
+                            with Popen(pdfimagesCmd, stdout=PIPE, stderr=PIPE, text=True) as process:
+                                for line in process.stdout:
+                                    print(line, end='')
+                                for line in process.stderr:
+                                    print(line, end='')
+                                process.wait()
                             
 
 if __name__ == "__main__":
