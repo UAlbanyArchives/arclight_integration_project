@@ -21,7 +21,7 @@ def convert_images(collection_id=None, object_id=None):
                 if object_id and object_id not in obj:
                     continue  # Skip this object if it doesn't match
                 print (f"Reading {obj}...")
-                objPath = os.path.join(col_path, obj, "v1")
+                objPath = os.path.join(col_path, obj)
                 metadataPath = os.path.join(objPath, "metadata.yml")
                 jpgPath = os.path.join(objPath, "jpg")
                 if not os.path.isdir(jpgPath):

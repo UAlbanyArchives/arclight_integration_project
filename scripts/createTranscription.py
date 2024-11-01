@@ -50,7 +50,7 @@ def transcribe(collection_id=None):
 
         if os.path.isdir(col_path):
             for obj in os.listdir(col_path):
-                obj_path = os.path.join(col_path, obj, "v1")
+                obj_path = os.path.join(col_path, obj)
                 metadata_path = os.path.join(obj_path, "metadata.yml")
                 vtt_output_dir = os.path.join(obj_path, "vtt")
                 txt_output_dir = os.path.join(obj_path, "txt")

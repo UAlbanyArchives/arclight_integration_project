@@ -202,13 +202,13 @@ def create_iiif_manifest(file_dir, url_root, obj_url_root, iiif_url_root, resour
 
     # Set IIIF manifest behavior
     behavior = ["individuals"]
-    if "original_format" in metadata.keys() and metadata["original_format"] == "pdf":
-        behavior = ["paged"]
+    if "behavior" in metadata.keys():
+        behavior = [metadata["behavior"]]
 
     # Set rights and metadata
     attributionStatement = orgText
     rights = None  # Initialize rights
-    if "license" in metadata and metadata['license']:
+    if "license" in metadata and metadata['license'] and metadata['license'].lower().strip() != "unknown":
         rights = metadata["license"]
         if "publicdomain" in rights:
             attributionStatement = f"<span>This object is in the public domain, but you are encouraged to attribute: <br/> {orgText} <br/> <a href=\"{rights}\" title=\"Public Domain\"><img src=\"https://licensebuttons.net/p/88x31.png\"/></a></span>"
@@ -255,7 +255,7 @@ def create_iiif_manifest(file_dir, url_root, obj_url_root, iiif_url_root, resour
         "source",
         "master_format",
         "date_digitized",
-        "date_uploaded"
+        "date_published"
     ]
     manifest.metadata = []
     for key, value in metadata.items():
@@ -348,8 +348,8 @@ def create_iiif_manifest(file_dir, url_root, obj_url_root, iiif_url_root, resour
             "label": "Download Text transcription"
         }
     }
-    original_file = metadata.get("original_file", None)
-    original_format = metadata.get("original_format", None)
+    original_file = metadata.get("original_file_legacy", None)
+    original_format = os.path.splitext(original_file)[1][1:]
     plaintext_switch = False
     for format_ext in alt_rendering_formats.keys():
         rendering_format = os.path.join(os.path.dirname(file_dir), format_ext)
@@ -382,7 +382,7 @@ def create_iiif_manifest(file_dir, url_root, obj_url_root, iiif_url_root, resour
 
     return manifest
 
-def read_objects(collection_id=None):
+def read_objects(collection_id=None, object_id=None):
     for collection in os.listdir(root):
         col_path = os.path.join(root, collection)
 
@@ -392,7 +392,10 @@ def read_objects(collection_id=None):
 
         if os.path.isdir(col_path):
             for obj in os.listdir(col_path):
-                objPath = os.path.join(col_path, obj, "v1")
+                if object_id and object_id not in obj:
+                    continue  # Skip this object if it doesn't match
+
+                objPath = os.path.join(col_path, obj)
                 metadataPath = os.path.join(objPath, "metadata.yml")
                 manifestPath = os.path.join(objPath, "manifest.json")
                 with open(metadataPath, 'r') as yml_file:
@@ -423,8 +426,8 @@ def read_objects(collection_id=None):
 
                     #url_root = f"https://media.archives.albany.edu"
                     url_root = f"http://lib-arcimg-p101.lib.albany.edu"
-                    obj_url_root = f"{url_root}/meta/{collection}/{obj}/v1"
-                    iiif_url_root = f"{url_root}/iiif/3/%2F{collection}%2F{obj}%2Fv1%2F{resource_format}"
+                    obj_url_root = f"{url_root}/meta/{collection}/{obj}"
+                    iiif_url_root = f"{url_root}/iiif/3/%2F{collection}%2F{obj}%2F{resource_format}"
                     manifest_label = f"{metadata['title'].strip()}, {metadata['date_created'].strip()}"
 
                     thumbnail_path = os.path.join(objPath, "thumbnail.jpg")
@@ -461,7 +464,11 @@ def read_objects(collection_id=None):
 
 if __name__ == "__main__":
     # Check for command-line arguments
-    if len(sys.argv) > 1:
+    if len(sys.argv) > 2:
+        collection_id_arg = sys.argv[1]
+        object_id_arg = sys.argv[2]
+        read_objects(collection_id=collection_id_arg, object_id=object_id_arg)
+    elif len(sys.argv) > 1:
         collection_id_arg = sys.argv[1]
         read_objects(collection_id=collection_id_arg)
     else:
