@@ -143,42 +143,7 @@ Each Collection folder may contain any number of Digital Object folders named us
 			└── 4j03cz64w/
 
 
-## 5. Versions
-	
-Digital objects can and will change over time. Any change to a digital object, including content or metadata, MUST result in an additional version folder.
-
-* Version folders MUST begin with a lower case "v" directly followed by a sequential integer.
-* All digital objects MUST contain a `v1` version folder.
-* The number of version folders is not limited, `v10` is valid, as is `v9999`.
-
-The most recent version of a digital object MUST be the largest integer in the version folders once the leading `v`s are removed.
-* `v11` is more recent than `v5`
-	
-The most recent version of a digital object MUST contain all the files for a digital object
-
-Previous versions MUST not contain any files that were unchanged in the next sequential version.
-* This means that all unchanged files MUST be moved to the next version folder during a change. Only the previous version of changed files MUST stay in the previous version folder.
-
-### 5.1 Example with multiple versions
-
-In this example, the `metadata.yml` changed for version 2, and the `thumbnail.jpg` file changed in version 3.
-```
-	└── apap101/
-		└── 1n79hq253/
-			├── v1/
-			│   └── metadata.yml
-			├── v2/
-			│   └── thumbnail.jpg
-			└── v3/
-				├── jpg/
-				├── pdf/
-				├── ocr/
-				├── manifest.json
-				├── metadata.yml
-				└── thumbnail.jpg
-```
-
-## 6. Representation folders
+## 5. Representation folders
 
 Digital objects often contain many different representations of the same content. This could be different file or image versions, or texual representations of files in HOCR, VTT, CSV, or plain text formats.
 
@@ -203,7 +168,7 @@ Representations folders typically have object-level formats with a single file p
 * png
 * txt
 
-### 6.1 Representation folder examples
+### 5.1 Representation folder examples
 
 ```
 	└── SPE_DAO/ (root)
@@ -252,7 +217,7 @@ Representations folders typically have object-level formats with a single file p
 					└── thumbnail.jpg
 ```
 
-### 6.2 Serving priorities
+### 5.2 Serving priorities
 
 * For objects with a `resource_type` of `Audio`, the `manifest.json` will serve OGG files.
 * For objects with a `resource_type` of `Video`, the `manifest.json` will serve WEBM files.
@@ -260,7 +225,7 @@ Representations folders typically have object-level formats with a single file p
 	* tiff (pyramidal)
 	* jpg
 
-### 6.3 Object-level Alternative Renderings
+### 5.3 Object-level Alternative Renderings
 
 These additional formats will be included as [alternative renderings](https://iiif.io/api/cookbook/recipe/0046-rendering/) of the manifest, representing the entire digital object:
 * pdf
@@ -276,17 +241,17 @@ These additional formats will be included as [alternative renderings](https://ii
 * vtt (captions)
 * `content.txt` (text transcriptions)
 
-### 6.4 Canvas-level Alternative Renderings
+### 5.4 Canvas-level Alternative Renderings
 
 For multi-page objects, it is RECOMMENDED to include canvas level alternative renderings for each page.
 * ocr (HOCR XML files)
 * txt
 
-#### 6.4.1 Associations between Canvas-level Alternative Renderings
+#### 5.4.1 Associations between Canvas-level Alternative Renderings
 
 Associated HOCR and TXT file MUST have the same case-sensative filename as the files they represent.
 
-#### 6.4.2 Examples of Associations between Canvas-level Alternative Renderings
+#### 5.4.2 Examples of Associations between Canvas-level Alternative Renderings
 
 ```
 	└── apap101/
@@ -315,7 +280,7 @@ Associated HOCR and TXT file MUST have the same case-sensative filename as the f
 				└── thumbnail.jpg
 ```
 
-## 7. Metadata files
+## 6. Metadata files
 
 The most recent version of a digital objects MUST contain the following files directly within the version directory (`v1`, `v2`, etc.):
 * `metadata.yml`
@@ -323,26 +288,26 @@ The most recent version of a digital objects MUST contain the following files di
 
 *metadata.yml* is a YAML file containing 
 
-### 7.1 Text encoding and line endings
+### 6.1 Text encoding and line endings
 
 All text files within a digital object, such as `metadata.yml`, `content.txt`, `content.hocr`, `content.vtt`, and `manifest.json`, MUST use UTF-8 encoding and MUST use a line feed character (LF or \n) for line endings.
 
-### 7.2 `metadata.yml`
+### 6.2 `metadata.yml`
 
 * `metadata.yml` must be a valid [YAML file](https://yaml.org/spec/1.2.2/).
 
 Fields contained in `metadata.yml` are defined in [5. `metadata.yml` fields](#5.)
 
-### 7.3 `manifest.json`
+### 6.3 `manifest.json`
 
 * `manifest.json` must be a valid JSON file according to [[rfc7159]](https://tools.ietf.org/html/rfc7159).
 * `manifest.json` must be a valid IIIF manifest according to the [IIIF Presentation API 3.0](https://iiif.io/api/presentation/3.0/)
 
-### 7.4 `content.txt`
+### 6.4 `content.txt`
 
 Content files contain text that can be indexed into Solr for discovery. It is RECOMMENDED to use structured formats such as HOCR or VTT to support IIIF annotations and captioning, but an unstructured `content.txt` file is also permitted for legacy digital objects.
 
-## 8. Full-Text Indexing Prioritization
+## 7. Full-Text Indexing Prioritization
 
 All digital objects will be indexed into ArcLight's Solr core for full-text discovery. This is the order of prioritization:
 
