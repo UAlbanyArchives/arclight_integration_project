@@ -56,7 +56,6 @@ The following terms have precise definitions as used in this document:
 Each archival collection managed by UAlbany Libraries MUST have a collection identifier that is unique within Special Collections & Archives.
 
 Each collection identifier must start with a two to four character prefix from this set: "apap", "ger", "mss", or "ua".
-
 * Prefixes MUST be lower case.
 * This prefix denoting the relevant collecting area. Collections within the Modern Political Archive, as well as the National Death Penalty Archive use the legacy "apap" code.
 
