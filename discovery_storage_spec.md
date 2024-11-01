@@ -41,7 +41,7 @@ The following terms have precise definitions as used in this document:
 
 **work:** An intellecual entity in a _common form_ that may or may not have accompanying metadata. Works are typically expressed either as a single file, or as a set of common files such as images. While works can have representations in multiple formats, a work is typically be expressed using a single format, like a set of JPGs, and typically cannot be a set of multiple different formats. A work is essentially a [PCDM Object](https://pcdm.org/2016/04/18/models#Object).
 
-**representation:** an instance of a work. Thus, a work can be represented as a PDF file, a set of JPG files, a TXT file,
+**representation:** an instance of a work. Thus, a work can be represented as a PDF file, a set of JPG files, a TXT file. In the event that there are multiple, different file types for an archival object, a distinction between representation and version needs to be made. This distinction should be made based on the content of the object. If significant content changes exist between the two files, they should be considered two digital objects, linked to the same archival object. But if the only distinction is file type, and the content remains the same, both files should be added to the same digital object, which is linked to one archival object. Transcripts of a video and the video file do not constitute a difference in content and should be linked to the same digital object, as should a video and its thumbnail. If, for instance, a record includes a video package (i.e. branding elements, the video file, the transcript), all elements should be linked to the same digital object as all elements combined create a singular representation.
 
 **version:** The unique individual object that is uploaded to Hyrax is the version. There can be multiple versions of the same object, but there are enough discrepencies in the content to justify creating another digital object with its own unique identifier, instead of uploading multiple objects to the same ID. File format changes do not qualify as a large enough discrepency. For the preexisting digital objects in our current system, there will be at least one version folder with accompanying metadata. The new system will create another version utilizing the metadata and the new IIIF formats. Both will be saved for historical data and review.
 
@@ -56,27 +56,28 @@ The following terms have precise definitions as used in this document:
 Each archival collection managed by UAlbany Libraries MUST have a collection identifier that is unique within Special Collections & Archives.
 
 Each collection identifier must start with a two to four character prefix from this set: "apap", "ger", "mss", or "ua".
+
 	* Prefixes MUST be lower case.
 	* This prefix denoting the relevant collecting area. Collections within the Modern Political Archive, as well as the National Death Penalty Archive use the legacy "apap" code.
 
 Each collection identifier MUST have a three digit sequential number directly following the prefix. University Archives collections starting with the `ua` prefix MAY also have a period (`.`) and a second three digit sequential number.
 
 ### 2.1 Valid Collection identifier Examples
-	* apap127
-	* ger017
-	* mss005
-	* ua500
-	* ua600.001
-	* ua902.010
+* apap127
+* ger017
+* mss005
+* ua500
+* ua600.001
+* ua902.010
 
 ### 2.2 Invalid Collection identifier Examples
-	* APAP808
-	* ger-117
-	* Ger044
-	* apap100.004
-	* mss_105
-	* apap 100
-	* apap50
+* APAP808
+* ger-117
+* Ger044
+* apap100.004
+* mss_105
+* apap 100
+* apap50
 
 ## 3. Digital object identifiers
 
@@ -97,36 +98,33 @@ Each Collection folder may contain any number of Digital Object folders named us
 	└── SPE_DAO/ (root)
 		├── collection folder/
 		│   ├── NOID/
-		│   │   └── version folder/
-		│   │       ├── representation folder/
-		│   │       ├── representation folder/
-		│   │       ├── representation folder/
-		│   │       ├── representation folder/
-		│   │       ├── content.txt
-		│   │       ├── manifest.json
-		│   │       ├── metadata.yml
-		│   │       └── thumbnail.jpg
+		│   │	├── representation folder/
+		│   │	├── representation folder/
+		│   │	├── representation folder/
+		│   │	├── representation folder/
+		│   │	├── content.txt
+		│   │	├── manifest.json
+		│   │	├── metadata.yml
+		│   │	└── thumbnail.jpg
 		│   └── NOID/
-		│       └── version folder/
-		│           ├── representation folder/
-		│           ├── representation folder/
-		│           ├── representation folder/
-		│           ├── representation folder/
-		│           ├── content.txt
-		│           ├── manifest.json
-		│           ├── metadata.yml
-		│           └── thumbnail.jpg
+		│		├── representation folder/
+		│		├── representation folder/
+		│		├── representation folder/
+		│		├── representation folder/
+		│		├── content.txt
+		│		├── manifest.json
+		│		├── metadata.yml
+		│		└── thumbnail.jpg
 		└── collection folder/
 			└── NOID/
-				└── version folder/
-					├── representation folder/
-					├── representation folder/
-					├── representation folder/
-					├── representation folder/
-					├── content.txt
-					├── manifest.json
-					├── metadata.yml
-					└── thumbnail.jpg
+				├── representation folder/
+				├── representation folder/
+				├── representation folder/
+				├── representation folder/
+				├── content.txt
+				├── manifest.json
+				├── metadata.yml
+				└── thumbnail.jpg
 
 ### 4.2 Example Collection and Digital Object folders
 
@@ -174,47 +172,43 @@ Representations folders typically have object-level formats with a single file p
 	└── SPE_DAO/ (root)
 		├── apap101/
 		│   ├── nc580m649/
-		│   │   └── v1/
-		│   │       ├── jpg/
-		│   │       ├── tiff/
-		│   │       ├── ocr/
-		│   │       ├── pdf/
-		│   │       ├── txt/
-		│   │       ├── content.txt
-		│   │       ├── manifest.json
-		│   │       ├── metadata.yml
-		│   │       └── thumbnail.jpg
+		│   │	├── jpg/
+		│   │	├── tiff/
+		│   │	├── ocr/
+		│   │	├── pdf/
+		│   │	├── txt/
+		│   │	├── content.txt
+		│   │	├── manifest.json
+		│   │	├── metadata.yml
+		│   │	└── thumbnail.jpg
 		│   ├── fx719m44h/
-		│   │   └── v1/
-		│   │       ├── jpg/
-		│   │       ├── ocr/
-		│   │       ├── pdf/
-		│   │       ├── ppt/
-		│   │       ├── tiff/
-		│   │       ├── txt/
-		│   │       ├── content.txt
-		│   │       ├── manifest.json
-		│   │       ├── metadata.yml
-		│   │       └── thumbnail.jpg
+		│   │	├── jpg/
+		│   │	├── ocr/
+		│   │	├── pdf/
+		│   │	├── ppt/
+		│   │	├── tiff/
+		│   │	├── txt/
+		│   │	├── content.txt
+		│   │	├── manifest.json
+		│   │	├── metadata.yml
+		│   │	└── thumbnail.jpg
 		│   └── tb09j5643/
-		│       └── v1/
-		│           ├── mp3/
-		│           ├── ogg/
-		│           ├── txt/
-		│           ├── vtt/
-		│           ├── manifest.json
-		│           ├── metadata.yml
-		│           └── thumbnail.jpg
+		│		├── mp3/
+		│		├── ogg/
+		│		├── txt/
+		│		├── vtt/
+		│		├── manifest.json
+		│		├── metadata.yml
+		│		└── thumbnail.jpg
 		└── ua500/
 			└── 4j03cz64w/
-				└── v1/
-					├── txt/
-					├── vtt/
-					├── webm/
-					├── content.txt
-					├── manifest.json
-					├── metadata.yml
-					└── thumbnail.jpg
+				├── txt/
+				├── vtt/
+				├── webm/
+				├── content.txt
+				├── manifest.json
+				├── metadata.yml
+				└── thumbnail.jpg
 ```
 
 ### 5.2 Serving priorities
@@ -243,7 +237,7 @@ These additional formats will be included as [alternative renderings](https://ii
 
 ### 5.4 Canvas-level Alternative Renderings
 
-For multi-page objects, it is RECOMMENDED to include canvas level alternative renderings for each page.
+For multi-page objects, it is also RECOMMENDED to include canvas level alternative renderings for each page.
 * ocr (HOCR XML files)
 * txt
 
@@ -256,37 +250,38 @@ Associated HOCR and TXT file MUST have the same case-sensative filename as the f
 ```
 	└── apap101/
 		└── 1n79hq253/
-			└── v1/
-				├── jpg/
-				│	├── page1.jpg
-				│	├── page2.jpg
-				│	└── page3.jpg
-				├── pdf/
-				│	└── document.pdf
-				├── ocr/
-				│	├── page1.hocr
-				│	├── page2.hocr
-				│	└── page3.hocr
-				├── tiff/
-				│	├── page1.tiff
-				│	├── page2.tiff
-				│	└── page3.tiff
-				├── txt/
-				│	├── page1.txt
-				│	├── page2.txt
-				│	└── page3.txt
-				├── manifest.json
-				├── metadata.yml
-				└── thumbnail.jpg
+			├── jpg/
+			│	├── page1.jpg
+			│	├── page2.jpg
+			│	└── page3.jpg
+			├── pdf/
+			│	└── document.pdf
+			├── ocr/
+			│	├── page1.hocr
+			│	├── page2.hocr
+			│	└── page3.hocr
+			├── tiff/
+			│	├── page1.tiff
+			│	├── page2.tiff
+			│	└── page3.tiff
+			├── txt/
+			│	├── page1.txt
+			│	├── page2.txt
+			│	└── page3.txt
+			├── manifest.json
+			├── metadata.yml
+			└── thumbnail.jpg
 ```
 
 ## 6. Metadata files
 
-The most recent version of a digital objects MUST contain the following files directly within the version directory (`v1`, `v2`, etc.):
+The most recent version of a digital objects MUST contain the following files directly within the object directory:
 * `metadata.yml`
 * `manifest.json`
 
-*metadata.yml* is a YAML file containing 
+*metadata.yml* is a YAML file containing digital object level metadata.
+
+*manifest.json* is valid [IIIF v3 Presentation API manifest](https://iiif.io/api/presentation/3.0/).
 
 ### 6.1 Text encoding and line endings
 
@@ -311,9 +306,9 @@ Content files contain text that can be indexed into Solr for discovery. It is RE
 
 All digital objects will be indexed into ArcLight's Solr core for full-text discovery. This is the order of prioritization:
 
-	1. The `context.txt` file if it is present within a digital object folder.
-	2. A single file within a `txt` representation folder. This will be skipped if there is multiple per-canvas files.
-	3. All the text from HOCR files within a `ocr` representation folder.
+1. The `context.txt` file if it is present within a digital object folder.
+2. A single file within a `txt` representation folder. This will be skipped if there is multiple per-canvas files.
+3. All the text from HOCR files within a `ocr` representation folder.
 
 ## 8. `metadata.yml` fields
 
@@ -332,26 +327,29 @@ These fields have strict requirements as they support for automated processes.
 **preservation_package**: (REQUIRED) Identifier for the preservation package that includes the presevation files used for the digital object. This field was previously named "accession".
 
 **resource_type**: (REQUIRED) The form of the digital object. Value MUST be one of the following set:
-	* Audio
-	* Bound Volume
-	* Dataset
-	* Document
-	* Image
-	* Map
-	* Mixed Materials (Avoid)
-	* Pamphlet
-	* Periodical
-	* Slides
-	* Video
-	* Other (Avoid)
+
+* Audio
+* Bound Volume
+* Dataset
+* Document
+* Image
+* Map
+* Mixed Materials (Avoid)
+* Pamphlet
+* Periodical
+* Slides
+* Video
+* Other (Avoid)
 
 **license**: (REQUIRED) Licensing and distribution information governing access to the digital object. This field MUST be the canonical URL for a Creative Commons license or "Unknown". If "Unknown" is used, a valid rights_statement field is REQUIRED. Examples:
-	* https://creativecommons.org/licenses/by-nc-nd/4.0/
-	* https://creativecommons.org/publicdomain/zero/1.0/
-	* Unknown
+
+* https://creativecommons.org/licenses/by-nc-nd/4.0/
+* https://creativecommons.org/publicdomain/zero/1.0/
+* Unknown
 
 **rights_statement**: (OPTIONAL) This field is REQUIRED when the value for license is "Unknown." Known copyright status of the digital object. If used this field MUST be the canonical URL for a [RightsStatements.org](https://rightsstatements.org). Examples:
-	* https://rightsstatements.org/page/InC-EDU/1.0/
+
+* https://rightsstatements.org/page/InC-EDU/1.0/
 
 **original_file**: (OPTIONAL) This field is REQUIRED for born-digital files. Name of original file that was created and used.
 
@@ -360,16 +358,18 @@ These fields have strict requirements as they support for automated processes.
 **original_file_legacy**: (OPTIONAL) Name of original file for a born-digital file. In legacy use, this field denotes the file that was uploaded to Hyrax for both digitized and born-digital objects. For example, this was often the name of a PDF created after the digitization of a physical object and may not be meaningful. This field is deprecated and will be replaced by original_file and original_format post-Hyrax.
 
 **visibility**: (REQUIRED) Denotes whether a digital object will be read and indexed into ArcLight. MUST be one of the following values:
-	* open
-	* closed
+
+* open
+* closed
 
 **date_published**: (REQUIRED) The date the digital object was first made publicly available. Previously, this field was named date_uploaded. This field MUST be an ISO 8601 compliant date with the "T" separator, such as "2018-12-21T15:30:08+00:00".
 
 **behavior**: (OPTIONAL) Sets the [IIIF behavior](https://iiif.io/api/cookbook/recipe/0011-book-3-behavior/) at the object level. Options:
-	* unordered
-	* individuals
-	* continuous
-	* paged
+
+* unordered
+* individuals
+* continuous
+* paged
 
 ### 8.2 Uncontrolled `metadata.yml` fields
 
@@ -402,46 +402,40 @@ These fields have strict requirements as they support for automated processes.
 ```
 	├── apap138/
 	│   ├── 6w924x89w/
-	│   │   └── v1/
-	│   │       ├── mp3/
-	│   │       ├── ogg/
-	│   │       ├── vtt/
-	│   │       ├── content.txt
-	│   │       ├── manifest.json
-	│   │       └── metadata.yml
+	│   │	├── mp3/
+	│   │	├── ogg/
+	│   │	├── vtt/
+	│   │	├── content.txt
+	│   │	├── manifest.json
+	│   │	└── metadata.yml
 	│   └── 84f1tH58w/
-	│       └── v1/
-	│           ├── webm/
-	│           ├── vtt/
-	│           ├── content.txt
-	│           ├── manifest.json
-	│           └── metadata.yml
+	│		├── webm/
+	│		├── vtt/
+	│		├── content.txt
+	│		├── manifest.json
+	│		└── metadata.yml
 	├── ua200/
 	│	└── 3n208fj07j/
-	│		└── v1/
-	│			├── jpg/
-	│			├── ocr/
-	│			├── pdf/
-	│			├── pptx/
-	│			├── tiff/
-	│			├── content.txt
-	│			├── manifest.json
-	│			├── metadata.yml
-	│			└── thumbnail.jpg
+	│		├── jpg/
+	│		├── ocr/
+	│		├── pdf/
+	│		├── pptx/
+	│		├── tiff/
+	│		├── content.txt
+	│		├── manifest.json
+	│		├── metadata.yml
+	│		└── thumbnail.jpg
 	└── ua807/
 		└── 5t34t462n/
-			└── v1/
-				├── jpg/
-				├── pdf/
-				├── tiff/
-				├── content.txt
-				├── manifest.json
-				├── metadata.yml
-				└── thumbnail.jpg
+			├── jpg/
+			├── pdf/
+			├── tiff/
+			├── content.txt
+			├── manifest.json
+			├── metadata.yml
+			└── thumbnail.jpg
 ```
 
-### 10.2 Edge Cases
-In the event that there are multiple, different file types for an archival object, a distinction between representation and version needs to be made. This distinction should be made based on the content of the object. If significant content changes exist between the two files, they should be considered two digital objects, linked to the same archival object. But if the only distinction is file type, and the content remains the same, both files should be added to the same digital object, which is linked to one archival object. Transcripts of a video and the video file do not constitute a difference in content and should be linked to the same digital object, as should a video and its thumbnail. If, for instance, a record includes a video package (i.e. branding elements, the video file, the transcript), all elements should be linked to the same digital object as all elements combined create a singular representation.  
 
 
 ## References
