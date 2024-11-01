@@ -326,7 +326,6 @@ These fields have strict requirements as they support for automated processes.
 **preservation_package**: (REQUIRED) Identifier for the preservation package that includes the presevation files used for the digital object. This field was previously named "accession".
 
 **resource_type**: (REQUIRED) The form of the digital object. Value MUST be one of the following set:
-
 * Audio
 * Bound Volume
 * Dataset
@@ -341,13 +340,11 @@ These fields have strict requirements as they support for automated processes.
 * Other (Avoid)
 
 **license**: (REQUIRED) Licensing and distribution information governing access to the digital object. This field MUST be the canonical URL for a Creative Commons license or "Unknown". If "Unknown" is used, a valid rights_statement field is REQUIRED. Examples:
-
 * https://creativecommons.org/licenses/by-nc-nd/4.0/
 * https://creativecommons.org/publicdomain/zero/1.0/
 * Unknown
 
 **rights_statement**: (OPTIONAL) This field is REQUIRED when the value for license is "Unknown." Known copyright status of the digital object. If used this field MUST be the canonical URL for a [RightsStatements.org](https://rightsstatements.org). Examples:
-
 * https://rightsstatements.org/page/InC-EDU/1.0/
 
 **original_file**: (OPTIONAL) This field is REQUIRED for born-digital files. Name of original file that was created and used.
@@ -357,14 +354,12 @@ These fields have strict requirements as they support for automated processes.
 **original_file_legacy**: (OPTIONAL) Name of original file for a born-digital file. In legacy use, this field denotes the file that was uploaded to Hyrax for both digitized and born-digital objects. For example, this was often the name of a PDF created after the digitization of a physical object and may not be meaningful. This field is deprecated and will be replaced by original_file and original_format post-Hyrax.
 
 **visibility**: (REQUIRED) Denotes whether a digital object will be read and indexed into ArcLight. MUST be one of the following values:
-
 * open
 * closed
 
 **date_published**: (REQUIRED) The date the digital object was first made publicly available. Previously, this field was named date_uploaded. This field MUST be an ISO 8601 compliant date with the "T" separator, such as "2018-12-21T15:30:08+00:00".
 
 **behavior**: (OPTIONAL) Sets the [IIIF behavior](https://iiif.io/api/cookbook/recipe/0011-book-3-behavior/) at the object level. Options:
-
 * unordered
 * individuals
 * continuous
