@@ -315,13 +315,20 @@ All digital objects will be indexed into ArcLight's Solr core for full-text disc
 
 These fields have strict requirements as they support for automated processes.
 
-**identifier**: (REQUIRED) The NOID for the object. This value MUST match the digital object folder name.
-
 **archivesspace_record**: (REQUIRED) The identifier number for the archival record that the digital object is linked to.
 
 **collection_number**: (REQUIRED) Collection identifier number of digital object. This value MUST match the collection folder for the digital object.
 
 **coverage**: (REQUIRED) Determines if the digital object is the only file that represents the archival object (the whole) or if it is one component of multiple (a part) that make up the archival object. This value is used in ArcLight to determine if the digital object is fully representative of the archival component.
+
+**date_published**: (REQUIRED) The date the digital object was first made publicly available. Previously, this field was named date_uploaded. This field MUST be an ISO 8601 compliant date with the "T" separator, such as "2018-12-21T15:30:08+00:00".
+
+**identifier**: (REQUIRED) The NOID for the object. This value MUST match the digital object folder name.
+
+**license**: (REQUIRED) Licensing and distribution information governing access to the digital object. This field MUST be the canonical URL for a Creative Commons license or "Unknown". If "Unknown" is used, a valid rights_statement field is REQUIRED. Examples:
+* https://creativecommons.org/licenses/by-nc-nd/4.0/
+* https://creativecommons.org/publicdomain/zero/1.0/
+* Unknown
 
 **preservation_package**: (REQUIRED) Identifier for the preservation package that includes the presevation files used for the digital object. This field was previously named "accession".
 
@@ -338,26 +345,10 @@ These fields have strict requirements as they support for automated processes.
 * Slides
 * Video
 * Other (Avoid)
-
-**license**: (REQUIRED) Licensing and distribution information governing access to the digital object. This field MUST be the canonical URL for a Creative Commons license or "Unknown". If "Unknown" is used, a valid rights_statement field is REQUIRED. Examples:
-* https://creativecommons.org/licenses/by-nc-nd/4.0/
-* https://creativecommons.org/publicdomain/zero/1.0/
-* Unknown
-
-**rights_statement**: (OPTIONAL) This field is REQUIRED when the value for license is "Unknown." Known copyright status of the digital object. If used this field MUST be the canonical URL for a [RightsStatements.org](https://rightsstatements.org). Examples:
-* https://rightsstatements.org/page/InC-EDU/1.0/
-
-**original_file**: (OPTIONAL) This field is REQUIRED for born-digital files. Name of original file that was created and used.
-
-**original_format**: (OPTIONAL) Format (Doc, Png, Jpg, Ppt etc.) of the file before it was uploaded to Hyrax
-
-**original_file_legacy**: (OPTIONAL) Name of original file for a born-digital file. In legacy use, this field denotes the file that was uploaded to Hyrax for both digitized and born-digital objects. For example, this was often the name of a PDF created after the digitization of a physical object and may not be meaningful. This field is deprecated and will be replaced by original_file and original_format post-Hyrax.
-
+ 
 **visibility**: (REQUIRED) Denotes whether a digital object will be read and indexed into ArcLight. MUST be one of the following values:
 * open
 * closed
-
-**date_published**: (REQUIRED) The date the digital object was first made publicly available. Previously, this field was named date_uploaded. This field MUST be an ISO 8601 compliant date with the "T" separator, such as "2018-12-21T15:30:08+00:00".
 
 **behavior**: (OPTIONAL) Sets the [IIIF behavior](https://iiif.io/api/cookbook/recipe/0011-book-3-behavior/) at the object level. Options:
 * unordered
@@ -365,6 +356,15 @@ These fields have strict requirements as they support for automated processes.
 * continuous
 * paged
 
+**original_file**: (OPTIONAL) This field is REQUIRED for born-digital files. Name of original file that was created and used.
+
+**original_file_legacy**: (OPTIONAL) Name of original file for a born-digital file. In legacy use, this field denotes the file that was uploaded to Hyrax for both digitized and born-digital objects. For example, this was often the name of a PDF created after the digitization of a physical object and may not be meaningful. This field is deprecated and will be replaced by original_file and original_format post-Hyrax.
+
+**original_format**: (OPTIONAL) Format (Doc, Png, Jpg, Ppt etc.) of the file before it was uploaded to Hyrax
+
+**rights_statement**: (OPTIONAL) This field is REQUIRED when the value for license is "Unknown." Known copyright status of the digital object. If used this field MUST be the canonical URL for a [RightsStatements.org](https://rightsstatements.org). Examples:
+* https://rightsstatements.org/page/InC-EDU/1.0/
+  
 ### 8.2 Uncontrolled `metadata.yml` fields
 
 `metadata.yml` MAY have any number of metadata fields that are not used for automated purposes, but will be included in the `manifest.json` and later indexed into ArcLight. None of these fields are required and many are present due to legacy systems and practices.
@@ -381,7 +381,7 @@ These fields have strict requirements as they support for automated processes.
 
 **contributor**: Name of user that aided in the description of the digital object.
 
-**description**: IF the digital object is an image, the description provides additional searchable content as well as a depiction for accessibility purposes (i.e. if an user 
+**description**: IF the digital object is an image, the description provides additional searchable content as well as a depiction for accessibility purposes (i.e. utilizes a screen reader).  
 
 **processing_activity**: Details on how digital objects were processed or a link to the location of processing documentation.
 
