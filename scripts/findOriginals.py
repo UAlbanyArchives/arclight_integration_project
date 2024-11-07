@@ -23,17 +23,17 @@ def find_originals(collection_id=None, object_id=None):
                 if object_id and object_id not in obj:
                     continue  # Skip this object if it doesn't match
 
-                objPath = os.path.join(col_path, obj, "v1")
+                objPath = os.path.join(col_path, obj)
                 metadataPath = os.path.join(objPath, "metadata.yml")
                 pdfPath = os.path.join(objPath, "pdf")
                 if os.path.isdir(pdfPath):
                     with open(metadataPath, 'r') as file:
                         metadata = yaml.safe_load(file)
-                    accession_package = metadata["accession"]
-                    accession_path = os.path.join(storage, col, accession_package)
+                    preservation_package = metadata["preservation_package"]
+                    preservation_path = os.path.join(storage, col, preservation_package)
 
-                    if not os.path.isdir(accession_path):
-                        raise Exception(f"ERROR: accession package not found {accession_path}")
+                    if not os.path.isdir(preservation_path):
+                        raise Exception(f"ERROR: accession package not found {preservation_path}")
 
                     for pdf in os.listdir(pdfPath):
                         pdfFile = os.path.join(pdfPath, pdf)
@@ -42,7 +42,7 @@ def find_originals(collection_id=None, object_id=None):
                             print (f"Looking for {pdf}...")
 
                             matches = []
-                            for rootDir, dirs, files in os.walk(accession_path):
+                            for rootDir, dirs, files in os.walk(preservation_path):
                                 for folder in dirs:
                                     if folder == filename:
                                         matches.append(os.path.join(rootDir, folder))
