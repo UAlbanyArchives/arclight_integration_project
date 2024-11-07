@@ -35,7 +35,7 @@ def create_iiif_canvas(manifest, url_root, obj_url_root, label, resource_type, r
     
     if resource_type == "Image":
         # Handle image resources
-        canvas = manifest.make_canvas(id=f"{url_root}/canvas/p{page_count}", label=label, height=height, width=width)
+        canvas = manifest.make_canvas(id=f"{obj_url_root}/canvas/p{page_count}", label=label, height=height, width=width)
         service = [
                   {
                     "id": kwargs["image_url"],
@@ -48,8 +48,8 @@ def create_iiif_canvas(manifest, url_root, obj_url_root, label, resource_type, r
         else:
             image_mime = "image/jpeg"
         canvas.add_image(image_url=kwargs["image_url"] + "/full/max/0/default.jpg",
-                         anno_page_id=f"{url_root}/page/p{page_count}/{page_count}",
-                         anno_id=f"{url_root}/annotation/{kwargs['filename']}",
+                         anno_page_id=f"{obj_url_root}/page/p{page_count}/{page_count}",
+                         anno_id=f"{obj_url_root}/annotation/{kwargs['filename']}",
                          format=image_mime,
                          height=height,
                          width=width,
@@ -72,15 +72,15 @@ def create_iiif_canvas(manifest, url_root, obj_url_root, label, resource_type, r
         duration, mimetype, video_width, video_height = get_media_info(resource_path)
     
         # Create canvas for audio or video (height/width for video only)
-        canvas = manifest.make_canvas(id=f"{url_root}/canvas/p{page_count}", label=label)
+        canvas = manifest.make_canvas(id=f"{obj_url_root}/canvas/p{page_count}", label=label)
         canvas.duration = duration
 
         # Create the AnnotationPage
-        anno_page_id = f"{url_root}/canvas/page/p{page_count}{page_count}"
+        anno_page_id = f"{obj_url_root}/canvas/page/p{page_count}{page_count}"
         annotation_page = AnnotationPage(id=anno_page_id)
 
         # Create media annotation with painting motivation
-        annotation = Annotation(id=f"{url_root}/canvas/{page_count}/page/annotation",
+        annotation = Annotation(id=f"{obj_url_root}/canvas/{page_count}/page/annotation",
                                 motivation="painting",
                                 body={
                                     "id": kwargs["media_url"],
@@ -90,7 +90,7 @@ def create_iiif_canvas(manifest, url_root, obj_url_root, label, resource_type, r
                                     "width": video_width,
                                     "height": video_height 
                                 },
-                                target=f"{url_root}/canvas/p{page_count}")  # Target the canvas ID
+                                target=f"{obj_url_root}/canvas/p{page_count}")  # Target the canvas ID
 
         # Add the annotation to the annotation page
         annotation_page.items.append(annotation)
@@ -104,7 +104,7 @@ def create_iiif_canvas(manifest, url_root, obj_url_root, label, resource_type, r
             if audio_ext == ".ogg" and os.path.isdir(mp3_path):
                 audio_url = f"{obj_url_root}/mp3/{urllib.parse.quote(audio_filename)}.mp3"
                 annotation_ogg = Annotation(
-                    id=f"{url_root}/canvas/{page_count}/page/annotation/mp3",
+                    id=f"{obj_url_root}/canvas/{page_count}/page/annotation/mp3",
                     motivation="painting",
                     body={
                         "id": audio_url,
@@ -118,7 +118,7 @@ def create_iiif_canvas(manifest, url_root, obj_url_root, label, resource_type, r
             elif audio_ext == ".mp3" and os.path.isdir(ogg_path):
                 audio_url = f"{obj_url_root}/ogg/{urllib.parse.quote(audio_filename)}.ogg"
                 annotation_mp3 = Annotation(
-                    id=f"{url_root}/canvas/{page_count}/page/annotation/ogg",
+                    id=f"{obj_url_root}/canvas/{page_count}/page/annotation/ogg",
                     motivation="painting",
                     body={
                         "id": audio_url,
@@ -126,7 +126,7 @@ def create_iiif_canvas(manifest, url_root, obj_url_root, label, resource_type, r
                         "format": "audio/ogg",
                         "duration": duration
                     },
-                    target=f"{url_root}/canvas/p{page_count}"
+                    target=f"{obj_url_root}/canvas/p{page_count}"
                 )
                 annotation_page.items.append(annotation_mp3)
 
@@ -157,11 +157,11 @@ def create_iiif_canvas(manifest, url_root, obj_url_root, label, resource_type, r
     # Add supplementing annotations for VTT files
     if supplementing_annotations:
         canvas.annotations = [{
-            "id": f"{url_root}/canvas/{page_count}/supplementing",
+            "id": f"{obj_url_root}/canvas/{page_count}/supplementing",
             "type": "AnnotationPage",
             "items": [
                 {
-                    "id": f"{url_root}/canvas/{page_count}/annotation",
+                    "id": f"{obj_url_root}/canvas/{page_count}/annotation",
                     "type": "Annotation",
                     "motivation": "supplementing",
                     "body": supplementing_annotations,
