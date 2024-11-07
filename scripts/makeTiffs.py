@@ -25,6 +25,9 @@ def convert_images(collection_id=None, object_id=None):
                 metadataPath = os.path.join(objPath, "metadata.yml")
                 jpgPath = os.path.join(objPath, "jpg")
                 if not os.path.isdir(jpgPath):
+                    # Try pngs?
+                    jpgPath = os.path.join(objPath, "png")
+                if not os.path.isdir(jpgPath):
                     # Try tiffs?
                     jpgPath = os.path.join(objPath, "tif")
                 if not os.path.isdir(jpgPath):

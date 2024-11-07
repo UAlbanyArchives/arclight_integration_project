@@ -13,7 +13,6 @@ def run_tesseract(collection_id=None, object_id=None):
     if not os.path.isdir(colDir):
         raise Exception(f"ERROR: {colDir} does not exist.")
 
-    # Loop through each .jpg file in the input directory
     for obj in os.listdir(colDir):
         if object_id and object_id not in obj:
             continue  # Skip this object if it doesn't match
@@ -35,6 +34,9 @@ def run_tesseract(collection_id=None, object_id=None):
             # Try tiffs?
             jpgDir = os.path.join(objDir, "tif")
         if not os.path.isdir(jpgDir):
+            # Try pngs?
+            jpgDir = os.path.join(objDir, "png")
+        if not os.path.isdir(jpgDir):
             print (f"ERROR: Could not find jpg or tif folder in {objDir}.")
         else:
             # Create a content.txt file that will aggregate all text files
@@ -42,7 +44,7 @@ def run_tesseract(collection_id=None, object_id=None):
             with open(content_file_path, "w", encoding="utf-8") as content_file:
 
                 for filename in os.listdir(jpgDir):
-                    if filename.endswith('.jpg') or filename.endswith('.tif'):
+                    if filename.endswith('.jpg') or filename.endswith('.tif') or filename.endswith('.png'):
                         # Remove the .jpg or .tif extension to get the base name
                         base_name = os.path.splitext(filename)[0]
                         

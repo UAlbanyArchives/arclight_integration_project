@@ -58,14 +58,14 @@ def create_iiif_canvas(manifest, url_root, obj_url_root, label, resource_type, r
         # Check for HOCR file for the image
         hocr_file = os.path.join(os.path.dirname(os.path.dirname(resource_path)), "ocr", f"{os.path.splitext(os.path.basename(resource_path))[0]}.hocr")
         if os.path.exists(hocr_file):
-            seeAlso = {
+            canvas_rendering = {
                 "id": f"{obj_url_root}/ocr/{urllib.parse.quote(os.path.basename(hocr_file))}",
                 "label": "HOCR data (OCR)",
                 "type": "Text",
                 "format": "text/vnd.hocr+html",
                 "profile": "http://kba.cloud/hocr-spec/1.2/"
             }
-            canvas.seeAlso = [seeAlso]
+            canvas.rendering = [canvas_rendering]
 
     else:
         # Use ffprobe to get duration and format for audio/video
