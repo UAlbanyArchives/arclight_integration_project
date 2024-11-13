@@ -27,6 +27,8 @@ def download_thumbnails(collection_id=None):
                     print(f"Metadata file not found: {metadataPath}")
                     continue
 
+                print(f"Loading thumbnail for {objPath}...")
+
                 with open(metadataPath, 'r') as file:
                     metadata = yaml.safe_load(file)
 
@@ -41,7 +43,7 @@ def download_thumbnails(collection_id=None):
                     if response.status_code == 200:
                         with open(os.path.join(objPath, 'thumbnail.jpg'), 'wb') as img_file:
                             img_file.write(response.content)
-                            print(f"Thumbnail downloaded and saved as thumbnail.jpg in {objPath}")
+                            #print(f"Thumbnail downloaded and saved as thumbnail.jpg in {objPath}")
                     else:
                         print(f"Failed to download image for {objPath}. Status code: {response.status_code}")
                 else:

@@ -424,11 +424,11 @@ def read_objects(collection_id=None, object_id=None):
                 if os.path.isdir(filesPath):
                     print(f"{collection}/{obj}")
 
-                    #url_root = f"https://media.archives.albany.edu"
-                    url_root = f"http://lib-arcimg-p101.lib.albany.edu"
-                    obj_url_root = f"{url_root}/meta/{collection}/{obj}"
+                    url_root = f"https://media.archives.albany.edu"
+                    #url_root = f"http://lib-arcimg-p101.lib.albany.edu"
+                    obj_url_root = f"{url_root}/dao/{collection}/{obj}"
                     iiif_url_root = f"{url_root}/iiif/3/%2F{collection}%2F{obj}%2F{resource_format}"
-                    manifest_label = f"{metadata['title'].strip()}, {metadata['date_created'].strip()}"
+                    manifest_label = f"{metadata['title'].strip()}, {metadata['date_display'].strip()}"
 
                     thumbnail_path = os.path.join(objPath, "thumbnail.jpg")
                     thumbnail_url = f"{obj_url_root}/thumbnail.jpg"
