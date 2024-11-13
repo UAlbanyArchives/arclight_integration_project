@@ -10,6 +10,17 @@
 
 Export scripts are in \scripts
 
+To run using the provided docker container:
+```
+docker compose run python python /code/getThumbnails.py <args>
+```
+
+To run in the container manually:
+```
+docker compose up -d
+docker exec -it python1 bash
+```
+
 ## 1. Inital file export
 
 There is [rake task](https://github.com/UAlbanyArchives/hyrax-UAlbany/blob/main/lib/tasks/export_files.rake) in our Hyrax instance to initally export objects from Hyrax. This includes `metadata.yml` and content files in subdirectories by file extension:
