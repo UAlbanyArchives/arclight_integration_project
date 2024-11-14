@@ -240,7 +240,7 @@ def create_iiif_manifest(file_dir, url_root, obj_url_root, iiif_url_root, resour
     # Add metadata fields to the manifest
     fields = [
         "title", 
-        "date_created", 
+        "date_display", 
         "resource_type", 
         "coverage", 
         "extent", 
@@ -398,7 +398,7 @@ def read_objects(collection_id=None, object_id=None):
                 objPath = os.path.join(col_path, obj)
                 metadataPath = os.path.join(objPath, "metadata.yml")
                 manifestPath = os.path.join(objPath, "manifest.json")
-                with open(metadataPath, 'r') as yml_file:
+                with open(metadataPath, 'r', encoding='utf-8') as yml_file:
                     metadata = yaml.safe_load(yml_file)
                 resource_type = metadata["resource_type"]
                 if resource_type == "Audio":

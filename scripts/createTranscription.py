@@ -56,7 +56,7 @@ def transcribe(collection_id=None):
                 txt_output_dir = os.path.join(obj_path, "txt")
 
                 # Load metadata
-                with open(metadata_path, 'r') as yml_file:
+                with open(metadata_path, 'r', encoding="utf-8") as yml_file:
                     metadata = yaml.safe_load(yml_file)
 
                 # Determine file type and paths based on resource type
