@@ -80,7 +80,7 @@ def download_derivatives(collection_id=None):
                     print(f"Metadata file not found: {metadataPath}")
                     continue
 
-                with open(metadataPath, 'r') as file:
+                with open(metadataPath, 'r', encoding='utf-8') as file:
                     metadata = yaml.safe_load(file)
 
                 for file_set_id in metadata["file_sets"]:
