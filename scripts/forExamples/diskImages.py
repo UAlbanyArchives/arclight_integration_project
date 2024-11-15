@@ -4,14 +4,13 @@ import urllib.parse
 from iiif_prezi3 import Collection, Manifest, Service
 
 # Define the URL root
-url_root = "http://lib-arcimg-p101.lib.albany.edu"
+url_root = "https://media.archives.albany.edu"
 root_path = "\\\\Lincoln\\Library\\SPE_DAO" if os.name == "nt" else "/media/Library/SPE_DAO"
-obj_path = os.path.join(root_path, "examples", "apap362", "5uvc0cb36g")
+obj_path = os.path.join(root_path, "apap362", "5uvc0cb36g")
 
 def fetch_image_dimensions(info_json_url):
     """Fetch the dimensions of an image from its IIIF info.json URL."""
     try:
-        #print(f"Requesting {info_json_url}...")
         response = requests.get(info_json_url)
         response.raise_for_status()
         data = response.json()
@@ -23,14 +22,15 @@ def fetch_image_dimensions(info_json_url):
 def create_manifest(path, obj_id, base_url):
     """Create a IIIF Manifest for a given directory."""
     encoded_obj_id = urllib.parse.quote(obj_id).replace("/", "%2F")
-    manifest = Manifest(id=f"{base_url}/meta/{encoded_obj_id.replace('%2F', '/')}/manifest.json", 
-                        label={"en": [obj_id]}, 
-                        type="Manifest")
-    
+    manifest = Manifest(id=f"{base_url}/{encoded_obj_id.replace('%2F', '/')}/manifest.json", 
+                        label={"en": [os.path.basename(obj_id)]})
+
     iiif_base_url = f"{base_url}/iiif/3"  # Base URL for IIIF services
 
     for filename in os.listdir(path):
         if filename.startswith('.'):  # Skip dotfiles
+            continue
+        if filename.startswith('alt-'):  # Skip alternative formats
             continue
         if not filename.lower().endswith('.tiff'):  # Skip non-tiffs
             continue
@@ -74,20 +74,19 @@ def create_manifest(path, obj_id, base_url):
     return manifest
 
 def create_collection(path, obj_id, nested_items, base_url):
-    """Create a IIIF Collection with references to manifests."""
+    """Create a IIIF Collection with references to manifests or collections."""
     # URL encode the obj_id for safe use in URLs
     encoded_obj_id = urllib.parse.quote(obj_id)
-    collection = Collection(id=f"{base_url}/{encoded_obj_id}/collection", 
-                            label={"en": [obj_id]}, 
-                            type="Collection")
+    collection = Collection(id=f"{base_url}/{encoded_obj_id}/collection.json", 
+                            label={"en": [os.path.basename(obj_id)]})
     
-    # Add references to manifests (not the full manifest data)
+    # Add references to nested items
     for item in nested_items:
         collection.items.append({
             "id": item.id,
-            "type": "Manifest",
+            "type": "Collection" if isinstance(item, Collection) else "Manifest",
             "label": {
-                "en": [item.label["en"][0]]  # Use the same label as the manifest
+                "en": [item.label["en"][0]]  # Use the same label as the item
             }
         })
     
