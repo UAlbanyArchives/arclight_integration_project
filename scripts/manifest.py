@@ -426,7 +426,7 @@ def read_objects(collection_id=None, object_id=None):
 
                     url_root = f"https://media.archives.albany.edu"
                     #url_root = f"http://lib-arcimg-p101.lib.albany.edu"
-                    obj_url_root = f"{url_root}/dao/{collection}/{obj}"
+                    obj_url_root = f"{url_root}/{collection}/{obj}"
                     iiif_url_root = f"{url_root}/iiif/3/%2F{collection}%2F{obj}%2F{resource_format}"
                     manifest_label = f"{metadata['title'].strip()}, {metadata['date_display'].strip()}"
 
@@ -448,7 +448,7 @@ def read_objects(collection_id=None, object_id=None):
                     manifest_dict = remove_nulls(manifest_dict)
                     manifest_output = {
                         '@context': "http://iiif.io/api/presentation/3/context.json",
-                        'logo': f"{url_root}/meta/logo.png",
+                        'logo': f"{url_root}/logo.png",
                         **manifest_dict
                     }
 
