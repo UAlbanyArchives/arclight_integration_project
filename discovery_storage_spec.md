@@ -371,7 +371,7 @@ These fields have strict requirements as they support for automated processes.
 
 **title**: The file name of the digital object.
 
-**date_created**: (If we are going by Hyrax terms) The date of creation determined and added to the archival object by the archivist, not necessarily the date the digital object was created.
+**date_display**: The date of creation determined and added to the archival object by the archivist, not necessarily the date the digital object was created.
 
 **collecting_area**: Archival collecting area of digital object. This is a derivative value of data contained in ArchivesSpace.
 

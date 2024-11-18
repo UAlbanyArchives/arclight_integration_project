@@ -145,6 +145,7 @@ def create_iiif_canvas(manifest, url_root, obj_url_root, label, resource_type, r
             })
         
         # Check for TXT transcription file
+        """ This isn't valid I don't think
         txt_file = os.path.join(os.path.dirname(os.path.dirname(resource_path)), "txt", f"{os.path.splitext(os.path.basename(resource_path))[0]}.txt")
         if os.path.exists(txt_file):
             renderings.append({
@@ -153,6 +154,7 @@ def create_iiif_canvas(manifest, url_root, obj_url_root, label, resource_type, r
                 "format": "text/plain",
                 "label": { "en": [ "Text transcription" ] }
             })
+        """
 
     # Add supplementing annotations for VTT files
     if supplementing_annotations:
