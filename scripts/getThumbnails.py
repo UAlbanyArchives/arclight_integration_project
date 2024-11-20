@@ -1,5 +1,6 @@
 import os
 import yaml
+import time
 import requests
 import sys
 import traceback
@@ -21,6 +22,9 @@ def download_thumbnails(collection_id=None, force=None):
         # Check if collection_id is provided and matches the current collection
         if collection_id and collection_id not in col:
             continue  # Skip this collection if it doesn't match
+
+        session = requests.Session()
+        session.verify = False
 
         if os.path.isdir(col_path):
             for obj in os.listdir(col_path):
@@ -48,7 +52,7 @@ def download_thumbnails(collection_id=None, force=None):
                             thumbnail_url = f"{root_url}{thumbnail_id}?file=thumbnail" if thumbnail_id else None
 
                         if thumbnail_url:
-                            response = requests.get(thumbnail_url, verify=False)
+                            response = session.get(thumbnail_url)
                             if response.status_code == 200:
                                 with open(thumbnail_path, 'wb') as img_file:
                                     img_file.write(response.content)
@@ -61,6 +65,9 @@ def download_thumbnails(collection_id=None, force=None):
                         with open(log_file, "a") as log:
                             log.write(f"\nERROR loading thumbnail for {objPath}\n")
                             log.write(traceback.format_exc())
+                            time.sleep(5)
+
+        session.close()
 
 
 
