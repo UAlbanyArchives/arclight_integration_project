@@ -2,6 +2,7 @@ import os, re, sys
 import yaml
 from subprocess import Popen, PIPE
 from pypdf import PdfReader, PdfWriter
+import traceback
 
 if os.name == "nt":
     root = "\\\\Lincoln\\Library\\SPE_DAO"
@@ -69,7 +70,7 @@ def extract_images(collection_id=None, object_id=None):
         except Exception as e:
             with open(log_file, "a") as log:
                 log.write(f"\nERROR extracting images for {objPath}\n")
-                log.write(e)
+                log.write(traceback.format_exc())
 
 if __name__ == "__main__":
     # Check for command-line arguments
