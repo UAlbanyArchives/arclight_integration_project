@@ -149,7 +149,7 @@ For born-digital PDFs, if this is run after tesseract, it will not override the 
 In new terminal:
 ```
 docker exec -it python1 bash
-python create_transcription.py apap138
+python createTranscription.py apap138
 ```
 
 ## 7. Create manifest
