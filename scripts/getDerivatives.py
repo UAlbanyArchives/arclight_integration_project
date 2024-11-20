@@ -2,6 +2,7 @@ import os
 import yaml
 import requests
 import sys
+import traceback
 
 if os.name == "nt":
     root = "\\\\Lincoln\\Library\\SPE_DAO"
@@ -112,7 +113,7 @@ def download_derivatives(collection_id=None):
         except Exception as e:
             with open(log_file, "a") as log:
                 log.write(f"\nERROR downloading derivatives for {objPath}\n")
-                log.write(e)
+                log.write(traceback.format_exc())
 
 
 
