@@ -8,7 +8,7 @@ if os.name == "nt":
 else:
     root = "/media/Library/SPE_DAO"
 
-log_path = "/media/Library/ESPYderivatives/export_logs/derivatives"
+log_path = "/media/Library/ESPYderivatives/export_logs/images"
 
 def extract_images(collection_id=None, object_id=None):
     for col in os.listdir(root):
