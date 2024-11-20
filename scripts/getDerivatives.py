@@ -9,6 +9,7 @@ else:
     root = "/media/Library/SPE_DAO"
 
 root_url = 'https://archives.albany.edu/downloads/'
+log_path = "/media/Library/ESPYderivatives/export_logs/derivatives"
 
 office_document_extensions = [
     "doc",   # Microsoft Word
@@ -70,41 +71,49 @@ def download_derivatives(collection_id=None):
         if collection_id and collection_id not in col:
             continue  # Skip this collection if it doesn't match
 
-        if os.path.isdir(col_path):
-            for obj in os.listdir(col_path):
-                print (f"Checking {obj}...")
-                objPath = os.path.join(col_path, obj)
-                metadataPath = os.path.join(objPath, "metadata.yml")
+        log_file = os.path.join(log_path, collection_id + ".log")
 
-                if not os.path.exists(metadataPath):
-                    print(f"Metadata file not found: {metadataPath}")
-                    continue
+        try:
+            if os.path.isdir(col_path):
+                for obj in os.listdir(col_path):
+                    print (f"Checking {obj}...")
+                    objPath = os.path.join(col_path, obj)
+                    metadataPath = os.path.join(objPath, "metadata.yml")
 
-                with open(metadataPath, 'r', encoding='utf-8') as file:
-                    metadata = yaml.safe_load(file)
+                    if not os.path.exists(metadataPath):
+                        print(f"Metadata file not found: {metadataPath}")
+                        continue
 
-                for file_set_id in metadata["file_sets"]:
-                    filename = metadata["file_sets"][file_set_id]
-                    file_root, file_extension = os.path.splitext(filename)
-                    file_extension = file_extension[1:].lower()
+                    with open(metadataPath, 'r', encoding='utf-8') as file:
+                        metadata = yaml.safe_load(file)
 
-                    # Get PDF derivative
-                    if file_extension in office_document_extensions:
-                        pdf_url = f"{root_url}{file_set_id}?file=pdf"
-                        write_file(objPath, pdf_url, "pdf", file_root)
+                    for file_set_id in metadata["file_sets"]:
+                        filename = metadata["file_sets"][file_set_id]
+                        file_root, file_extension = os.path.splitext(filename)
+                        file_extension = file_extension[1:].lower()
 
-                    # Get audio derivatives
-                    if file_extension in audio_file_extensions:
-                        mp3_url = f"{root_url}{file_set_id}?file=mp3"
-                        ogg_url = f"{root_url}{file_set_id}?file=ogg"
-                        write_file(objPath, ogg_url, "ogg", file_root)
-                        if file_extension != "mp3":
-                            write_file(objPath, mp3_url, "mp3", file_root)
+                        # Get PDF derivative
+                        if file_extension in office_document_extensions:
+                            pdf_url = f"{root_url}{file_set_id}?file=pdf"
+                            write_file(objPath, pdf_url, "pdf", file_root)
 
-                    # Get video derivatives
-                    if file_extension in video_file_extensions:
-                        webm_url = f"{root_url}{file_set_id}?file=webm"
-                        write_file(objPath, webm_url, "webm", file_root)
+                        # Get audio derivatives
+                        if file_extension in audio_file_extensions:
+                            mp3_url = f"{root_url}{file_set_id}?file=mp3"
+                            ogg_url = f"{root_url}{file_set_id}?file=ogg"
+                            write_file(objPath, ogg_url, "ogg", file_root)
+                            if file_extension != "mp3":
+                                write_file(objPath, mp3_url, "mp3", file_root)
+
+                        # Get video derivatives
+                        if file_extension in video_file_extensions:
+                            webm_url = f"{root_url}{file_set_id}?file=webm"
+                            write_file(objPath, webm_url, "webm", file_root)
+        except Exception as e:
+            with open(log_file, "w") as log:
+                log.write(f"\nERROR downloading derivatives for {objPath}\n")
+                log.write(e)
+
 
 
 

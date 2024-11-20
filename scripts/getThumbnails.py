@@ -9,7 +9,7 @@ else:
     root = "/media/Library/SPE_DAO"
 
 root_url = 'https://archives.albany.edu/downloads/'
-log_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), "log")
+log_path = "/media/Library/ESPYderivatives/export_logs/thumbs"
 
 def download_thumbnails(collection_id=None, force=None):
     for col in os.listdir(root):
@@ -57,7 +57,7 @@ def download_thumbnails(collection_id=None, force=None):
                         else:
                             print(f"No representative_id found in metadata for {objPath}.")
                     except Exception as e:
-                        with open(log_file) as log:
+                        with open(log_file, "w") as log:
                             log.write(f"\nERROR loading thumbnail for {objPath}\n")
                             log.write(e)
 
