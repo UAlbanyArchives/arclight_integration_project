@@ -5,7 +5,7 @@ from subprocess import Popen, PIPE
 from pypdf import PdfReader, PdfWriter
 
 root_path = "\\\\Lincoln\\Library\\SPE_DAO" if os.name == "nt" else "/media/Library/SPE_DAO"
-obj_path = os.path.join(root_path, "examples", "apap362", "5uvc0cb36g")
+obj_path = os.path.join(root_path, "apap362", "kjo56png0e")
 
 for root, dirs, files in os.walk(obj_path):
     for file in files:
