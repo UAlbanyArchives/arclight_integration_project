@@ -2,7 +2,7 @@ import os
 import mimetypes
 import requests
 import urllib.parse
-from iiif_prezi3 import Collection, Manifest, Canvas, Annotation, Service
+from iiif_prezi3 import Collection, Manifest, Canvas, Annotation, Service, AnnotationPage
 
 # Define the URL root and root path
 url_root = "https://media.archives.albany.edu"
@@ -14,14 +14,19 @@ def fetch_image_dimensions(info_json_url):
         response = requests.get(info_json_url)
         response.raise_for_status()
         data = response.json()
-        return data.get("width"), data.get("height")
+        return data.get("width", 1000), data.get("height", 1000)  # Default to 1000x1000
     except (requests.RequestException, KeyError) as e:
         print(f"Error fetching dimensions for {info_json_url}: {e}")
         return None, None
 
+def url_encode_path(path):
+    """Encodes a path to make it URL-safe."""
+    return urllib.parse.quote(path, safe="/:")
+
 def create_manifest_for_pdf(path, pdf_filename, obj_id, base_url):
     encoded_obj_id = urllib.parse.quote(obj_id).replace("/", "%2F")
-    manifest = Manifest(id=f"{base_url}/{encoded_obj_id}/manifest.json", 
+    escaped_obj_id = obj_id.replace(" ", "%20")
+    manifest = Manifest(id=f"{base_url}/{escaped_obj_id}/manifest.json", 
                         label={"en": [os.path.splitext(pdf_filename)[0]]})
     
     alt_dir = os.path.join(path, f"alt-{os.path.splitext(pdf_filename)[0]}")
@@ -62,52 +67,152 @@ def create_manifest_for_pdf(path, pdf_filename, obj_id, base_url):
     
     return manifest
 
+def create_collection(path, obj_id, nested_items, base_url):
+    """Create a IIIF Collection with references to manifests or collections."""
+    # URL encode the obj_id for safe use in URLs
+    encoded_obj_id = urllib.parse.quote(obj_id)
+    collection = Collection(id=f"{base_url}/{encoded_obj_id}/collection.json", 
+                            label={"en": [os.path.basename(obj_id)]})
+    
+    # Add references to nested items
+    for item in nested_items:
+        collection.items.append({
+            "id": item.id.replace(" ", "%20"),
+            "type": "Collection" if isinstance(item, Collection) else "Manifest",
+            "label": {
+                "en": [item.label["en"][0]]  # Use the same label as the item
+            }
+        })
+    
+    return collection
+
 def create_manifest(path, obj_id, base_url):
-    encoded_obj_id = urllib.parse.quote(obj_id).replace("/", "%2F")
-    manifest = Manifest(id=f"{base_url}/{encoded_obj_id.replace('%2F', '/')}/manifest.json", 
-                        label={"en": [os.path.basename(obj_id)]})
+    """
+    Create a IIIF Manifest for a directory of files.
 
-    iiif_base_url = f"{base_url}/iiif/3"
+    Args:
+        path (str): Path to the directory containing files.
+        obj_id (str): Unique identifier for the object.
+        base_url (str): Base URL for constructing IIIF resource URLs.
 
-    for filename in os.listdir(path):
-        if filename.startswith('.') or filename.startswith('alt-'):
-            continue
-        file_path = os.path.join(path, filename)
-        mime_type, _ = mimetypes.guess_type(file_path)
-        encoded_full_path = urllib.parse.quote(filename, safe='')
+    Returns:
+        Manifest: The generated IIIF Manifest object.
+    """
+    iiif_base_url = f"{base_url}/iiif/3"  # Base URL for IIIF services
 
-        if filename.lower().endswith(".gif"):
-            img_id = f"{iiif_base_url}/{encoded_obj_id}%2F{encoded_full_path}"
-            width, height = fetch_image_dimensions(f"{img_id}/info.json")
-            canvas = manifest.make_canvas(id=f"{base_url}/{encoded_obj_id}/canvas/{encoded_full_path}", width=width, height=height)
-            canvas.add_image(
-                image_url=f"{img_id}/full/max/0/default.jpg",
-                anno_page_id=f"{iiif_base_url}/{encoded_obj_id}/page/{encoded_full_path}",
-                anno_id=f"{iiif_base_url}/{encoded_obj_id}/annotation/{encoded_full_path}",
-                format="image/gif",
-                width=width,
+    # Encode base_url and obj_id
+    encoded_base_url = url_encode_path(base_url)
+    encoded_obj_id = url_encode_path(obj_id).replace("/", "%2F")
+    escaped_obj_id = obj_id.replace(" ", "%20")
+
+    # Define manifest ID and label
+    manifest_id = f"{base_url}/{escaped_obj_id}/manifest.json"
+    manifest_label = obj_id
+
+    # Initialize the manifest
+    manifest = Manifest(id=manifest_id, label={"en": [manifest_label]})
+
+    # Add manifest-level rendering for the "content.txt" file
+    content_txt_path = os.path.join(path, "content.txt")
+    if os.path.exists(content_txt_path):
+        manifest.rendering = [
+            {
+                "id": f"{base_url}/{escaped_obj_id}/content.txt",
+                "type": "Text",
+                "label": {"en": ["Download Text"]},
+                "format": "text/plain",
+            }
+        ]
+    pdf_root = os.path.dirname(path)
+    pdf_name = os.path.basename(path)
+    if pdf_name.startswith("alt-"):
+        pdf_name = pdf_name[4:]
+    pdf_path = os.path.join(pdf_root, pdf_name + ".pdf")
+    if os.path.exists(pdf_path):
+        manifest.rendering.append(
+            {
+                "id": f"{base_url}/{os.path.dirname(escaped_obj_id)}/{pdf_name}.pdf",
+                "type": "Text",
+                "label": {"en": ["Download Original PDF"]},
+                "format": "application/pdf",
+            }
+        )
+
+    # Process .tiff and corresponding .hocr files
+    manifest.items = []
+    for filename in sorted(os.listdir(path)):
+        if filename.endswith(".tiff"):
+            encoded_filename = url_encode_path(filename)
+            tiff_path = os.path.join(path, filename)
+            tiff_id = f"{iiif_base_url}/{encoded_obj_id}%2F{encoded_filename}/full/max/0/default.jpg"
+            tiff_label = filename
+            
+
+            # Correct path for the IIIF image URL
+            iiif_url_path = f"{encoded_obj_id}%2F{encoded_filename}"
+            img_id = f"{iiif_base_url}/{iiif_url_path}"
+            info_json_url = f"{img_id}/info.json"
+
+            width, height = fetch_image_dimensions(info_json_url)
+
+            # Create the Canvas
+            canvas_id = f"{encoded_base_url}/{encoded_obj_id}/canvas/{url_encode_path(filename.split('.')[0])}"
+            canvas = Canvas(
+                id=canvas_id,
+                label={"en": [tiff_label]},
                 height=height,
-                service=[{"id": img_id, "type": "ImageService3", "profile": "level1"}]
+                width=width,
             )
-        else:
-            # Non-image files (e.g., audio/video) as direct files in the manifest
-            canvas_id = f"{base_url}/{encoded_obj_id}/canvas/{encoded_full_path}"
-            canvas = manifest.make_canvas(id=canvas_id)
-            canvas.items.append({
-                "id": f"{base_url}/{encoded_obj_id}/page/{encoded_full_path}",
-                "type": "AnnotationPage",
-                "items": [{
-                    "id": f"{base_url}/{encoded_obj_id}/annotation/{encoded_full_path}",
-                    "type": "Annotation",
-                    "motivation": "painting",
-                    "body": {
-                        "id": f"{base_url}/{encoded_obj_id}/{filename}",
-                        "type": "File",
-                        "format": mime_type,
-                    },
-                    "target": canvas_id
-                }]
-            })
+
+            # Create the AnnotationPage
+            anno_page_id = f"{canvas_id}/page"
+            annotation_page = AnnotationPage(id=anno_page_id, items=[])
+
+            # Create the Annotation
+            annotation = Annotation(
+                id=f"{canvas_id}/annotation",
+                motivation="painting",
+                body={
+                    "id": tiff_id,
+                    "type": "Image",
+                    "format": "image/tiff",
+                    "height": height,
+                    "width": width,
+                    "service": [
+                        {
+                            "id": f"{encoded_base_url}/iiif/3/{encoded_obj_id}%2F{encoded_filename}",
+                            "type": "ImageService3",
+                            "profile": "level1",
+                        }
+                    ],
+                },
+                target=canvas_id,
+            )
+
+            # Add the Annotation to the AnnotationPage
+            annotation_page.items.append(annotation)
+
+            # Add the AnnotationPage to the Canvas
+            canvas.items.append(annotation_page)
+
+
+            # Check for corresponding HOCR file
+            hocr_filename = f"{os.path.splitext(filename)[0]}.hocr"
+            hocr_path = os.path.join(path, hocr_filename)
+            if os.path.exists(hocr_path):
+                encoded_hocr_filename = url_encode_path(hocr_filename)
+                canvas.rendering = [
+                    {
+                        "id": f"{base_url}/{escaped_obj_id}/{encoded_hocr_filename}",
+                        "type": "Text",
+                        "label": {"en": ["HOCR data (OCR)"]},
+                        "format": "text/vnd.hocr+html",
+                        "profile": "http://kba.cloud/hocr-spec/1.2/",
+                    }
+                ]
+
+            # Add canvas to manifest
+            manifest.items.append(canvas)
 
     return manifest
 
@@ -127,6 +232,12 @@ def process_directory(path, parent_id, base_url):
         else:
             manifest = create_manifest(path, obj_id, base_url)
             items.append(manifest)
+
+            # Save the manifest as a JSON file directly in this directory
+            manifest_json_path = os.path.join(path, 'manifest.json')
+            with open(manifest_json_path, 'w') as f:
+                f.write(manifest.json(indent=2))
+
     elif contains_dirs:
         obj_id = os.path.relpath(path, root_path).replace(os.sep, "/")
         for entry in entries:
@@ -137,6 +248,11 @@ def process_directory(path, parent_id, base_url):
         
         if items:
             collection = create_collection(path, obj_id, items, base_url)
+
+            collection_json_path = os.path.join(path, 'collection.json')
+            with open(collection_json_path, 'w') as f:
+                f.write(collection.json(indent=2))
+
             items = [collection]
 
     return items
