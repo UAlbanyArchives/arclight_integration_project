@@ -48,7 +48,7 @@ def download_thumbnails(collection_id=None, force=None):
                             thumbnail_url = f"{root_url}{thumbnail_id}?file=thumbnail" if thumbnail_id else None
 
                         if thumbnail_url:
-                            response = requests.get(thumbnail_url)
+                            response = requests.get(thumbnail_url, verify=False)
                             if response.status_code == 200:
                                 with open(thumbnail_path, 'wb') as img_file:
                                     img_file.write(response.content)

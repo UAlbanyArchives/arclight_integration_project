@@ -56,7 +56,7 @@ audio_file_extensions = [
 
 def write_file(objPath, url, file_extension, file_root):
     output_path = os.path.join(objPath, file_extension)
-    response = requests.get(url)
+    response = requests.get(url, verify=False)
     if response.status_code == 200:
         if not os.path.isdir(output_path):
             os.mkdir(output_path)
