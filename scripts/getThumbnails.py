@@ -57,7 +57,7 @@ def download_thumbnails(collection_id=None, force=None):
                         else:
                             print(f"No representative_id found in metadata for {objPath}.")
                     except Exception as e:
-                        with open(log_file, "w") as log:
+                        with open(log_file, "a") as log:
                             log.write(f"\nERROR loading thumbnail for {objPath}\n")
                             log.write(e)
 

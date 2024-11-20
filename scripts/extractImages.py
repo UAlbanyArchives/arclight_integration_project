@@ -8,6 +8,8 @@ if os.name == "nt":
 else:
     root = "/media/Library/SPE_DAO"
 
+log_path = "/media/Library/ESPYderivatives/export_logs/derivatives"
+
 def extract_images(collection_id=None, object_id=None):
     for col in os.listdir(root):
         col_path = os.path.join(root, col)
@@ -16,49 +18,58 @@ def extract_images(collection_id=None, object_id=None):
         if collection_id and collection_id not in col:
             continue  # Skip this collection if it doesn't match
 
-        if os.path.isdir(col_path):
-            for obj in os.listdir(col_path):
-                if object_id and object_id not in obj:
-                    continue  # Skip this object if it doesn't match
+        log_file = os.path.join(log_path, collection_id + ".log")
 
-                #print (f"Reading {obj}...")
-                objPath = os.path.join(col_path, obj)
-                metadataPath = os.path.join(objPath, "metadata.yml")
-                pdfPath = os.path.join(objPath, "pdf")
-                if os.path.exists(pdfPath):
-                    jpgPath = os.path.join(objPath, "jpg")
+        try:
 
-                    pdfCount = 0
-                    for pdf in os.listdir(pdfPath):
-                        pdfFilePath = os.path.join(pdfPath, pdf)
-                        if os.path.isfile(pdfFilePath) and pdf.lower().endswith(".pdf"):
-                            pdfCount += 1
+            if os.path.isdir(col_path):
+                for obj in os.listdir(col_path):
+                    if object_id and object_id not in obj:
+                        continue  # Skip this object if it doesn't match
 
-                    if pdfCount != 1:
-                        raise Exception(f"ERROR: found {pdfCount} PDF files for {col}/{obj}")
-                    else:
+                    #print (f"Reading {obj}...")
+                    objPath = os.path.join(col_path, obj)
+                    metadataPath = os.path.join(objPath, "metadata.yml")
+                    pdfPath = os.path.join(objPath, "pdf")
+                    if os.path.exists(pdfPath):
+                        jpgPath = os.path.join(objPath, "jpg")
+
+                        pdfCount = 0
                         for pdf in os.listdir(pdfPath):
-                            filepath = os.path.join(pdfPath, pdf)
-                            filename = os.path.splitext(pdf)[0]
-                            #convertDir = os.path.join(jpgPath, filename)
-                            convertDir = jpgPath
+                            pdfFilePath = os.path.join(pdfPath, pdf)
+                            if os.path.isfile(pdfFilePath) and pdf.lower().endswith(".pdf"):
+                                pdfCount += 1
 
-                            print (f"Processing {pdf} from {col}/{obj}...")
+                        if pdfCount != 1:
+                            raise Exception(f"ERROR: found {pdfCount} PDF files for {col}/{obj}")
+                        else:
+                            for pdf in os.listdir(pdfPath):
+                                filepath = os.path.join(pdfPath, pdf)
+                                filename = os.path.splitext(pdf)[0]
+                                #convertDir = os.path.join(jpgPath, filename)
+                                convertDir = jpgPath
 
-                            if not os.path.isdir(convertDir):
-                                os.mkdir(convertDir)
-                            outfile = os.path.join(convertDir, filename)
+                                print (f"Processing {pdf} from {col}/{obj}...")
 
-                            pdfimagesCmd = ["pdftoppm", filepath, outfile, "-jpeg"]
-                            #pdfimagesCmd =["pdfimages", "-all", filepath, outfile]
-                            #print (pdfimagesCmd)
-                            with Popen(pdfimagesCmd, stdout=PIPE, stderr=PIPE, text=True) as process:
-                                for line in process.stdout:
-                                    print(line, end='')
-                                for line in process.stderr:
-                                    print(line, end='')
-                                process.wait()
-                            
+                                if not os.path.isdir(convertDir):
+                                    os.mkdir(convertDir)
+                                outfile = os.path.join(convertDir, filename)
+
+                                pdfimagesCmd = ["pdftoppm", filepath, outfile, "-jpeg"]
+                                #pdfimagesCmd =["pdfimages", "-all", filepath, outfile]
+                                #print (pdfimagesCmd)
+                                with Popen(pdfimagesCmd, stdout=PIPE, stderr=PIPE, text=True) as process:
+                                    for line in process.stdout:
+                                        print(line, end='')
+                                    for line in process.stderr:
+                                        with open(log_file, "a") as log:
+                                            log.write(line)
+                                        print(line, end='')
+                                    process.wait()
+        except Exception as e:
+            with open(log_file, "a") as log:
+                log.write(f"\nERROR extracting images for {objPath}\n")
+                log.write(e)
 
 if __name__ == "__main__":
     # Check for command-line arguments
