@@ -110,7 +110,7 @@ def download_derivatives(collection_id=None):
                             webm_url = f"{root_url}{file_set_id}?file=webm"
                             write_file(objPath, webm_url, "webm", file_root)
         except Exception as e:
-            with open(log_file, "w") as log:
+            with open(log_file, "a") as log:
                 log.write(f"\nERROR downloading derivatives for {objPath}\n")
                 log.write(e)
 
