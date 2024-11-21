@@ -41,31 +41,31 @@ def download_thumbnails(collection_id=None, force=None):
 
                     print(f"Loading thumbnail for {objPath}...")
 
-                    try:
-                        with open(metadataPath, 'r', encoding='utf-8') as file:
-                            metadata = yaml.safe_load(file)
+                    #try:
+                    with open(metadataPath, 'r', encoding='utf-8') as file:
+                        metadata = yaml.safe_load(file)
 
-                        if metadata.get('resource_type') == "Audio":
-                            thumbnail_url = "https://archives.albany.edu/assets/audio-5133b642ee875760dbd85bfab48649d009efd4bd29db1165f891b48a90b4f37e.png"
-                        else:
-                            thumbnail_id = metadata.get('representative_id')
-                            thumbnail_url = f"{root_url}{thumbnail_id}?file=thumbnail" if thumbnail_id else None
+                    if metadata.get('resource_type') == "Audio":
+                        thumbnail_url = "https://archives.albany.edu/assets/audio-5133b642ee875760dbd85bfab48649d009efd4bd29db1165f891b48a90b4f37e.png"
+                    else:
+                        thumbnail_id = metadata.get('representative_id')
+                        thumbnail_url = f"{root_url}{thumbnail_id}?file=thumbnail" if thumbnail_id else None
 
-                        if thumbnail_url:
-                            response = session.get(thumbnail_url)
-                            if response.status_code == 200:
-                                with open(thumbnail_path, 'wb') as img_file:
-                                    img_file.write(response.content)
-                                    #print(f"Thumbnail downloaded and saved as thumbnail.jpg in {objPath}")
-                            else:
-                                print(f"Failed to download image for {objPath}. Status code: {response.status_code}")
+                    if thumbnail_url:
+                        response = session.get(thumbnail_url)
+                        if response.status_code == 200:
+                            with open(thumbnail_path, 'wb') as img_file:
+                                img_file.write(response.content)
+                                #print(f"Thumbnail downloaded and saved as thumbnail.jpg in {objPath}")
                         else:
-                            print(f"No representative_id found in metadata for {objPath}.")
-                    except Exception as e:
-                        with open(log_file, "a") as log:
-                            log.write(f"\nERROR loading thumbnail for {objPath}\n")
-                            log.write(traceback.format_exc())
-                            time.sleep(5)
+                            print(f"Failed to download image for {objPath}. Status code: {response.status_code}")
+                    else:
+                        print(f"No representative_id found in metadata for {objPath}.")
+                    #except Exception as e:
+                    #    with open(log_file, "a") as log:
+                    #        log.write(f"\nERROR loading thumbnail for {objPath}\n")
+                    #        log.write(traceback.format_exc())
+                    #        time.sleep(5)
 
         session.close()
 

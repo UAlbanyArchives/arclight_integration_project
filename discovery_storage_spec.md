@@ -144,6 +144,12 @@ Each Collection folder may contain any number of Digital Object folders named us
 
 Digital objects often contain many different representations of the same content. This could be different file or image versions, or texual representations of files in HOCR, VTT, CSV, or plain text formats.
 
+Each representation folder MUST be the file extension of the format it contains in all lower case EXCEPT for ALTO XML OCR data when the representation folder is `alto` and the extension is `.xml`. Three digit file extensions are preferred, with a common exception being `hocr`.
+
+Pyramidal tiff files MUST use the `.ptif` file extension and thus MUST use the `ptif` representation folder.
+
+Each representation folder SHOULD contain a complete representation, but some formats may be lossy. For example, the `txt` representation of a document will not contain the entire content for the object since it does not contain the visual representation, but it SHOULD contain the entire plain text representation of the object, instead of only some pages of the document.
+
 Representations folders typically have object-level formats with a single file per digital object, or be split into [canvas-level](https://iiif.io/api/presentation/3.0/#53-canvas) represenations, such as a set of files per page.
 
 *Object-level representation folders*
@@ -161,7 +167,7 @@ Representations folders typically have object-level formats with a single file p
 
 *Canvas-level representation folders*
 * jpg
-* tiff
+* ptif
 * png
 * txt
 
@@ -172,8 +178,8 @@ Representations folders typically have object-level formats with a single file p
 		├── apap101/
 		│   ├── nc580m649/
 		│   │	├── jpg/
-		│   │	├── tiff/
-		│   │	├── ocr/
+		│   │	├── ptif/
+		│   │	├── hocr/
 		│   │	├── pdf/
 		│   │	├── txt/
 		│   │	├── content.txt
@@ -182,10 +188,10 @@ Representations folders typically have object-level formats with a single file p
 		│   │	└── thumbnail.jpg
 		│   ├── fx719m44h/
 		│   │	├── jpg/
-		│   │	├── ocr/
+		│   │	├── hocr/
 		│   │	├── pdf/
 		│   │	├── ppt/
-		│   │	├── tiff/
+		│   │	├── ptif/
 		│   │	├── txt/
 		│   │	├── content.txt
 		│   │	├── manifest.json
@@ -212,10 +218,10 @@ Representations folders typically have object-level formats with a single file p
 
 ### 5.2 Serving priorities
 
-* For objects with a `resource_type` of `Audio`, the `manifest.json` will serve OGG files.
+* For objects with a `resource_type` of `Audio`, the `manifest.json` will serve OGG files with MP3 fallback.
 * For objects with a `resource_type` of `Video`, the `manifest.json` will serve WEBM files.
 * For objects with all other `resource_type` values, the `manifest.json` will prioritize image formats in this order:
-	* tiff (pyramidal)
+	* ptif
 	* jpg
 
 ### 5.3 Object-level Alternative Renderings
@@ -231,13 +237,15 @@ These additional formats will be included as [alternative renderings](https://ii
 	* mp4
 	* mov
 	* avi
-* vtt (captions)
-* `content.txt` (text transcriptions)
+* `content.txt` (text transcription)
+
+More formats may be added later.
 
 ### 5.4 Canvas-level Alternative Renderings
 
-For multi-page objects, it is also RECOMMENDED to include canvas level alternative renderings for each page.
-* ocr (HOCR XML files)
+For multi-page objects, it is also RECOMMENDED to include canvas level alternative renderings for each page. HOCR and VTT are preferred.
+* hocr
+* vtt
 * txt
 
 #### 5.4.1 Associations between Canvas-level Alternative Renderings
@@ -255,14 +263,14 @@ Associated HOCR and TXT file MUST have the same case-sensative filename as the f
 			│	└── page3.jpg
 			├── pdf/
 			│	└── document.pdf
-			├── ocr/
+			├── hocr/
 			│	├── page1.hocr
 			│	├── page2.hocr
 			│	└── page3.hocr
-			├── tiff/
-			│	├── page1.tiff
-			│	├── page2.tiff
-			│	└── page3.tiff
+			├── ptif/
+			│	├── page1.ptif
+			│	├── page2.ptif
+			│	└── page3.ptif
 			├── txt/
 			│	├── page1.txt
 			│	├── page2.txt
@@ -284,7 +292,7 @@ The most recent version of a digital objects MUST contain the following files di
 
 ### 6.1 Text encoding and line endings
 
-All text files within a digital object, such as `metadata.yml`, `content.txt`, `content.hocr`, `content.vtt`, and `manifest.json`, MUST use UTF-8 encoding and MUST use a line feed character (LF or \n) for line endings.
+All text files within a digital object, such as `metadata.yml`, `content.txt`, `*.hocr`, `*.vtt`, and `manifest.json`, MUST use UTF-8 encoding and MUST use a line feed character (LF or \n) for line endings.
 
 ### 6.2 `metadata.yml`
 
@@ -299,7 +307,7 @@ Fields contained in `metadata.yml` are defined in [5. `metadata.yml` fields](#5.
 
 ### 6.4 `content.txt`
 
-Content files contain text that can be indexed into Solr for discovery. It is RECOMMENDED to use structured formats such as HOCR or VTT to support IIIF annotations and captioning, but an unstructured `content.txt` file is also permitted for legacy digital objects.
+Content files contain plain text that represents the digital object and should be indexed into Solr for discovery. If a digital object has any representative text, then it MUST contain a `content.txt` file. The object SHOULD also have canvas-level text in representation folders such as `txt` for unstructured per-canvas text, or `hocr` for HOCR or `vtt` for VTT captions to support text highlighing and captioning.
 
 ## 7. Full-Text Indexing Prioritization
 
@@ -307,7 +315,7 @@ All digital objects will be indexed into ArcLight's Solr core for full-text disc
 
 1. The `context.txt` file if it is present within a digital object folder.
 2. A single file within a `txt` representation folder. This will be skipped if there is multiple per-canvas files.
-3. All the text from HOCR files within a `ocr` representation folder.
+3. All the text from HOCR files within a `hocr` representation folder.
 
 ## 8. `metadata.yml` fields
 
@@ -399,22 +407,25 @@ These fields have strict requirements as they support for automated processes.
 	│   │	├── mp3/
 	│   │	├── ogg/
 	│   │	├── vtt/
+	│   │	├── txt/
 	│   │	├── content.txt
 	│   │	├── manifest.json
 	│   │	└── metadata.yml
 	│   └── 84f1tH58w/
 	│		├── webm/
 	│		├── vtt/
+	│		├── txt/
 	│		├── content.txt
 	│		├── manifest.json
 	│		└── metadata.yml
 	├── ua200/
 	│	└── 3n208fj07j/
 	│		├── jpg/
-	│		├── ocr/
+	│		├── hocr/
 	│		├── pdf/
 	│		├── pptx/
-	│		├── tiff/
+	│		├── ptif/
+	│		├── txt/
 	│		├── content.txt
 	│		├── manifest.json
 	│		├── metadata.yml
@@ -423,7 +434,8 @@ These fields have strict requirements as they support for automated processes.
 		└── 5t34t462n/
 			├── jpg/
 			├── pdf/
-			├── tiff/
+			├── ptif/
+			├── txt/
 			├── content.txt
 			├── manifest.json
 			├── metadata.yml
