@@ -73,7 +73,7 @@ def transcribe(collection_id=None):
                             break
                 elif metadata["resource_type"].lower() == "video":
                     # In preferential order
-                    video_formats = ["webm", "mp4", "mov"]
+                    video_formats = ["webm", "mp4", "mov", "mp3"]
                     for video_format in video_formats:
                         format_path = os.path.join(obj_path, video_format)
                         if os.path.isdir(format_path) and len(os.listdir(format_path)) > 0:
