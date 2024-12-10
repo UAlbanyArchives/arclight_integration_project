@@ -43,7 +43,7 @@ def create_iiif_canvas(manifest, url_root, obj_url_root, label, resource_type, r
                     "type": "ImageService3"
                   }
                 ]
-        if kwargs.get("resource_format", None) == "tiff":
+        if kwargs.get("resource_format", None) == "ptif":
             image_mime = "image/tiff"
         else:
             image_mime = "image/jpeg"
@@ -56,10 +56,10 @@ def create_iiif_canvas(manifest, url_root, obj_url_root, label, resource_type, r
                          service=service)
 
         # Check for HOCR file for the image
-        hocr_file = os.path.join(os.path.dirname(os.path.dirname(resource_path)), "ocr", f"{os.path.splitext(os.path.basename(resource_path))[0]}.hocr")
+        hocr_file = os.path.join(os.path.dirname(os.path.dirname(resource_path)), "hocr", f"{os.path.splitext(os.path.basename(resource_path))[0]}.hocr")
         if os.path.exists(hocr_file):
             canvas_rendering = {
-                "id": f"{obj_url_root}/ocr/{urllib.parse.quote(os.path.basename(hocr_file))}",
+                "id": f"{obj_url_root}/hocr/{urllib.parse.quote(os.path.basename(hocr_file))}",
                 "label": "HOCR data (OCR)",
                 "type": "Text",
                 "format": "text/vnd.hocr+html",
@@ -416,12 +416,12 @@ def read_objects(collection_id=None, object_id=None):
                     resource_format = "webm"
                     filesPath = os.path.join(objPath, resource_format)
                 else:
-                    filesPath = os.path.join(objPath, "tiff")
+                    filesPath = os.path.join(objPath, "ptif")
                     if not os.path.isdir(filesPath):
                         filesPath = os.path.join(objPath, "jpg")
                         resource_format = "jpg"
                     else:
-                        resource_format = "tiff"
+                        resource_format = "ptif"
 
                 if os.path.isdir(filesPath):
                     print(f"{collection}/{obj}")

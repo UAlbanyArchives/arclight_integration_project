@@ -26,7 +26,7 @@ def run_tesseract(collection_id=None, object_id=None):
 
             objDir = os.path.join(colDir, obj)
             jpgDir = os.path.join(objDir, "jpg")
-            ocrDir = os.path.join(objDir, "ocr")
+            ocrDir = os.path.join(objDir, "hocr")
             txtDir = os.path.join(objDir, "txt")
 
             # Ensure the output directories exist
@@ -79,7 +79,7 @@ def run_tesseract(collection_id=None, object_id=None):
                                     #content_file.write(f"\n\n--- {base_name}.txt ---\n\n")
                                     content_file.write(content)
 
-                            print(f"\tProcessed {filename} to ocr/{base_name}.hocr and txt/{base_name}.txt")
+                            print(f"\tProcessed {filename} to hocr/{base_name}.hocr and txt/{base_name}.txt")
 
     except Exception as e:
         with open(log_file, "a") as log:
