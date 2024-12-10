@@ -73,8 +73,12 @@ def download_thumbnails(collection_id=None, force=None):
 
 if __name__ == "__main__":
     # Check for command-line arguments
+    print (sys.argv)
     if len(sys.argv) > 1:
         collection_id_arg = sys.argv[1]
-        download_thumbnails(collection_id=collection_id_arg)
+        if len(sys.argv) > 2 and sys.argv[2].lower() == "-f":
+            download_thumbnails(collection_id=collection_id_arg, force=True)
+        else:
+            download_thumbnails(collection_id=collection_id_arg)
     else:
         download_thumbnails()
