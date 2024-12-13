@@ -45,27 +45,28 @@ def convert_images(collection_id=None, object_id=None):
                             os.mkdir(tiffPath)
 
                         for jpg in os.listdir(jpgPath):
-                            print (f"\tConverting {jpg}...")
-                            jpgFilepath = os.path.join(jpgPath, jpg)
-                            filename = os.path.splitext(jpg)[0]
-                            outfile = os.path.join(tiffPath, f"{filename}.tiff")
+                            if jpg.lower().endswith(".jpg") or jpg.lower().endswith(".jpeg"):
+                                print (f"\tConverting {jpg}...")
+                                jpgFilepath = os.path.join(jpgPath, jpg)
+                                filename = os.path.splitext(jpg)[0]
+                                outfile = os.path.join(tiffPath, f"{filename}.tiff")
 
-                            # Load image
-                            #image = pyvips.Image.new_from_file(jpgFilepath)
-                            # Save as pyramidal TIFF
-                            #image.tiffsave(outfile, tile=True, pyramid=True, compression="jpeg", tile_width=256, tile_height=256, bigtiff=True)
+                                # Load image
+                                #image = pyvips.Image.new_from_file(jpgFilepath)
+                                # Save as pyramidal TIFF
+                                #image.tiffsave(outfile, tile=True, pyramid=True, compression="jpeg", tile_width=256, tile_height=256, bigtiff=True)
 
-                            vipsCmd = [
-                                "vips", "tiffsave",
-                                jpgFilepath, outfile,
-                                "--tile",
-                                "--pyramid",
-                                "--compression=jpeg",
-                                "--Q=90"
-                            ]
-                            #print (vipsCmd)
-                            vips = Popen(vipsCmd, stdout=PIPE, stderr=PIPE)
-                            stdout, stderr = vips.communicate()
+                                vipsCmd = [
+                                    "vips", "tiffsave",
+                                    jpgFilepath, outfile,
+                                    "--tile",
+                                    "--pyramid",
+                                    "--compression=jpeg",
+                                    "--Q=90"
+                                ]
+                                #print (vipsCmd)
+                                vips = Popen(vipsCmd, stdout=PIPE, stderr=PIPE)
+                                stdout, stderr = vips.communicate()
 
         except Exception as e:
             with open(log_file, "a") as log:
