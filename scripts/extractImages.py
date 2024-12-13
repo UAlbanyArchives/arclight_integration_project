@@ -42,31 +42,33 @@ def extract_images(collection_id=None, object_id=None):
                                 pdfCount += 1
 
                         if pdfCount != 1:
-                            raise Exception(f"ERROR: found {pdfCount} PDF files for {col}/{obj}")
-                        else:
-                            for pdf in os.listdir(pdfPath):
-                                filepath = os.path.join(pdfPath, pdf)
-                                filename = os.path.splitext(pdf)[0]
-                                #convertDir = os.path.join(jpgPath, filename)
-                                convertDir = jpgPath
+                            with open(log_file, "a") as log:
+                                log.write(f"\nWARN: found {pdfCount} PDF files for {col}/{obj}\n")
+                            #raise Exception(f"ERROR: found {pdfCount} PDF files for {col}/{obj}")
+                            #else:
+                        for pdf in os.listdir(pdfPath):
+                            filepath = os.path.join(pdfPath, pdf)
+                            filename = os.path.splitext(pdf)[0]
+                            #convertDir = os.path.join(jpgPath, filename)
+                            convertDir = jpgPath
 
-                                print (f"Processing {pdf} from {col}/{obj}...")
+                            print (f"Processing {pdf} from {col}/{obj}...")
 
-                                if not os.path.isdir(convertDir):
-                                    os.mkdir(convertDir)
-                                outfile = os.path.join(convertDir, filename)
+                            if not os.path.isdir(convertDir):
+                                os.mkdir(convertDir)
+                            outfile = os.path.join(convertDir, filename)
 
-                                pdfimagesCmd = ["pdftoppm", filepath, outfile, "-jpeg"]
-                                #pdfimagesCmd =["pdfimages", "-all", filepath, outfile]
-                                #print (pdfimagesCmd)
-                                with Popen(pdfimagesCmd, stdout=PIPE, stderr=PIPE, text=True) as process:
-                                    for line in process.stdout:
-                                        print(line, end='')
-                                    for line in process.stderr:
-                                        with open(log_file, "a") as log:
-                                            log.write(line)
-                                        print(line, end='')
-                                    process.wait()
+                            pdfimagesCmd = ["pdftoppm", filepath, outfile, "-jpeg"]
+                            #pdfimagesCmd =["pdfimages", "-all", filepath, outfile]
+                            #print (pdfimagesCmd)
+                            with Popen(pdfimagesCmd, stdout=PIPE, stderr=PIPE, text=True) as process:
+                                for line in process.stdout:
+                                    print(line, end='')
+                                for line in process.stderr:
+                                    with open(log_file, "a") as log:
+                                        log.write(line)
+                                    print(line, end='')
+                                process.wait()
         except Exception as e:
             with open(log_file, "a") as log:
                 log.write(f"\nERROR extracting images for {objPath}\n")
