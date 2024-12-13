@@ -11,6 +11,19 @@ else:
 
 log_path = "/media/Library/ESPYderivatives/export_logs/images"
 
+def extract_from_pdf(log_file, filepath, convertDir, outfile):
+    pdfimagesCmd = ["pdftoppm", filepath, outfile, "-jpeg"]
+    #pdfimagesCmd =["pdfimages", "-all", filepath, outfile]
+    #print (pdfimagesCmd)
+    with Popen(pdfimagesCmd, stdout=PIPE, stderr=PIPE, text=True) as process:
+        for line in process.stdout:
+            print(line, end='')
+        for line in process.stderr:
+            #with open(log_file, "a") as log:
+            #    log.write(line)
+            print(line, end='')
+        process.wait()
+
 def extract_images(collection_id=None, object_id=None):
     for col in os.listdir(root):
         col_path = os.path.join(root, col)
@@ -41,35 +54,44 @@ def extract_images(collection_id=None, object_id=None):
                             if os.path.isfile(pdfFilePath) and pdf.lower().endswith(".pdf"):
                                 pdfCount += 1
 
+                        convertDir = jpgPath
+                        if not os.path.isdir(convertDir):
+                            os.mkdir(convertDir)
+
                         if pdfCount != 1:
-                            with open(log_file, "a") as log:
-                                log.write(f"\nWARN: found {pdfCount} PDF files for {col}/{obj}\n")
+                            #with open(log_file, "a") as log:
+                            #    log.write(f"\nWARN: found {pdfCount} PDF files for {col}/{obj}\n")
                             #raise Exception(f"ERROR: found {pdfCount} PDF files for {col}/{obj}")
-                            #else:
-                        for pdf in os.listdir(pdfPath):
-                            filepath = os.path.join(pdfPath, pdf)
-                            filename = os.path.splitext(pdf)[0]
-                            #convertDir = os.path.join(jpgPath, filename)
-                            convertDir = jpgPath
+                            with open(metadataPath, 'r', encoding='utf-8') as file:
+                                metadata = yaml.safe_load(file)
 
-                            print (f"Processing {pdf} from {col}/{obj}...")
+                            pdfNum = 0
+                            for file_set in metadata["file_sets"]:
+                                pdfNum += 1
+                                pdf = os.path.splitext(metadata["file_sets"][file_set])[0] + ".pdf"
+                                formatted_number = str(pdfNum).zfill(4)
+                                filepath = os.path.join(pdfPath, pdf)
+                                filename = f"{formatted_number}_{os.path.splitext(pdf)[0]}"
+                                print (filename)
+                                
+                                print (f"Processing {pdf} from {col}/{obj}...")
 
-                            if not os.path.isdir(convertDir):
-                                os.mkdir(convertDir)
-                            outfile = os.path.join(convertDir, filename)
+                                outfile = os.path.join(convertDir, filename)
 
-                            pdfimagesCmd = ["pdftoppm", filepath, outfile, "-jpeg"]
-                            #pdfimagesCmd =["pdfimages", "-all", filepath, outfile]
-                            #print (pdfimagesCmd)
-                            with Popen(pdfimagesCmd, stdout=PIPE, stderr=PIPE, text=True) as process:
-                                for line in process.stdout:
-                                    print(line, end='')
-                                for line in process.stderr:
-                                    with open(log_file, "a") as log:
-                                        log.write(line)
-                                    print(line, end='')
-                                process.wait()
+                                extract_from_pdf(log_file, filepath, convertDir, outfile)
+                        else:
+                            for pdf in os.listdir(pdfPath):
+                                filepath = os.path.join(pdfPath, pdf)
+                                filename = os.path.splitext(pdf)[0]
+
+                                print (f"Processing {pdf} from {col}/{obj}...")
+
+                                outfile = os.path.join(convertDir, filename)
+
+                                extract_from_pdf(log_file, filepath, convertDir, outfile)
+
         except Exception as e:
+            print (traceback.format_exc())
             with open(log_file, "a") as log:
                 log.write(f"\nERROR extracting images for {objPath}\n")
                 log.write(traceback.format_exc())

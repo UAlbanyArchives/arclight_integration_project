@@ -356,21 +356,33 @@ def create_iiif_manifest(file_dir, url_root, obj_url_root, iiif_url_root, resour
     for format_ext in alt_rendering_formats.keys():
         rendering_format = os.path.join(os.path.dirname(file_dir), format_ext)
         # If there is a single file
-        if os.path.isdir(rendering_format) and len(os.listdir(rendering_format)) == 1:
-            rendering_file = os.path.join(rendering_format, os.listdir(rendering_format)[0])
-            if os.path.isfile(rendering_file):
-                if format_ext == "txt":
-                    plaintext_switch = True
-                if os.listdir(rendering_format)[0] == original_file:
-                    alt_label = f"Download Original {original_format.upper()}"
-                else:
-                    alt_label = alt_rendering_formats[format_ext]["label"]
-                manifest_renderings.append({
-                    "id": f"{obj_url_root}/{format_ext}/{urllib.parse.quote(os.path.basename(rendering_file))}",
-                    "type": "Text",
-                    "format": alt_rendering_formats[format_ext]["mimetype"],
-                    "label": alt_label
-                })
+        #if os.path.isdir(rendering_format) and len(os.listdir(rendering_format)) == 1:
+        if os.path.isdir(rendering_format):
+            rendering_files = []
+            if len(os.listdir(rendering_format)) == 1 or not "file_sets" in metadata.keys():
+                rendering_files = [os.listdir(rendering_format)[0]]
+            else:
+                for file_set in metadata["file_sets"].values():
+                    if file_set.lower().endswith(format_ext):
+                        rendering_files.append(file_set)
+
+            for rendering_file in rendering_files:
+                rendering_filepath = os.path.join(rendering_format, rendering_file)
+                if os.path.isfile(rendering_filepath):
+                    if format_ext == "txt":
+                        plaintext_switch = True
+                        alt_label = alt_rendering_formats[format_ext]['label']
+                    else:
+                        if rendering_file == original_file:
+                            alt_label = f"{rendering_file} (Original)"
+                        else:
+                            alt_label = rendering_file
+                    manifest_renderings.append({
+                        "id": f"{obj_url_root}/{format_ext}/{urllib.parse.quote(os.path.basename(rendering_file))}",
+                        "type": "Text",
+                        "format": alt_rendering_formats[format_ext]["mimetype"],
+                        "label": alt_label
+                    })
     contentTxt = os.path.join(os.path.dirname(file_dir), "content.txt")
     if plaintext_switch is False and os.path.isfile(contentTxt):
         manifest_renderings.append({
