@@ -10,7 +10,7 @@ else:
 
 log_path = "/media/Library/ESPYderivatives/export_logs/text"
 
-def extract_text(collection_id=None):
+def extract_text(collection_id=None, object_id=None):
     for col in os.listdir(root):
         col_path = os.path.join(root, col)
 
@@ -19,11 +19,14 @@ def extract_text(collection_id=None):
             continue  # Skip this collection if it doesn't match
 
         log_file = os.path.join(log_path, collection_id + ".log")
-
+        
         try:
 
             if os.path.isdir(col_path):
                 for obj in os.listdir(col_path):
+                    if object_id and object_id not in obj:
+                        continue  # Skip this object if it doesn't match
+
                     objPath = os.path.join(col_path, obj)
                     print(f"Reading {obj}...")
                     metadataPath = os.path.join(objPath, "metadata.yml")
@@ -67,13 +70,17 @@ def extract_text(collection_id=None):
             with open(log_file, "a") as log:
                 log.write(f"\nERROR extracting text for {objPath}\n")
                 log.write(traceback.format_exc())
-
+        
 
 
 
 if __name__ == "__main__":
     # Check for command-line arguments
-    if len(sys.argv) > 1:
+    if len(sys.argv) > 2:
+        collection_id_arg = sys.argv[1]
+        object_id_arg = sys.argv[2]
+        extract_text(collection_id=collection_id_arg, object_id=object_id_arg)
+    elif len(sys.argv) > 1:
         collection_id_arg = sys.argv[1]
         extract_text(collection_id=collection_id_arg)
     else:

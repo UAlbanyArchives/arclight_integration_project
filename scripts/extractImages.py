@@ -14,15 +14,24 @@ log_path = "/media/Library/ESPYderivatives/export_logs/images"
 def extract_from_pdf(log_file, filepath, convertDir, outfile):
     pdfimagesCmd = ["pdftoppm", filepath, outfile, "-jpeg"]
     #pdfimagesCmd =["pdfimages", "-all", filepath, outfile]
-    #print (pdfimagesCmd)
+    print("Running command:", " ".join(pdfimagesCmd))
+    
     with Popen(pdfimagesCmd, stdout=PIPE, stderr=PIPE, text=True) as process:
-        for line in process.stdout:
-            print(line, end='')
-        for line in process.stderr:
+        stdout, stderr = process.communicate()  # Collect both outputs
+        
+        # Print or log stdout
+        if stdout:
+            print(stdout)
+        
+        # Print or log stderr
+        if stderr:
+            print(stderr, end='')
             with open(log_file, "a") as log:
-                log.write(line)
-            print(line, end='')
-        process.wait()
+                log.write(stderr)
+        
+        # Check return code
+        if process.returncode != 0:
+            print(f"Error: Command failed with exit code {process.returncode}")
 
 def extract_images(collection_id=None, object_id=None):
     for col in os.listdir(root):
