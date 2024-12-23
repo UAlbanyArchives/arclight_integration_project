@@ -40,7 +40,7 @@ def convert_images(collection_id=None, object_id=None):
                     if not os.path.isdir(jpgPath):
                         print (f"ERROR: Could not find jpg or tif folder in {objPath}.")
                     else:
-                        tiffPath = os.path.join(objPath, "tiff")
+                        tiffPath = os.path.join(objPath, "ptif")
                         if not os.path.isdir(tiffPath):
                             os.mkdir(tiffPath)
 
@@ -49,7 +49,7 @@ def convert_images(collection_id=None, object_id=None):
                                 print (f"\tConverting {jpg}...")
                                 jpgFilepath = os.path.join(jpgPath, jpg)
                                 filename = os.path.splitext(jpg)[0]
-                                outfile = os.path.join(tiffPath, f"{filename}.tiff")
+                                outfile = os.path.join(tiffPath, f"{filename}.ptif")
 
                                 # Load image
                                 #image = pyvips.Image.new_from_file(jpgFilepath)
