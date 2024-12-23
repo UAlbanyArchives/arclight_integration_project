@@ -21,6 +21,13 @@ docker compose up -d
 docker exec -it python1 bash
 ```
 
+To run locally in wsl:
+```
+wsl
+mkdir /mnt/host/t
+mount -t drvfs T: /mnt/host/t
+```
+
 ## 1. Inital file export
 
 There is [rake task](https://github.com/UAlbanyArchives/hyrax-UAlbany/blob/main/lib/tasks/export_files.rake) in our Hyrax instance to initally export objects from Hyrax. This includes `metadata.yml` and content files in subdirectories by file extension:
