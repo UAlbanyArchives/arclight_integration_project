@@ -276,7 +276,10 @@ def create_iiif_manifest(file_dir, url_root, obj_url_root, iiif_url_root, resour
 
     # Loop through the resources in the directory
     page_count = 0
+    sorted_files = []
     for resource_file in os.listdir(file_dir):
+        sorted_files.append(resource_file)
+    for resource_file in sorted(sorted_files):
         resource_path = os.path.join(file_dir, resource_file)
         filename = urllib.parse.quote(os.path.splitext(resource_file)[0])
         quoted_file = urllib.parse.quote(resource_file.strip())
