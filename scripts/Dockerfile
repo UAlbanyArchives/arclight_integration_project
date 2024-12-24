@@ -27,5 +27,8 @@ COPY policy.xml /etc/ImageMagick-6/policy.xml
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
+# Get OCR model
+#RUN kraken get 10.5281/zenodo.2577813
+
 # Set default command (optional)
 CMD ["bash"]
