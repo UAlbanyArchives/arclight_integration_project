@@ -1,5 +1,6 @@
 import os
 import sys
+import time
 import subprocess
 import traceback
 
@@ -11,6 +12,7 @@ else:
 log_path = "/media/Library/ESPYderivatives/export_logs/text"
 
 def run_tesseract(collection_id=None, object_id=None):
+    start_time = time.time()
 
     colDir = os.path.join(root, collection_id)
     if not os.path.isdir(colDir):
@@ -85,6 +87,13 @@ def run_tesseract(collection_id=None, object_id=None):
         with open(log_file, "a") as log:
             log.write(f"\nERROR reading text for {objDir}\n")
             log.write(traceback.format_exc())
+
+    # End time
+    end_time = time.time()
+
+    # Calculate elapsed time
+    elapsed_time = end_time - start_time
+    print(f"\nProcessing completed in {elapsed_time:.2f} seconds.")
 
 if __name__ == "__main__":
     # Check for command-line arguments

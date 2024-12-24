@@ -67,8 +67,8 @@ def extract_images(collection_id=None, object_id=None):
                             os.mkdir(convertDir)
 
                             if pdfCount != 1:
-                                with open(log_file, "a") as log:
-                                    log.write(f"\nWARN: found {pdfCount} PDF files for {col}/{obj}\n")
+                                #with open(log_file, "a") as log:
+                                #    log.write(f"\nWARN: found {pdfCount} PDF files for {col}/{obj}\n")
                                 #raise Exception(f"ERROR: found {pdfCount} PDF files for {col}/{obj}")
                                 with open(metadataPath, 'r', encoding='utf-8') as file:
                                     metadata = yaml.safe_load(file)
