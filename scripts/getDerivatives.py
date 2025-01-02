@@ -129,7 +129,7 @@ if __name__ == "__main__":
         download_derivatives(collection_id=collection_id, object_id=object_id_arg)
     elif len(sys.argv) > 1:
         collection_ids = sys.argv[1].split(',')
-        for collection_id in collection_ids
+        for collection_id in collection_ids:
             print(f"Processing collection: {collection_id}")
             download_derivatives(collection_id=collection_id)
     else:
