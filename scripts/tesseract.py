@@ -3,6 +3,7 @@ import sys
 import time
 import subprocess
 import traceback
+import yaml
 
 if os.name == "nt":
     root = "\\\\Lincoln\\Library\\SPE_DAO"
@@ -11,7 +12,7 @@ else:
 
 log_path = "/media/Library/ESPYderivatives/export_logs/text"
 
-def run_tesseract(collection_id=None, object_id=None):
+def run_tesseract(collection_id=None, object_id=None, only_docs=False):
     start_time = time.time()
 
     colDir = os.path.join(root, collection_id)
@@ -30,6 +31,17 @@ def run_tesseract(collection_id=None, object_id=None):
             jpgDir = os.path.join(objDir, "jpg")
             ocrDir = os.path.join(objDir, "hocr")
             txtDir = os.path.join(objDir, "txt")
+            metadataPath = os.path.join(objDir, "metadata.yml")
+
+            if only_docs:
+                if not os.path.isfile(metadataPath):
+                    print(f"Metadata file not found: {metadataPath}")
+                    continue
+                with open(metadataPath, 'r', encoding='utf-8') as file:
+                    metadata = yaml.safe_load(file)
+                    if not metadata.get('resource_type') == "Document":
+                        print(f"\tSkipping non-Document...")
+                        continue
 
             # Ensure the output directories exist
             if not os.path.isdir(ocrDir):
@@ -100,7 +112,10 @@ if __name__ == "__main__":
     if len(sys.argv) > 2:
         collection_id_arg = sys.argv[1]
         object_id_arg = sys.argv[2]
-        run_tesseract(collection_id=collection_id_arg, object_id=object_id_arg)
+        if object_id_arg.lower() == "only_docs":
+            run_tesseract(collection_id=collection_id_arg, only_docs=True)
+        else:
+            run_tesseract(collection_id=collection_id_arg, object_id=object_id_arg)
     elif len(sys.argv) > 1:
         collection_id_arg = sys.argv[1]
         run_tesseract(collection_id=collection_id_arg)
