@@ -114,6 +114,6 @@ if __name__ == "__main__":
         collection_ids = sys.argv[1].split(',')
         for collection_id in collection_ids:
             print(f"Processing collection: {collection_id}")
-            extract_images(collection_id=collection_id_arg)
+            extract_images(collection_id=collection_id)
     else:
         extract_images()
