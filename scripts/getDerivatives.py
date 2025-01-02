@@ -79,7 +79,7 @@ def download_derivatives(collection_id=None, object_id=None):
                 for obj in os.listdir(col_path):
                     if object_id and object_id not in obj:
                         continue  # Skip this object if it doesn't match
-                        
+
                     print (f"Checking {obj}...")
                     objPath = os.path.join(col_path, obj)
                     metadataPath = os.path.join(objPath, "metadata.yml")
@@ -124,11 +124,13 @@ def download_derivatives(collection_id=None, object_id=None):
 if __name__ == "__main__":
     # Check for command-line arguments
     if len(sys.argv) > 2:
-        collection_id_arg = sys.argv[1]
+        collection_id = sys.argv[1]
         object_id_arg = sys.argv[2]
-        download_derivatives(collection_id=collection_id_arg, object_id=object_id_arg)
+        download_derivatives(collection_id=collection_id, object_id=object_id_arg)
     elif len(sys.argv) > 1:
-        collection_id_arg = sys.argv[1]
-        download_derivatives(collection_id=collection_id_arg)
+        collection_ids = sys.argv[1].split(',')
+        for collection_id in collection_ids
+            print(f"Processing collection: {collection_id}")
+            download_derivatives(collection_id=collection_id)
     else:
         download_derivatives()

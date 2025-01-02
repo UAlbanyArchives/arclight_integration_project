@@ -78,10 +78,11 @@ if __name__ == "__main__":
     # Check for command-line arguments
     print (sys.argv)
     if len(sys.argv) > 1:
-        collection_id_arg = sys.argv[1]
-        if len(sys.argv) > 2 and sys.argv[2].lower() == "-f":
-            download_thumbnails(collection_id=collection_id_arg, force=True)
-        else:
-            download_thumbnails(collection_id=collection_id_arg)
+        collection_ids = sys.argv[1].split(',')
+        force_flag = len(sys.argv) > 2 and sys.argv[2].lower() == "-f"
+        
+        for collection_id in collection_ids:
+            print(f"Processing collection: {collection_id}")
+            download_thumbnails(collection_id=collection_id, force=force_flag)
     else:
         download_thumbnails()

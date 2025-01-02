@@ -111,7 +111,9 @@ if __name__ == "__main__":
         object_id_arg = sys.argv[2]
         extract_images(collection_id=collection_id_arg, object_id=object_id_arg)
     elif len(sys.argv) > 1:
-        collection_id_arg = sys.argv[1]
-        extract_images(collection_id=collection_id_arg)
+        collection_ids = sys.argv[1].split(',')
+        for collection_id in collection_ids:
+            print(f"Processing collection: {collection_id}")
+            extract_images(collection_id=collection_id_arg)
     else:
         extract_images()
