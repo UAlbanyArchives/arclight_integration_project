@@ -101,7 +101,10 @@ def transcribe(collection_id=None):
 if __name__ == "__main__":
     # Check for command-line arguments
     if len(sys.argv) > 1:
-        collection_id_arg = sys.argv[1]
         transcribe(collection_id=collection_id_arg)
+        collection_ids = sys.argv[1].split(',')
+        for collection_id in collection_ids:
+            print(f"Processing collection: {collection_id}")
+            transcribe(collection_id=collection_id)
     else:
         transcribe()
