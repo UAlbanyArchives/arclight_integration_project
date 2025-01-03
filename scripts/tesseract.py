@@ -53,8 +53,8 @@ def run_tesseract(collection_id=None, object_id=None, only_docs=False):
 
             if not os.path.isdir(jpgDir):
                 # Try tiffs?
-                #jpgDir = os.path.join(objDir, "tif")
-                jpgDir = os.path.join(objDir, "ptif")
+                jpgDir = os.path.join(objDir, "tif")
+                #jpgDir = os.path.join(objDir, "ptif")
             if not os.path.isdir(jpgDir):
                 # Try pngs?
                 jpgDir = os.path.join(objDir, "png")
@@ -82,16 +82,19 @@ def run_tesseract(collection_id=None, object_id=None, only_docs=False):
                                 '-c', 'tessedit_create_txt=1'
                             ])
 
-                            # Move the generated .txt file to the txt directory
                             generated_txt_path = ocr_output_path + ".txt"
-                            if os.path.exists(generated_txt_path):
-                                os.rename(generated_txt_path, txt_output_path + ".txt")
+                            
+                            # Append the contents of the individual .txt file to content.txt
+                            with open(generated_txt_path, "r", encoding="utf-8") as txt_file:
+                                content = txt_file.read()
+                                content_file.write(content)
 
-                                # Append the contents of the individual .txt file to content.txt
-                                with open(txt_output_path + ".txt", "r", encoding="utf-8") as txt_file:
-                                    content = txt_file.read()
-                                    #content_file.write(f"\n\n--- {base_name}.txt ---\n\n")
-                                    content_file.write(content)
+                            # Move the generated .txt file to the txt directory
+                            if os.path.exists(generated_txt_path):
+                                if not os.path.isfile(txt_output_path + ".txt"):
+                                    os.rename(generated_txt_path, txt_output_path + ".txt")
+                                else:
+                                    os.remove(generated_txt_path)
 
                             print(f"\tProcessed {filename} to hocr/{base_name}.hocr and txt/{base_name}.txt")
 
