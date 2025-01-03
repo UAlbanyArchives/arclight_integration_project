@@ -404,7 +404,7 @@ def read_objects(collection_id=None, object_id=None):
         col_path = os.path.join(root, collection)
 
         # Check if collection_id is provided and matches the current collection
-        if collection_id and collection_id not in collection:
+        if collection_id and collection_id != collection:
             continue  # Skip this collection if it doesn't match
 
         if os.path.isdir(col_path):
