@@ -316,6 +316,10 @@ def create_iiif_manifest(file_dir, url_root, obj_url_root, iiif_url_root, resour
             "mimetype": "application/msword",
             "label": "Download DOC"
         },
+        "rtf": {
+            "mimetype": "text/rtf",
+            "label": "Download RTF"
+        },
         "xlsx": {
             "mimetype": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
             "label": "Download XLSX"
@@ -343,6 +347,10 @@ def create_iiif_manifest(file_dir, url_root, obj_url_root, iiif_url_root, resour
         "mov": {
             "mimetype": "video/quicktime",
             "label": "Download MOV"
+        },
+        "zip": {
+            "mimetype": "application/zip",
+            "label": "Download ZIP package"
         },
         "txt": {
             "mimetype": "text/plain",

@@ -78,9 +78,9 @@ def convert_txt(collection_id=None, object_id=None, force=None):
                     metadata = yaml.safe_load(file)
 
                 out_dir = os.path.join(objPath, "png")
-                if not os.path.isdir(out_dir):
-                    os.mkdir(out_dir)
-                elif force:
+                if not os.path.isdir(out_dir) or force:
+                    if not os.path.isdir(out_dir):
+                        os.mkdir(out_dir)
 
                     file_order = ["txt"]
                     for format_ext in file_order:

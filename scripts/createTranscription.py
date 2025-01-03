@@ -40,7 +40,7 @@ def transcribe_file(file_path, vtt_file_path, txt_file_path):
 
     print(f"Transcription saved to {vtt_file_path} and {txt_file_path}")
 
-def transcribe(collection_id=None):
+def transcribe(collection_id=None, object_id=None):
     for col in os.listdir(root):
         col_path = os.path.join(root, col)
 
@@ -50,6 +50,9 @@ def transcribe(collection_id=None):
 
         if os.path.isdir(col_path):
             for obj in os.listdir(col_path):
+                if object_id and object_id not in obj:
+                    continue  # Skip this object if it doesn't match
+                    
                 obj_path = os.path.join(col_path, obj)
                 metadata_path = os.path.join(obj_path, "metadata.yml")
                 vtt_output_dir = os.path.join(obj_path, "vtt")
@@ -100,7 +103,11 @@ def transcribe(collection_id=None):
 
 if __name__ == "__main__":
     # Check for command-line arguments
-    if len(sys.argv) > 1:
+    if len(sys.argv) > 2:
+        collection_id = sys.argv[1]
+        object_id = sys.argv[2]
+        transcribe(collection_id=collection_id, object_id=object_id)
+    elif len(sys.argv) > 1:
         collection_ids = sys.argv[1].split(',')
         for collection_id in collection_ids:
             print(f"Processing collection: {collection_id}")
