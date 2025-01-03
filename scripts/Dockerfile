@@ -20,6 +20,9 @@ RUN apt update && \
 # Install ffmpeg
 RUN apt update && apt install -y ffmpeg
 
+# Install libreoffice
+RUN apt install -y libreoffice
+
 # Copy the policy file (if needed)
 COPY policy.xml /etc/ImageMagick-6/policy.xml
 
