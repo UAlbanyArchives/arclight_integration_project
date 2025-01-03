@@ -372,14 +372,15 @@ def create_iiif_manifest(file_dir, url_root, obj_url_root, iiif_url_root, resour
             for rendering_file in rendering_files:
                 rendering_filepath = os.path.join(rendering_format, rendering_file)
                 if os.path.isfile(rendering_filepath):
-                    if format_ext == "txt":
+                    if rendering_file == original_file:
+                        alt_label = f"{rendering_file} (Original)"
+                        if format_ext == "txt":
+                            plaintext_switch = True
+                    elif format_ext == "txt":
                         plaintext_switch = True
                         alt_label = alt_rendering_formats[format_ext]['label']
                     else:
-                        if rendering_file == original_file:
-                            alt_label = f"{rendering_file} (Original)"
-                        else:
-                            alt_label = rendering_file
+                        alt_label = rendering_file
                     manifest_renderings.append({
                         "id": f"{obj_url_root}/{format_ext}/{urllib.parse.quote(os.path.basename(rendering_file))}",
                         "type": "Text",

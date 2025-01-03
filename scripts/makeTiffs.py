@@ -45,7 +45,7 @@ def convert_images(collection_id=None, object_id=None):
                             os.mkdir(tiffPath)
 
                         for jpg in os.listdir(jpgPath):
-                            if jpg.lower().endswith(".jpg") or jpg.lower().endswith(".jpeg"):
+                            if jpg.lower().endswith(".jpg") or jpg.lower().endswith(".jpeg") or jpg.lower().endswith(".png"):
                                 print (f"\tConverting {jpg}...")
                                 jpgFilepath = os.path.join(jpgPath, jpg)
                                 filename = os.path.splitext(jpg)[0]
