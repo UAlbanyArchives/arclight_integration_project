@@ -45,7 +45,7 @@ def transcribe(collection_id=None):
         col_path = os.path.join(root, col)
 
         # Check if collection_id is provided and matches the current collection
-        if collection_id and collection_id not in col:
+        if collection_id and collection_id != col:
             continue  # Skip this collection if it doesn't match
 
         if os.path.isdir(col_path):
