@@ -24,7 +24,7 @@ def extract_text(collection_id=None, object_id=None):
 
             if os.path.isdir(col_path):
                 for obj in os.listdir(col_path):
-                    if object_id and object_id not in obj:
+                    if object_id and obj not in object_id:
                         continue  # Skip this object if it doesn't match
 
                     objPath = os.path.join(col_path, obj)
@@ -78,7 +78,7 @@ if __name__ == "__main__":
     # Check for command-line arguments
     if len(sys.argv) > 2:
         collection_id_arg = sys.argv[1]
-        object_id_arg = sys.argv[2]
+        object_id_arg = sys.argv[2].split(",")
         extract_text(collection_id=collection_id_arg, object_id=object_id_arg)
     elif len(sys.argv) > 1:
         collection_id_arg = sys.argv[1]

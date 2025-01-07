@@ -77,7 +77,7 @@ def download_derivatives(collection_id=None, object_id=None):
         try:
             if os.path.isdir(col_path):
                 for obj in os.listdir(col_path):
-                    if object_id and object_id not in obj:
+                    if object_id and object_id != obj:
                         continue  # Skip this object if it doesn't match
 
                     print (f"Checking {obj}...")

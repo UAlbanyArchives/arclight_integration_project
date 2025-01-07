@@ -358,12 +358,20 @@ def create_iiif_manifest(file_dir, url_root, obj_url_root, iiif_url_root, resour
         },
         "csv": {
             "mimetype": "text/csv",
-            "label": "Download Text transcription"
+            "label": "Download CSV transcription"
         }
     }
     original_file = metadata.get("original_file_legacy", None)
     original_format = os.path.splitext(original_file)[1][1:]
     plaintext_switch = False
+    contentTxt = os.path.join(os.path.dirname(file_dir), "content.txt")
+    if os.path.isfile(contentTxt):
+        manifest_renderings.append({
+                    "id": f"{obj_url_root}/content.txt",
+                    "type": "Text",
+                    "format": "text/plain",
+                    "label": "Download Text transcription"
+                })
     for format_ext in alt_rendering_formats.keys():
         rendering_format = os.path.join(os.path.dirname(file_dir), format_ext)
         # If there is a single file
@@ -382,11 +390,12 @@ def create_iiif_manifest(file_dir, url_root, obj_url_root, iiif_url_root, resour
                 if os.path.isfile(rendering_filepath):
                     if rendering_file == original_file:
                         alt_label = f"{rendering_file} (Original)"
-                        if format_ext == "txt":
-                            plaintext_switch = True
                     elif format_ext == "txt":
-                        plaintext_switch = True
-                        alt_label = alt_rendering_formats[format_ext]['label']
+                        # skip text renderings if content.txt already added
+                        if os.path.isfile(contentTxt):
+                            continue
+                        else:
+                            alt_label = alt_rendering_formats[format_ext]['label']
                     else:
                         alt_label = rendering_file
                     manifest_renderings.append({
@@ -395,14 +404,6 @@ def create_iiif_manifest(file_dir, url_root, obj_url_root, iiif_url_root, resour
                         "format": alt_rendering_formats[format_ext]["mimetype"],
                         "label": alt_label
                     })
-    contentTxt = os.path.join(os.path.dirname(file_dir), "content.txt")
-    if plaintext_switch is False and os.path.isfile(contentTxt):
-        manifest_renderings.append({
-                    "id": f"{obj_url_root}/content.txt",
-                    "type": "Text",
-                    "format": "text/plain",
-                    "label": "Download Text transcription"
-                })
     if manifest_renderings:
         manifest.rendering = manifest_renderings
 

@@ -11,20 +11,8 @@ if os.name == "nt":
 else:
     root = "/media/Library/SPE_DAO"
 
-def check_encoding(filepath):
-    """Check the file encoding using `file -i`."""
-    try:
-        result = subprocess.run(['file', '-i', filepath], capture_output=True, text=True)
-        result.check_returncode()
-        encoding_line = result.stdout
-        # Parse encoding from the output
-        encoding = encoding_line.split("charset=")[-1].strip()
-        return encoding
-    except Exception as e:
-        print(f"Error checking encoding: {e}")
-        return None
 
-def convert_txt_to_pdf(input_file, output_file):
+def convert_htm_to_pdf(input_file, output_file):
     # Get the output directory from the output file path
     output_dir = os.path.dirname(output_file)
 
@@ -33,13 +21,13 @@ def convert_txt_to_pdf(input_file, output_file):
 
     # Construct the command as a list
     command = [
-        "libreoffice",
+        "Chrome.exe",
         "--headless",
-        "--convert-to",
-        "pdf",
-        input_file,
-        "--outdir",
-        output_dir,
+        "--run-all-compositor-stages-before-draw",
+        "--disable-gpu",
+        "--no-pdf-header-footer",
+        f"--print-to-pdf={output_file}",
+        input_file
     ]
     
     # Print the command for debugging
@@ -54,32 +42,6 @@ def convert_txt_to_pdf(input_file, output_file):
     except FileNotFoundError:
         print("LibreOffice is not installed or not in the system PATH.")
 
-def convert_to_utf8(original_file, utf8_file):
-    """Convert a file to UTF-8 encoding using `iconv`."""
-    try:
-        subprocess.run(['iconv', '-f', 'ISO-8859-1', '-t', 'UTF-8', original_file, '-o', utf8_file], check=True)
-        print(f"Converted {original_file} to UTF-8 as {utf8_file}")
-    except subprocess.CalledProcessError as e:
-        print(f"Error during conversion: {e}")
-
-def create_image(text_file, output_image):
-    """Create an image from the text file using ImageMagick."""
-    try:
-        subprocess.run([
-            'convert', 
-            '-background', 'white', 
-            '-fill', 'black', 
-            '-font', 'DejaVu-Sans', 
-            '-pointsize', '20', 
-            '-size', '2000x', 
-            f'caption:@{text_file}', 
-            '-bordercolor', 'white', 
-            '-border', '125', 
-            output_image
-        ], check=True)
-        print(f"Image created: {output_image}")
-    except subprocess.CalledProcessError as e:
-        print(f"Error creating image: {e}")
 
 def convert_txt(collection_id=None, object_id=None, force=None):
     for col in os.listdir(root):
@@ -112,7 +74,7 @@ def convert_txt(collection_id=None, object_id=None, force=None):
                     if not os.path.isdir(out_dir):
                         os.mkdir(out_dir)
 
-                    file_order = ["txt"]
+                    file_order = ["htm"]
                     for format_ext in file_order:
                         file_dir = os.path.join(objPath, format_ext)
                         if os.path.isdir(file_dir) and len(os.listdir(file_dir)) > 0:
@@ -122,25 +84,10 @@ def convert_txt(collection_id=None, object_id=None, force=None):
                                     continue
 
                                 input_file = os.path.join(file_dir, file)
-                                output_image = os.path.join(out_dir, os.path.splitext(file)[0] + ".png")
-                                encoding = check_encoding(input_file)
-                                if not encoding:
-                                    print("Unable to determine encoding.")
-                                if encoding.lower() != 'utf-8':
-                                    utf8_file = f"{os.path.splitext(input_file)[0]}_utf8.txt"
-                                    convert_to_utf8(input_file, utf8_file)
-                                    text_file_to_use = utf8_file
-                                else:
-                                    text_file_to_use = input_file
+                                output_image = os.path.join(out_dir, os.path.splitext(file)[0] + ".pdf")
+                                
+                                convert_htm_to_pdf(input_file, output_image)
 
-                                #create_image(text_file_to_use, output_image)
-                                convert_txt_to_pdf(text_file_to_use, os.path.join(out_dir, "pdf"))
-
-                                # Cleanup: Remove temporary UTF-8 file if created
-                                time.sleep(10)
-                                if text_file_to_use != input_file and os.path.exists(text_file_to_use):
-                                    os.remove(text_file_to_use)
-                                    print(f"Temporary file {text_file_to_use} removed.")
                             
                             break
 
