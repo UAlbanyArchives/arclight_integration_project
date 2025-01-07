@@ -24,7 +24,7 @@ def run_tesseract(collection_id=None, object_id=None, only_docs=False):
     try:
 
         for obj in os.listdir(colDir):
-            if object_id and object_id not in obj:
+            if object_id and obj not in object_id:
                 continue  # Skip this object if it doesn't match
 
             objDir = os.path.join(colDir, obj)
@@ -83,7 +83,7 @@ def run_tesseract(collection_id=None, object_id=None, only_docs=False):
                             ])
 
                             generated_txt_path = ocr_output_path + ".txt"
-                            
+
                             # Append the contents of the individual .txt file to content.txt
                             with open(generated_txt_path, "r", encoding="utf-8") as txt_file:
                                 content = txt_file.read()
@@ -114,8 +114,8 @@ if __name__ == "__main__":
     # Check for command-line arguments
     if len(sys.argv) > 2:
         collection_id_arg = sys.argv[1]
-        object_id_arg = sys.argv[2]
-        if object_id_arg.lower() == "only_docs":
+        object_id_arg = sys.argv[2].split(",")
+        if isinstance(object_id_arg, str) and object_id_arg.lower() == "only_docs":
             run_tesseract(collection_id=collection_id_arg, only_docs=True)
         else:
             run_tesseract(collection_id=collection_id_arg, object_id=object_id_arg)

@@ -27,7 +27,7 @@ def make_thumb(collection_id=None, object_id=None, force=None):
 
         if os.path.isdir(col_path):
             for obj in os.listdir(col_path):
-                if object_id and object_id != obj:
+                if object_id and obj not in object_id:
                     continue  # Skip this object if it doesn't match
 
                 objPath = os.path.join(col_path, obj)
@@ -79,7 +79,7 @@ if __name__ == "__main__":
     print (sys.argv)
     if len(sys.argv) > 2:
         collection_id = sys.argv[1]
-        object_id_arg = sys.argv[2]
+        object_id_arg = sys.argv[2].split(",")
         force_flag = len(sys.argv) > 2 and sys.argv[2].lower() == "-f"
         make_thumb(collection_id=collection_id, object_id=object_id_arg, force=force_flag)
     elif len(sys.argv) > 1:

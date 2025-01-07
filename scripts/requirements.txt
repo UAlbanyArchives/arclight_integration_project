@@ -10,3 +10,4 @@ ffmpeg-python==0.2.0
 pyvips==2.2.3
 kraken==5.3.0
 python-doctr==0.10.0
+pandas==2.2.3

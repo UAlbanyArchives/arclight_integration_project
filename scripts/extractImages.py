@@ -46,7 +46,7 @@ def extract_images(collection_id=None, object_id=None):
 
             if os.path.isdir(col_path):
                 for obj in os.listdir(col_path):
-                    if object_id and object_id not in obj:
+                    if object_id and obj not in object_id:
                         continue  # Skip this object if it doesn't match
 
                     print (f"Reading {obj}...")
@@ -66,37 +66,37 @@ def extract_images(collection_id=None, object_id=None):
                         if not os.path.isdir(convertDir):
                             os.mkdir(convertDir)
 
-                            if pdfCount != 1:
-                                #with open(log_file, "a") as log:
-                                #    log.write(f"\nWARN: found {pdfCount} PDF files for {col}/{obj}\n")
-                                #raise Exception(f"ERROR: found {pdfCount} PDF files for {col}/{obj}")
-                                with open(metadataPath, 'r', encoding='utf-8') as file:
-                                    metadata = yaml.safe_load(file)
+                        if pdfCount != 1:
+                            #with open(log_file, "a") as log:
+                            #    log.write(f"\nWARN: found {pdfCount} PDF files for {col}/{obj}\n")
+                            #raise Exception(f"ERROR: found {pdfCount} PDF files for {col}/{obj}")
+                            with open(metadataPath, 'r', encoding='utf-8') as file:
+                                metadata = yaml.safe_load(file)
 
-                                pdfNum = 0
-                                for file_set in metadata["file_sets"]:
-                                    pdfNum += 1
-                                    pdf = os.path.splitext(metadata["file_sets"][file_set])[0] + ".pdf"
-                                    formatted_number = str(pdfNum).zfill(4)
-                                    filepath = os.path.join(pdfPath, pdf)
-                                    filename = f"{formatted_number}_{os.path.splitext(pdf)[0]}"
-                                    print (filename)
-                                    
-                                    print (f"Processing {pdf} from {col}/{obj}...")
+                            pdfNum = 0
+                            for file_set in metadata["file_sets"]:
+                                pdfNum += 1
+                                pdf = os.path.splitext(metadata["file_sets"][file_set])[0] + ".pdf"
+                                formatted_number = str(pdfNum).zfill(4)
+                                filepath = os.path.join(pdfPath, pdf)
+                                filename = f"{formatted_number}_{os.path.splitext(pdf)[0]}"
+                                print (filename)
+                                
+                                print (f"Processing {pdf} from {col}/{obj}...")
 
-                                    outfile = os.path.join(convertDir, filename)
+                                outfile = os.path.join(convertDir, filename)
 
-                                    extract_from_pdf(log_file, filepath, convertDir, outfile)
-                            else:
-                                for pdf in os.listdir(pdfPath):
-                                    filepath = os.path.join(pdfPath, pdf)
-                                    filename = os.path.splitext(pdf)[0]
+                                extract_from_pdf(log_file, filepath, convertDir, outfile)
+                        else:
+                            for pdf in os.listdir(pdfPath):
+                                filepath = os.path.join(pdfPath, pdf)
+                                filename = os.path.splitext(pdf)[0]
 
-                                    print (f"Processing {pdf} from {col}/{obj}...")
+                                print (f"Processing {pdf} from {col}/{obj}...")
 
-                                    outfile = os.path.join(convertDir, filename)
+                                outfile = os.path.join(convertDir, filename)
 
-                                    extract_from_pdf(log_file, filepath, convertDir, outfile)
+                                extract_from_pdf(log_file, filepath, convertDir, outfile)
 
         except Exception as e:
             print (traceback.format_exc())
@@ -108,7 +108,7 @@ if __name__ == "__main__":
     # Check for command-line arguments
     if len(sys.argv) > 2:
         collection_id_arg = sys.argv[1]
-        object_id_arg = sys.argv[2]
+        object_id_arg = sys.argv[2].split(",")
         extract_images(collection_id=collection_id_arg, object_id=object_id_arg)
     elif len(sys.argv) > 1:
         collection_ids = sys.argv[1].split(',')

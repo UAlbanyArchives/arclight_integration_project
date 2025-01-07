@@ -1,5 +1,6 @@
 # Use the python:3.9-slim-buster base image
-FROM python:3.9-slim-buster
+#FROM python:3.9-slim-buster
+FROM python:3.11.2-slim-buster
 
 # Set the working directory
 WORKDIR /code
@@ -29,6 +30,12 @@ COPY policy.xml /etc/ImageMagick-6/policy.xml
 # Copy the requirements file and install Python dependencies
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
+
+# wkhtmltopdf install
+RUN apt-get install -y xfonts-75dpi xfonts-base curl dpkg-dev
+RUN curl -L -o /tmp/wkhtmltox_0.12.6-1.buster_amd64.deb \ 
+        https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6-1/wkhtmltox_0.12.6-1.buster_amd64.deb
+RUN dpkg -i /tmp/wkhtmltox_0.12.6-1.buster_amd64.deb
 
 # Get OCR model
 #RUN kraken get 10.5281/zenodo.2577813
