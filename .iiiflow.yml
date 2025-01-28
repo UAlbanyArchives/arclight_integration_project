@@ -1,0 +1,4 @@
+---
+discovery_storage_root: ./fixtures
+manifest_url_root: https://media.archives.albany.edu
+error_log_file: ./fixtures/errors.log

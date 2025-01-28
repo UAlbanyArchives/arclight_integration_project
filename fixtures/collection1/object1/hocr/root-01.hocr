@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+ <head>
+  <title></title>
+  <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+  <meta name='ocr-system' content='tesseract 5.3.0' />
+  <meta name='ocr-capabilities' content='ocr_page ocr_carea ocr_par ocr_line ocrx_word ocrp_wconf'/>
+ </head>
+ <body>
+  <div class='ocr_page' id='page_1' title='image "./fixtures/collection1/object1/jpg/root-01.jpg"; bbox 0 0 3344 4688; ppageno 0; scan_res 300 300'>
+   <div class='ocr_separator' id='block_1_1' title="bbox 278 278 3044 294"></div>
+   <div class='ocr_separator' id='block_1_2' title="bbox 273 280 290 4400"></div>
+   <div class='ocr_carea' id='block_1_3' title="bbox 602 674 2724 1297">
+    <p class='ocr_par' id='par_1_1' lang='eng' title="bbox 602 674 2724 1297">
+     <span class='ocr_line' id='line_1_1' title="bbox 1339 674 2005 902; baseline 0.003 -4; x_size 249.5; x_descenders 26.5; x_ascenders 63.5">
+      <span class='ocrx_word' id='word_1_1' title='bbox 1339 674 2005 902; x_wconf 20'>132</span>
+     </span>
+     <span class='ocr_line' id='line_1_2' title="bbox 602 1075 2724 1297; baseline -0.001 0; x_size 248.41693; x_descenders 26.416929; x_ascenders 63">
+      <span class='ocrx_word' id='word_1_2' title='bbox 602 1075 2724 1297; x_wconf 87'>COMMENCEMENT</span>
+     </span>
+    </p>
+   </div>
+   <div class='ocr_carea' id='block_1_4' title="bbox 1022 1886 2287 2091">
+    <p class='ocr_par' id='par_1_2' lang='eng' title="bbox 1022 1886 2287 2091">
+     <span class='ocr_line' id='line_1_3' title="bbox 1022 1886 2287 2091; baseline 0.007 -58; x_size 208; x_descenders 55; x_ascenders 53">
+      <span class='ocrx_word' id='word_1_3' title='bbox 1022 1889 1416 2091; x_wconf 96'>May</span>
+      <span class='ocrx_word' id='word_1_4' title='bbox 1502 1886 1755 2071; x_wconf 95'>19,</span>
+      <span class='ocrx_word' id='word_1_5' title='bbox 1853 1887 2287 2042; x_wconf 95'>1996</span>
+     </span>
+    </p>
+   </div>
+   <div class='ocr_photo' id='block_1_5' title="bbox 1347 2830 1965 3444"></div>
+   <div class='ocr_carea' id='block_1_6' title="bbox 682 3565 2631 3695">
+    <p class='ocr_par' id='par_1_3' lang='eng' title="bbox 682 3565 2631 3695">
+     <span class='ocr_line' id='line_1_4' title="bbox 682 3565 2631 3695; baseline 0.002 -2; x_size 139.73334; x_descenders 34.933334; x_ascenders 34.933334">
+      <span class='ocrx_word' id='word_1_6' title='bbox 682 3565 1664 3693; x_wconf 95'>UNIVERSITY</span>
+      <span class='ocrx_word' id='word_1_7' title='bbox 1716 3586 1904 3691; x_wconf 95'>AT</span>
+      <span class='ocrx_word' id='word_1_8' title='bbox 1948 3565 2631 3695; x_wconf 95'>ALBANY</span>
+     </span>
+    </p>
+   </div>
+   <div class='ocr_carea' id='block_1_7' title="bbox 700 3759 2611 3820">
+    <p class='ocr_par' id='par_1_4' lang='eng' title="bbox 700 3759 2611 3820">
+     <span class='ocr_line' id='line_1_5' title="bbox 700 3759 2611 3820; baseline 0.002 -4; x_size 73.111115; x_descenders 18.277779; x_ascenders 18.277779">
+      <span class='ocrx_word' id='word_1_9' title='bbox 700 3760 1006 3816; x_wconf 54'>DIATE</span>
+      <span class='ocrx_word' id='word_1_10' title='bbox 1095 3759 1738 3816; x_wconf 90'>UNIVERSITY</span>
+      <span class='ocrx_word' id='word_1_11' title='bbox 1824 3760 1944 3816; x_wconf 94'>OF</span>
+      <span class='ocrx_word' id='word_1_12' title='bbox 2028 3762 2244 3817; x_wconf 94'>NEW</span>
+      <span class='ocrx_word' id='word_1_13' title='bbox 2332 3763 2611 3820; x_wconf 92'>YORK</span>
+     </span>
+    </p>
+   </div>
+   <div class='ocr_separator' id='block_1_8' title="bbox 656 3723 2654 3734"></div>
+   <div class='ocr_separator' id='block_1_9' title="bbox 272 4382 3041 4400"></div>
+   <div class='ocr_separator' id='block_1_10' title="bbox 3029 284 3046 4406"></div>
+  </div>
+ </body>
+</html>
