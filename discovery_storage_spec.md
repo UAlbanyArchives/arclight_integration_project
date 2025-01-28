@@ -202,6 +202,7 @@ Representations folders typically have object-level formats with a single file p
 		│		├── ogg/
 		│		├── txt/
 		│		├── vtt/
+		│		├── content.txt
 		│		├── manifest.json
 		│		├── metadata.yml
 		│		└── thumbnail.jpg

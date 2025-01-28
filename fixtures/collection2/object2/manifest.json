@@ -1,0 +1,154 @@
+{
+  "@context": "http://iiif.io/api/presentation/3/context.json",
+  "logo": "https://media.archives.albany.edu/logo.png",
+  "id": "https://media.archives.albany.edu/collection2/object2/manifest.json",
+  "type": "Manifest",
+  "label": {
+    "none": [
+      "COVID-19 Updates, 2020-03-14-2020-04-22"
+    ]
+  },
+  "metadata": [
+    {
+      "label": {
+        "en": [
+          "title"
+        ]
+      },
+      "value": {
+        "en": [
+          "COVID-19 Updates"
+        ]
+      }
+    },
+    {
+      "label": {
+        "en": [
+          "collecting_area"
+        ]
+      },
+      "value": {
+        "en": [
+          "University Archives"
+        ]
+      }
+    },
+    {
+      "label": {
+        "en": [
+          "collection"
+        ]
+      },
+      "value": {
+        "en": [
+          "General Reference Collection"
+        ]
+      }
+    },
+    {
+      "label": {
+        "en": [
+          "coverage"
+        ]
+      },
+      "value": {
+        "en": [
+          "whole"
+        ]
+      }
+    },
+    {
+      "label": {
+        "en": [
+          "resource_type"
+        ]
+      },
+      "value": {
+        "en": [
+          "Video"
+        ]
+      }
+    },
+    {
+      "label": {
+        "en": [
+          "date_display"
+        ]
+      },
+      "value": {
+        "en": [
+          "2020-03-14-2020-04-22"
+        ]
+      }
+    },
+    {
+      "label": {
+        "en": [
+          "date_published"
+        ]
+      },
+      "value": {
+        "en": [
+          "2023-10-17T14:49:28+00:00"
+        ]
+      }
+    }
+  ],
+  "requiredStatement": {
+    "label": {
+      "none": [
+        "Attribution"
+      ]
+    },
+    "value": {
+      "none": [
+        "<span>This object is in the public domain, but you are encouraged to attribute: <br/> M.E. Grenander Department of Special Collections and Archives, University Libraries, University at Albany, State University of New York <br/> <a href=\"http://creativecommons.org/publicdomain/mark/1.0/\" title=\"Public Domain\"><img src=\"https://licensebuttons.net/p/88x31.png\"/></a></span>"
+      ]
+    }
+  },
+  "rights": "http://creativecommons.org/publicdomain/mark/1.0/",
+  "behavior": [
+    "individuals"
+  ],
+  "items": [
+    {
+      "id": "https://media.archives.albany.edu/collection2/object2/canvas/p1",
+      "type": "Canvas",
+      "label": {
+        "none": [
+          "A_message_of_thanks_from_UAlbany_s_leadership_team__s5KjCWG0JvY_.webm"
+        ]
+      },
+      "duration": 107.024,
+      "thumbnail": [
+        {
+          "id": "https://media.archives.albany.edu/collection2/object2/thumbnail.jpg",
+          "type": "Image",
+          "format": "image/jpeg"
+        }
+      ],
+      "items": [
+        {
+          "id": "https://media.archives.albany.edu/collection2/object2/canvas/page/p11",
+          "type": "AnnotationPage",
+          "items": [
+            {
+              "id": "https://media.archives.albany.edu/collection2/object2/canvas/1/page/annotation",
+              "type": "Annotation",
+              "motivation": "painting",
+              "body": {
+                "id": "https://media.archives.albany.edu/collection2/object2/webm/A_message_of_thanks_from_UAlbany_s_leadership_team__s5KjCWG0JvY_.webm",
+                "type": "Video",
+                "height": 240,
+                "width": 320,
+                "duration": 107.024,
+                "format": "video/webm"
+              },
+              "target": "https://media.archives.albany.edu/collection2/object2/canvas/p1"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

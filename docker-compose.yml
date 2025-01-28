@@ -1,0 +1,10 @@
+services:
+  python:
+    container_name: python1
+    build: .
+    volumes:
+      - '.:/code'
+      - '//t/SPE_DAO:/media/Library/SPE_DAO'
+    working_dir: /code
+    command: >
+      bash -c "pip install -e . && pytest tests"

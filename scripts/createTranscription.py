@@ -1,6 +1,7 @@
 import os
 import sys
 import yaml
+import shutil
 import whisper
 
 if os.name == "nt":
@@ -57,6 +58,7 @@ def transcribe(collection_id=None, object_id=None):
                 metadata_path = os.path.join(obj_path, "metadata.yml")
                 vtt_output_dir = os.path.join(obj_path, "vtt")
                 txt_output_dir = os.path.join(obj_path, "txt")
+                content_txt_path = os.path.join(obj_path, "content.txt")
 
                 # Load metadata
                 with open(metadata_path, 'r', encoding="utf-8") as yml_file:
@@ -100,6 +102,15 @@ def transcribe(collection_id=None, object_id=None):
 
                     # Transcribe and save in both VTT and TXT formats
                     transcribe_file(file_path, vtt_file_path, txt_file_path)
+
+                    # Copy or append to content.txt
+                    if os.path.isfile(content_txt_path):
+                        with open(content_txt_path, "a") as content_file:
+                            with open(txt_file_path, "r") as txt_file:
+                                content = txt_file.read()
+                            content_file.write("\n" + content)
+                    else:
+                        shutil.copy2(txt_file_path, content_txt_path)
 
 if __name__ == "__main__":
     # Check for command-line arguments
