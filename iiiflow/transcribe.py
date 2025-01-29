@@ -63,7 +63,7 @@ def create_transcription(collection_id, object_id, config_path="~/.iiiflow.yml")
     # Load metadata
     with open(metadata_path, 'r', encoding="utf-8") as yml_file:
         metadata = yaml.safe_load(yml_file)
-    print ('test123')
+
     # Determine file type and paths based on resource type
     file_paths = []
     if metadata["resource_type"].lower() == "audio":
@@ -89,7 +89,7 @@ def create_transcription(collection_id, object_id, config_path="~/.iiiflow.yml")
     
     # Process each file
     for file_path in file_paths:
-        print (file_path)
+        
         # Create transcription output directories if they don't exist
         if not os.path.isdir(vtt_output_dir):
             os.mkdir(vtt_output_dir)

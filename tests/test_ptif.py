@@ -17,19 +17,22 @@ def clean_ptif_directories():
             shutil.rmtree(ptif_path)  # Delete the ptif directory
             print(f"Deleted ptif directory: {ptif_path}")
 
-    iterate_collections_and_objects(discovery_storage_root, cleanup_action)
+    return cleanup_action
 
 
 def test_ptifs(clean_ptif_directories):
     # Test to see if create_ptif() creates pyramidal tiffs
 
     def test_action(collection_id, object_id, object_path):
-        create_ptif(collection_id, object_id, config_path=config_path)
 
         img_formats = ["jpg", "png", "jpeg", "tif"]
         for img_format in img_formats:
             format_path = os.path.join(object_path, img_format)
             if os.path.isdir(format_path):
+
+                clean_ptif_directories(collection_id, object_id, object_path)
+                create_ptif(collection_id, object_id, config_path=config_path)
+
                 for input_file in os.listdir(format_path):
                     if input_file.lower().endswith(img_format):
                         output_file = os.path.splitext(input_file)[0] + ".ptif"

@@ -39,4 +39,4 @@ COPY setup.py .
 RUN pip install --no-cache-dir .
 
 # Run  tests
-CMD ["pytest", "tests"]
+CMD ["pytest", "tests", "-vv"]
