@@ -25,24 +25,23 @@ def clean_text_directories():
             os.remove(content_path)  # Delete content.txt
             print(f"Deleted content.txt: {content_path}")
 
-    iterate_collections_and_objects(discovery_storage_root, cleanup_action)
+    return cleanup_action
 
 
 def test_tesseract(clean_text_directories):
 
     def test_action(collection_id, object_id, object_path):
-        create_hocr(collection_id, object_id, config_path=config_path)
-
-        # Check for content.txt
-        content_path = os.path.join(object_path, "content.txt")
-        assert os.path.isfile(content_path), "content.txt file was not created."
-        assert os.path.getsize(content_path) > 0, "content.txt is empty."
+        
 
         # Check for HOCR and TXT
         img_formats = ["jpg", "png", "jpeg", "tif"]
         for img_format in img_formats:
             format_path = os.path.join(object_path, img_format)
             if os.path.isdir(format_path):
+
+                clean_text_directories(collection_id, object_id, object_path)
+                create_hocr(collection_id, object_id, config_path=config_path)
+
                 for input_file in os.listdir(format_path):
                     if input_file.lower().endswith(img_format):
                         hocr_file = os.path.splitext(input_file)[0] + ".hocr"
@@ -55,6 +54,10 @@ def test_tesseract(clean_text_directories):
                         assert os.path.getsize(hocr_path) > 0, f"{hocr_file} is empty."
                         assert os.path.isfile(txt_path), "TXT file was not created."
                         assert os.path.getsize(txt_path) > 0, f"{txt_file} is empty."
+                # Check for content.txt
+                content_path = os.path.join(object_path, "content.txt")
+                assert os.path.isfile(content_path), "content.txt file was not created."
+                assert os.path.getsize(content_path) > 0, "content.txt is empty."
                 break
 
     iterate_collections_and_objects(discovery_storage_root, test_action)

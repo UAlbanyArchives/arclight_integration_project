@@ -6,5 +6,13 @@ services:
       - '.:/code'
       - '//t/SPE_DAO:/media/Library/SPE_DAO'
     working_dir: /code
-    command: >
-      bash -c "pip install -e . && pytest tests"
+    command: tail -f /dev/null  # Keep the container running indefinitely for manual commands
+
+  test:
+    container_name: python_test
+    build: .
+    volumes:
+      - '.:/code'
+      - '//t/SPE_DAO:/media/Library/SPE_DAO'
+    working_dir: /code
+    command: bash -c "pip install -e . && pytest tests -vv"

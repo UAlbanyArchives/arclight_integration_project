@@ -27,9 +27,12 @@ iiiflow expects a `.iiiflow.yml` config file in your home directory (`~`) that d
 discovery_storage_root: /path/to/digital_object_root
 manifest_url_root: https://my.server.org
 error_log_file: /path/to/errors.log
+audio_thumbnail_file: ./fixtures/thumbnail.jpg
 ```
 
 Optionally, you can pass the path to any `.yml` file as the last arg of any iiiflow function.
+
+For audio thumbnails and test to work, set audio_thumbnail_file to either a local path or accessible url to an image file.
 
 ```
 create_ptif("collection1", "object1", "path/to/config.yml")
@@ -93,4 +96,4 @@ create_manifest("collection1", "object1")
 
 This runs the tests with all dependancies
 
-`docker compose up`
+`docker-compose run test`

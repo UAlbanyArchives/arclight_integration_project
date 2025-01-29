@@ -1,9 +1,32 @@
 import os
 import yaml
 import ffmpeg
+import traceback
 from PIL import Image
 
-def validate_config_and_paths(config_path, collection_id, object_id, return_url_root=False):
+def log_path(config_path):
+    """
+    Gets the log file path from .iiiflow config
+
+    Args:
+        config_path (str): Path to the configuration YAML file.
+
+    Returns:
+        str: A string to the log file path
+    """
+    if config_path.startswith("~"):
+        config_path = os.path.expanduser(config_path)
+    if not os.path.exists(config_path):
+        raise FileNotFoundError(f"Configuration file {config_path} not found.")
+
+    # Load configuration
+    with open(config_path, "r") as config_file:
+        config = yaml.safe_load(config_file)
+        log_file_path = config.get("error_log_file")
+
+    return log_file_path
+
+def validate_config_and_paths(config_path, collection_id, object_id, return_url_root=False, return_audio_thumbnail_file=False):
     """
     Validates and retrieves paths based on the configuration file and inputs.
     Optionally returns the `url_root` from the configuration if `return_url_root` is True.
@@ -13,10 +36,11 @@ def validate_config_and_paths(config_path, collection_id, object_id, return_url_
         collection_id (str): The collection ID.
         object_id (str): The object ID.
         return_url_root (bool): Whether to return the `url_root` from the config.
+        return_audio_thumbnail_file (bool): Whether to return the `audio_thumbnail_file` from the config.
 
     Returns:
         tuple: A tuple containing discovery_storage_root, log_file_path, object_path, 
-               and optionally url_root if return_url_root is True.
+               and optionally url_root and/or audio_thumbnail_file if those options are True.
     """
 
     # Resolve configuration file path
@@ -32,6 +56,7 @@ def validate_config_and_paths(config_path, collection_id, object_id, return_url_
     discovery_storage_root = config.get("discovery_storage_root")
     log_file_path = config.get("error_log_file")
     url_root = config.get("manifest_url_root")
+    audio_thumbnail_file = config.get("audio_thumbnail_file")
 
     if not discovery_storage_root:
         raise ValueError("`discovery_storage_root` not defined in configuration file.")
@@ -45,12 +70,38 @@ def validate_config_and_paths(config_path, collection_id, object_id, return_url_
     if not os.path.isdir(object_path):
         raise ValueError(f"Object path does not exist: {object_path}")
 
+    config_data = [discovery_storage_root, log_file_path, object_path]
     # If requested, return the url_root along with the other paths
     if return_url_root:
-        return discovery_storage_root, log_file_path, object_path, url_root
+        config_data.append(url_root)
 
-    # Otherwise, return just the basic paths
-    return discovery_storage_root, log_file_path, object_path
+    if return_audio_thumbnail_file:
+        config_data.append(audio_thumbnail_file)
+
+    return tuple(config_data)
+
+
+def check_no_image_type(object_path):
+    """ Checks if an object should have images based on resource_type in metadata.yml
+        Returns True if the object may not have images.
+        False should have images
+    """
+    no_image_types = ["Audio", "Dataset", "Video"]
+    metadata_path = os.path.join(object_path, "metadata.yml")
+    if not os.path.isfile(metadata_path):
+        raise FileNotFoundError(f"Missing metadata file {metadata_path}.")
+    else:
+        try:
+            with open(metadata_path, "r") as metadata_file:
+                metadata = yaml.safe_load(metadata_file)
+                if not metadata["resource_type"] in no_image_types:
+                    return False
+                else:
+                    return True
+        except Exception as e:
+            with open(log_file_path, "a") as log:
+                log.write(f"\nERROR reading metadata.yml for {object_path}\n")
+                log.write(traceback.format_exc())
 
 def remove_nulls(d):
     """Recursively remove keys with None values from a dictionary or list."""
