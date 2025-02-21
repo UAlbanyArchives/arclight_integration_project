@@ -5,6 +5,7 @@ services:
     volumes:
       - '.:/code'
       - '//t/SPE_DAO:/media/Library/SPE_DAO'
+      - '~/.iiiflow.yml:/root/.iiiflow.yml:ro'
     working_dir: /code
     command: tail -f /dev/null  # Keep the container running indefinitely for manual commands
 
