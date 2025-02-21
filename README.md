@@ -92,6 +92,22 @@ from iiiflow import create_manifest
 create_manifest("collection1", "object1")
 ```
 
+### Iterate over collections and objects
+
+```
+import os
+from iiiflow import collections, create_manifest
+
+for collection in collections:
+	print (collection.id)
+	if collection.id == "ua807":
+		for object_id in collection.objects:
+			print (object_id)
+			object_path = os.path.join(collection.path, object_id)
+			print (os.path.isdir(object_path))
+			create_manifest(collection.id, object_id)
+```
+
 ### Tests
 
 This runs the tests with all dependancies

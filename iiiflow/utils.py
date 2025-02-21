@@ -26,7 +26,7 @@ def log_path(config_path):
 
     return log_file_path
 
-def validate_config_and_paths(config_path, collection_id, object_id, return_url_root=False, return_audio_thumbnail_file=False):
+def validate_config_and_paths(config_path, collection_id=None, object_id=None, return_url_root=False, return_audio_thumbnail_file=False):
     """
     Validates and retrieves paths based on the configuration file and inputs.
     Optionally returns the `url_root` from the configuration if `return_url_root` is True.
@@ -42,7 +42,7 @@ def validate_config_and_paths(config_path, collection_id, object_id, return_url_
         tuple: A tuple containing discovery_storage_root, log_file_path, object_path, 
                and optionally url_root and/or audio_thumbnail_file if those options are True.
     """
-
+    
     # Resolve configuration file path
     if config_path.startswith("~"):
         config_path = os.path.expanduser(config_path)
@@ -65,12 +65,17 @@ def validate_config_and_paths(config_path, collection_id, object_id, return_url_
     if not os.path.isdir(discovery_storage_root):
         raise ValueError(f"Configured discovery storage root is not a directory: {discovery_storage_root}")
 
-    # Build and validate object path
-    object_path = os.path.join(discovery_storage_root, collection_id, object_id)
-    if not os.path.isdir(object_path):
-        raise ValueError(f"Object path does not exist: {object_path}")
+    config_data = [discovery_storage_root, log_file_path]
 
-    config_data = [discovery_storage_root, log_file_path, object_path]
+    # Build and validate object path
+    if collection_id and object_id:
+        object_path = os.path.join(discovery_storage_root, collection_id, object_id)
+        if not os.path.isdir(object_path):
+            raise ValueError(f"Object path does not exist: {object_path}")
+        config_data.append(object_path)
+    else:
+        config_data.append(None)
+
     # If requested, return the url_root along with the other paths
     if return_url_root:
         config_data.append(url_root)
