@@ -33,23 +33,19 @@ The following terms have precise definitions as used in this document:
 
 **SPE_DAO:** This is the storage location defined in this specification. It is a shortened name for Digital Object Discovery Storage based on abbrevations for Special Collections Digital Archival Objects which is a term from [EAD](https://www.loc.gov/ead/tglib1998/tlin044.html). 
 
-**archival component:** A unit of archival description, governed by [Describing Archives: A Content Standard](https://saa-ts-dacs.github.io/dacs/06_part_I/02_chapter_01.html) (TS-DACS). In common parlance, this could be an archival collection, series, subseries, file, or item. ArchivesSpace is the system of record for archival components. Each archival component may be described as a Collection or Archival Object in ArchivesSpace. Each archival component is a node in a hierarchical graph structure and may describe any meaningful aggregate of physical or digital objects. An archival component may have no linked digital objects or many linked digital objects.
+**archival component:** A unit of archival description, governed by [Describing Archives: A Content Standard](https://saa-ts-dacs.github.io/dacs/06_part_I/02_chapter_01.html) (TS-DACS). In common parlance, this could be an archival collection, series, subseries, file, or item. ArchivesSpace is the system of record for archival components. Each archival component may be described as a Resource or Archival Object in ArchivesSpace. Each archival component is a node in a hierarchical graph structure and may describe any meaningful aggregate of physical or digital objects. An archival component may have no linked digital objects or many linked digital objects.
 
-**archival collection:** The top level "collection" containing many described or undescribed archival components. Each archival collection has a Collection record in ArchivesSpace and a [collection identifier](#2-collection-identifiers) as described below.
+**archival collection:** The top level "collection" containing many described or undescribed archival components. An archival collection is also an archival component and may have linked digital objects. Each archival collection MUST have a resource record in ArchivesSpace and a [collection identifier](#2-collection-identifiers) as described below.
 
-**digital object:** A meaningful unit of digital content with accompanying metadata. Digital objects are discrete entities that differ meaningfully in content from another digital object, yet the same digital object can substantially change and have different versions over time and may also be represented in different formats. Digital objects are a useful abstraction and can contain a single digital file, a book, or other object containing multiple files in a simple structure, or the contents of an entire hard drive with a complex hierarchical structure. A single digital object MUST link to a single archival component.
+**digital object:** A meaningful package or aggregate of digital content with accompanying metadata. Digital objects are a useful abstraction and can contain one or more works with or without a significant and meaningful structure or relationshipas between works. This could be a single JPG, a book or other object containing multiple files in a simple structure, or the contents of an entire hard drive with a complex hierarchical structure and works in many types of file formats. A single digital object MUST link to a single archival component.
 
-**work:** An intellecual entity in a _common form_ that may or may not have accompanying metadata. Works are typically expressed either as a single file, or as a set of common files such as images. While works can have representations in multiple formats, a work is typically be expressed using a single format, like a set of JPGs, and typically cannot be a set of multiple different formats. A work is essentially a [PCDM Object](https://pcdm.org/2016/04/18/models#Object).
+**work:** An intellecual entity in a _common form_. Works are discrete entities that differ meaningfully in content from another work, yet the same work can substantially change and have different versions over time and may also be represented in different formats. Works are typically expressed either as a single file, or as a set of common files such as images. While works can have representations in multiple formats, a work is typically be expressed using a single format, like a set of JPGs, and typically cannot be a set of multiple different formats. A work is semantically the same as a [PCDM Object](https://pcdm.org/2016/04/18/models#Object).
 
-**representation:** an instance of a work. Thus, a work can be represented as a PDF file, a set of JPG files, a TXT file. In the event that there are multiple, different file types for an archival object, a distinction between representation and version needs to be made. This distinction should be made based on the content of the object. If significant content changes exist between the two files, they should be considered two digital objects, linked to the same archival object. But if the only distinction is file type, and the content remains the same, both files should be added to the same digital object, which is linked to one archival object. Transcripts of a video and the video file do not constitute a difference in content and should be linked to the same digital object, as should a video and its thumbnail. If, for instance, a record includes a video package (i.e. branding elements, the video file, the transcript), all elements should be linked to the same digital object as all elements combined create a singular representation.
+**representation:** an instance of a work. Thus, a work can be represented in different formats such as a PDF file, a set of JPG files, a TXT file, etc. In the event that there are multiple, different file types for an archival object, a distinction between representation and version needs to be made. This distinction should be made based on the content of the object. If significant content changes exist between the two files, they should be considered two separate works. If the only distinction is file type, and the content remains the same, both files should be considered to be different representations of the same work. A common exception to this is an image set, which is a single work of images that each have different content. Derivative files such as thumbnails or transcripts of a video do not constitute a difference in content and should be considered derivative representations of the same work. If, for instance, a digtial object includes a video with dederivative files (i.e. a thumbnail, a clip, the video file, the transcript), all elements should be considered a single work with multiple representations. Each [PCDM Use Extension Entities](https://pcdm.org/2016/04/18/models#Object) is an example of a representation and is semantically the same as a representation.
 
-**version:** The unique individual object that is uploaded to Hyrax is the version. There can be multiple versions of the same object, but there are enough discrepencies in the content to justify creating another digital object with its own unique identifier, instead of uploading multiple objects to the same ID. File format changes do not qualify as a large enough discrepency. For the preexisting digital objects in our current system, there will be at least one version folder with accompanying metadata. The new system will create another version utilizing the metadata and the new IIIF formats. Both will be saved for historical data and review.
+**format:** The file format of the representation. For example, a document can appear as a ".docx" file and/or a ".pdf" file or an image could appear as a ".jpg" file and/or a ".png" file. There is no difference in the content of the object, other than data lossiness between formats (such as when a spreadsheet is converted to a PDF or image compression is applied). 
 
-**format:** There are various forms that files can appear in. For example, a document can appear as a ".docx" file and/or a ".pdf" file or an image could appear as a ".jpg" file and/or a ".png" file. There is no difference in the content of the object, other than data lossiness between formats (such as when a spreadsheet is converted to a PDF or image compression is applied). 
-
-**thumbnail:** The thumbnail image previews the IIIF file of the digital object. It is a representative image of the file, otherwise referred to as a "smaller version" of the object, but neither of these descriptions should be confused with the definitions of "format" or "version" seen above. Though thumbnails will be included in the metadata files for the migration, they do not serve the same purpose as the format or version files. 
-
-**NOID:** Stands for "Nice Opaque IDentifier" [NOID](https://metacpan.org/dist/Noid/view/noid) creates unique alphanumeric strings for identification.
+**thumbnail:** A representation image of the digital object. This is typically a smaller version of an image, the first page or a book or multi-page work, an icon, or a frame of a video.
 
 ## 2. Collection identifiers
 
@@ -80,11 +76,26 @@ Each collection identifier MUST have a three digit sequential number directly fo
 
 ## 3. Digital object identifiers
 
-All digital object identifiers must be NOIDs, and must be valid directory names in both Unix-based and Windows operating systems. Thus, they cannot contain characters such as `< > : " / \ | ? *` and are RECOMMENDED to be 36 characters or less.
+All digital object identifiers MUST be the same, or a derivative of, the associated archival component's ref_id.
 
-Prior to SPE_DAO, Hyrax generated NOID identifiers with [noid-rails](https://github.com/samvera/noid-rails) which will be maintained during the migtation. Any new objects uploaded after the transition will be given new NOIDs generated using the same minter state.
+It is RECOMMENDED that since digial object and archival components will ideally have a one-to-one relationship, that a digital object identifiers is the exactly the same as the associated archival component's ref_id. However, to support legacy cases where digital objects only represent part of an archival component, digital object identifiers MAY also be the archival component's ref_id followed by an underscore (_) and a sequential identifier. For example:
 
-As an additional measure against potential collisions, legacy Hyrax-generated NOID will continute to have 9 digits, where post-migration NOIDs will have 10 digits.
+	* 9dfb7fea77045eddb9fc90aca79ad3a7_1
+	* 9dfb7fea77045eddb9fc90aca79ad3a7_2
+	* 9dfb7fea77045eddb9fc90aca79ad3a7_3
+	* 9dfb7fea77045eddb9fc90aca79ad3a7_4
+	* 9dfb7fea77045eddb9fc90aca79ad3a7_5
+	* 9dfb7fea77045eddb9fc90aca79ad3a7_6
+	* 9dfb7fea77045eddb9fc90aca79ad3a7_7
+	* 9dfb7fea77045eddb9fc90aca79ad3a7_8
+	* 9dfb7fea77045eddb9fc90aca79ad3a7_9
+	* 9dfb7fea77045eddb9fc90aca79ad3a7_10
+	* 9dfb7fea77045eddb9fc90aca79ad3a7_11
+	...
+
+All digital object identifiers MUST be valid directory names in both Unix-based and Windows operating systems. Thus, they cannot contain characters such as `< > : " / \ | ? *` and are RECOMMENDED to be 36 characters or less.
+
+Prior to SPE_DAO, digital objects used NOID identifiers from [noid-rails](https://github.com/samvera/noid-rails). These identifiers will be added to each object's `metadata.yml` as the `legacy_id` field. Any new objects uploaded after the transition will not have the `legacy_id` field.
 
 ## 4. Overview of SPE_DAO
 
@@ -96,16 +107,16 @@ Each Collection folder may contain any number of Digital Object folders named us
 
 	└── SPE_DAO/ (root)
 		├── collection folder/
-		│   ├── NOID/
-		│   │	├── representation folder/
-		│   │	├── representation folder/
-		│   │	├── representation folder/
-		│   │	├── representation folder/
-		│   │	├── content.txt
-		│   │	├── manifest.json
-		│   │	├── metadata.yml
-		│   │	└── thumbnail.jpg
-		│   └── NOID/
+		│	├── ref_id/
+		│	│	├── representation folder/
+		│	│	├── representation folder/
+		│	│	├── representation folder/
+		│	│	├── representation folder/
+		│	│	├── content.txt
+		│	│	├── manifest.json
+		│	│	├── metadata.yml
+		│	│	└── thumbnail.jpg
+		│	└── ref_id/
 		│		├── representation folder/
 		│		├── representation folder/
 		│		├── representation folder/
@@ -115,7 +126,7 @@ Each Collection folder may contain any number of Digital Object folders named us
 		│		├── metadata.yml
 		│		└── thumbnail.jpg
 		└── collection folder/
-			└── NOID/
+			└── ref_id/
 				├── representation folder/
 				├── representation folder/
 				├── representation folder/
@@ -129,15 +140,15 @@ Each Collection folder may contain any number of Digital Object folders named us
 
 	└── SPE_DAO/ (root)
 		├── apap101/
-		│   ├── nc580m649/
-		│   ├── fx719m44h/
-		│   └── tb09j5643/
+		│	├── 43e37dba59edb69e348b7a200350bdbc/
+		│	├── 5181a71b9974988792db7764f65979cd/
+		│	└── 0b08f3f857eec7d979f02d5663ea4e52/
 		├── ger006/
-		│   ├── 7urr3r12a3/
-		│   ├── ewuel2uscx/
-		│   └── ptkk9csngq/
+		│	├── f2f49443c9cc14eec48402ae4f8c3026/
+		│	├── 1837d1debf0594d7b478d11c0aea71a6/
+		│	└── 8c63e8002860e0ebfc90af60e731027e/
 		└── ua902.012/
-			└── 4j03cz64w/
+			└── 96369731598e43ee001edac1b10487a2/
 
 
 ## 5. Representation folders
@@ -176,28 +187,28 @@ Representations folders typically have object-level formats with a single file p
 ```
 	└── SPE_DAO/ (root)
 		├── apap101/
-		│   ├── nc580m649/
-		│   │	├── jpg/
-		│   │	├── ptif/
-		│   │	├── hocr/
-		│   │	├── pdf/
-		│   │	├── txt/
-		│   │	├── content.txt
-		│   │	├── manifest.json
-		│   │	├── metadata.yml
-		│   │	└── thumbnail.jpg
-		│   ├── fx719m44h/
-		│   │	├── jpg/
-		│   │	├── hocr/
-		│   │	├── pdf/
-		│   │	├── ppt/
-		│   │	├── ptif/
-		│   │	├── txt/
-		│   │	├── content.txt
-		│   │	├── manifest.json
-		│   │	├── metadata.yml
-		│   │	└── thumbnail.jpg
-		│   └── tb09j5643/
+		│	├── a3417ed6319fd6be114322a0b8d660ec/
+		│	│	├── jpg/
+		│	│	├── ptif/
+		│	│	├── hocr/
+		│	│	├── pdf/
+		│	│	├── txt/
+		│	│	├── content.txt
+		│	│	├── manifest.json
+		│	│	├── metadata.yml
+		│	│	└── thumbnail.jpg
+		│	├── 36b24b77b95343ca4f7c9ca42b646f05/
+		│	│	├── jpg/
+		│	│	├── hocr/
+		│	│	├── pdf/
+		│	│	├── ppt/
+		│	│	├── ptif/
+		│	│	├── txt/
+		│	│	├── content.txt
+		│	│	├── manifest.json
+		│	│	├── metadata.yml
+		│	│	└── thumbnail.jpg
+		│	└── 62b4c399a3d9f7a70944349c8e7dd7d6/
 		│		├── mp3/
 		│		├── ogg/
 		│		├── txt/
@@ -207,7 +218,7 @@ Representations folders typically have object-level formats with a single file p
 		│		├── metadata.yml
 		│		└── thumbnail.jpg
 		└── ua500/
-			└── 4j03cz64w/
+			└── 9989f1bbdc2e53e7f30f44aa2e108e43/
 				├── txt/
 				├── vtt/
 				├── webm/
@@ -257,7 +268,7 @@ Associated HOCR and TXT file MUST have the same case-sensative filename as the f
 
 ```
 	└── apap101/
-		└── 1n79hq253/
+		└── 1f399e4fea1fc44f9e94668945186318/
 			├── jpg/
 			│	├── page1.jpg
 			│	├── page2.jpg
@@ -283,7 +294,7 @@ Associated HOCR and TXT file MUST have the same case-sensative filename as the f
 
 ## 6. Metadata files
 
-The most recent version of a digital objects MUST contain the following files directly within the object directory:
+Digital objects MUST contain the following files directly within the object directory:
 * `metadata.yml`
 * `manifest.json`
 
@@ -324,23 +335,6 @@ All digital objects will be indexed into ArcLight's Solr core for full-text disc
 
 These fields have strict requirements as they support for automated processes.
 
-**archivesspace_record**: (REQUIRED) The identifier number for the archival record that the digital object is linked to.
-
-**collection_number**: (REQUIRED) Collection identifier number of digital object. This value MUST match the collection folder for the digital object.
-
-**coverage**: (REQUIRED) Determines if the digital object is the only file that represents the archival object (the whole) or if it is one component of multiple (a part) that make up the archival object. This value is used in ArcLight to determine if the digital object is fully representative of the archival component.
-
-**date_published**: (REQUIRED) The date the digital object was first made publicly available. Previously, this field was named date_uploaded. This field MUST be an ISO 8601 compliant date with the "T" separator, such as "2018-12-21T15:30:08+00:00".
-
-**identifier**: (REQUIRED) The NOID for the object. This value MUST match the digital object folder name.
-
-**license**: (REQUIRED) Licensing and distribution information governing access to the digital object. This field MUST be the canonical URL for a Creative Commons license or "Unknown". If "Unknown" is used, a valid rights_statement field is REQUIRED. Examples:
-* https://creativecommons.org/licenses/by-nc-nd/4.0/
-* https://creativecommons.org/publicdomain/zero/1.0/
-* Unknown
-
-**preservation_package**: (REQUIRED) Identifier for the preservation package that includes the presevation files used for the digital object. This field was previously named "accession".
-
 **resource_type**: (REQUIRED) The form of the digital object. Value MUST be one of the following set:
 * Audio
 * Bound Volume
@@ -354,16 +348,31 @@ These fields have strict requirements as they support for automated processes.
 * Slides
 * Video
 * Other (Avoid)
- 
-**visibility**: (REQUIRED) Denotes whether a digital object will be read and indexed into ArcLight. MUST be one of the following values:
-* open
-* closed
 
-**behavior**: (OPTIONAL) Sets the [IIIF behavior](https://iiif.io/api/cookbook/recipe/0011-book-3-behavior/) at the object level. Options:
+**preservation_package**: (REQUIRED) Identifier for the preservation package that includes the presevation files used for the digital object. This field was previously named "accession".
+
+**date_published**: (REQUIRED) The date the digital object was first made publicly available. Previously, this field was named date_uploaded. This field MUST be an ISO 8601 compliant date with the "T" separator, such as "2018-12-21T15:30:08+00:00".
+
+**license**: (REQUIRED) Licensing and distribution information governing access to the digital object. This field MUST be the canonical URL for a Creative Commons license or "Unknown". If "Unknown" is used, a valid rights_statement field is REQUIRED. Examples:
+* https://creativecommons.org/licenses/by-nc-sa/4.0/
+* https://creativecommons.org/licenses/by-nc-nd/4.0/
+* https://creativecommons.org/licenses/by/4.0/
+* https://creativecommons.org/publicdomain/zero/1.0/
+* Unknown
+
+**rights_statement**: (OPTIONAL) This field is REQUIRED when the value for license is "Unknown." Known copyright status of the digital object. If used this field MUST be the canonical URL for a [RightsStatements.org](https://rightsstatements.org). Examples:
+* https://rightsstatements.org/page/InC-EDU/1.0/
+
+**behavior**: (OPTIONAL) Sets the [IIIF behavior](https://iiif.io/api/cookbook/recipe/0011-book-3-behavior/) at the object level. If this is not present, it will default to `individuals`. Options:
 * unordered
 * individuals
 * continuous
 * paged
+
+**visibility**: (OPTIONAL) Denotes whether a digital object will be read and indexed into ArcLight. If not present the value will be treated as `open`. MUST be one of the following values:
+* open
+* closed
+
 
 **original_file**: (OPTIONAL) This field is REQUIRED for born-digital files. Name of original file that was created and used.
 
@@ -371,8 +380,9 @@ These fields have strict requirements as they support for automated processes.
 
 **original_format**: (OPTIONAL) Format (Doc, Png, Jpg, Ppt etc.) of the file before it was uploaded to Hyrax
 
-**rights_statement**: (OPTIONAL) This field is REQUIRED when the value for license is "Unknown." Known copyright status of the digital object. If used this field MUST be the canonical URL for a [RightsStatements.org](https://rightsstatements.org). Examples:
-* https://rightsstatements.org/page/InC-EDU/1.0/
+**legacy_id**: (OPTIONAL) The legacy NOID ID for the object minted by Hyrax.
+
+**coverage**: (OPTIONAL) Determines if the digital object is the only file that represents the archival object (the whole) or if it is one component of multiple (a part) that make up the archival object. This value is used in ArcLight to determine if the digital object is fully representative of the archival component. If the coverage field is not present, the coverage value will be treated as `whole`. 
   
 ### 8.2 Uncontrolled `metadata.yml` fields
 
@@ -404,15 +414,15 @@ These fields have strict requirements as they support for automated processes.
 
 ```
 	├── apap138/
-	│   ├── 6w924x89w/
-	│   │	├── mp3/
-	│   │	├── ogg/
-	│   │	├── vtt/
-	│   │	├── txt/
-	│   │	├── content.txt
-	│   │	├── manifest.json
-	│   │	└── metadata.yml
-	│   └── 84f1tH58w/
+	│	├── 6w924x89w/
+	│	│	├── mp3/
+	│	│	├── ogg/
+	│	│	├── vtt/
+	│	│	├── txt/
+	│	│	├── content.txt
+	│	│	├── manifest.json
+	│	│	└── metadata.yml
+	│	└── 84f1tH58w/
 	│		├── webm/
 	│		├── vtt/
 	│		├── txt/
