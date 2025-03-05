@@ -181,6 +181,9 @@ Representations folders typically have object-level formats with a single file p
 * ptif
 * png
 * txt
+* hocr
+* alto
+* vtt
 
 ### 5.1 Representation folder examples
 
@@ -257,6 +260,7 @@ More formats may be added later.
 
 For multi-page objects, it is also RECOMMENDED to include canvas level alternative renderings for each page. HOCR and VTT are preferred.
 * hocr
+* alto
 * vtt
 * txt
 
@@ -372,7 +376,6 @@ These fields have strict requirements as they support for automated processes.
 **visibility**: (OPTIONAL) Denotes whether a digital object will be read and indexed into ArcLight. If not present the value will be treated as `open`. MUST be one of the following values:
 * open
 * closed
-
 
 **original_file**: (OPTIONAL) This field is REQUIRED for born-digital files. Name of original file that was created and used.
 
