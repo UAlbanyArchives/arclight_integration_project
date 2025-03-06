@@ -32,8 +32,8 @@ RUN dpkg -i /tmp/wkhtmltox_0.12.6-1.buster_amd64.deb
 COPY policy.xml /etc/ImageMagick-6/policy.xml
 
 # Copy the requirements file and install Python dependencies
-COPY requirements.txt .
 COPY setup.py .
+COPY .iiiflow.yml /root
 
 # Install the iiiflow
 RUN pip install --no-cache-dir .

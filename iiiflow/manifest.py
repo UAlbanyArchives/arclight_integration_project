@@ -10,7 +10,7 @@ from .utils import validate_config_and_paths, remove_nulls
 from .utils import get_image_dimensions, get_media_info
 
 
-def create_iiif_canvas(manifest, url_root, obj_url_root, label, resource_type, resource_path, page_count, thumbnail_data, **kwargs):
+def create_iiif_canvas(manifest, manifest_url_root, obj_url_root, label, resource_type, resource_path, page_count, thumbnail_data, **kwargs):
     """Create a IIIF Canvas for images, videos, or audio, with optional thumbnail."""
     supplementing_annotations = []
     renderings = []
@@ -98,7 +98,7 @@ def create_iiif_canvas(manifest, url_root, obj_url_root, label, resource_type, r
                         "format": "audio/mpeg",
                         "duration": duration
                     },
-                    target=f"{url_root}/canvas/p{page_count}"
+                    target=f"{manifest_url_root}/canvas/p{page_count}"
                 )
                 annotation_page.items.append(annotation_ogg)
             elif audio_ext == ".mp3" and os.path.isdir(ogg_path):
@@ -153,7 +153,7 @@ def create_iiif_canvas(manifest, url_root, obj_url_root, label, resource_type, r
                     "type": "Annotation",
                     "motivation": "supplementing",
                     "body": supplementing_annotations,
-                    "target": f"{url_root}/canvas/p{page_count}"
+                    "target": f"{manifest_url_root}/canvas/p{page_count}"
                 }
             ]
         }]
@@ -185,7 +185,7 @@ def create_iiif_canvas(manifest, url_root, obj_url_root, label, resource_type, r
 
 
 
-def create_iiif_manifest(file_dir, url_root, obj_url_root, iiif_url_root, resource_format, label, metadata, thumbnail_data, resource_type):
+def create_iiif_manifest(file_dir, manifest_url_root, obj_url_root, iiif_url_root, resource_format, label, metadata, thumbnail_data, resource_type):
     orgText = "M.E. Grenander Department of Special Collections and Archives, University Libraries, University at Albany, State University of New York"
 
     # Set IIIF manifest behavior
@@ -274,13 +274,13 @@ def create_iiif_manifest(file_dir, url_root, obj_url_root, iiif_url_root, resour
         if resource_type in ["Audio", "Video"]:
             # Use the media URL (modify this to suit your media hosting environment)
             media_url = f"{obj_url_root}/{os.path.basename(file_dir)}/{quoted_file}"
-            create_iiif_canvas(manifest, url_root, obj_url_root, resource_file, resource_type, resource_path, page_count, thumbnail_data,
+            create_iiif_canvas(manifest, manifest_url_root, obj_url_root, resource_file, resource_type, resource_path, page_count, thumbnail_data,
                                media_url=media_url, filename=filename)
         elif resource_file.lower().endswith(resource_format.lower()):
             img_width, img_height = get_image_dimensions(resource_path)
 
             image_url = f"{iiif_url_root}%2F{quoted_file}"
-            create_iiif_canvas(manifest, url_root, obj_url_root, resource_file, "Image", resource_path, page_count, thumbnail_data,
+            create_iiif_canvas(manifest, manifest_url_root, obj_url_root, resource_file, "Image", resource_path, page_count, thumbnail_data,
                                resource_format=resource_format, height=img_height, width=img_width, image_url=image_url, filename=filename)
     manifest_renderings = []
     # Check for alternative renderings to add
@@ -405,7 +405,7 @@ def create_manifest(collection_id, object_id, config_path="~/.iiiflow.yml"):
     """
 
     # Read config and validate paths
-    discovery_storage_root, log_file_path, object_path, url_root = validate_config_and_paths(
+    discovery_storage_root, log_file_path, object_path, manifest_url_root, image_api_root = validate_config_and_paths(
         config_path, collection_id, object_id, True
     )
 
@@ -438,8 +438,8 @@ def create_manifest(collection_id, object_id, config_path="~/.iiiflow.yml"):
     if os.path.isdir(filesPath):
         print(f"{collection_id}/{object_id}")
 
-        obj_url_root = f"{url_root}/{collection_id}/{object_id}"
-        iiif_url_root = f"{url_root}/iiif/3/%2F{collection_id}%2F{object_id}%2F{resource_format}"
+        obj_url_root = f"{manifest_url_root}/{collection_id}/{object_id}"
+        iiif_url_root = f"{image_api_root}/iiif/3/%2F{collection_id}%2F{object_id}%2F{resource_format}"
         if "title" in metadata.keys():
             manifest_label = metadata['title'].strip()
             if "date_display" in metadata.keys():
@@ -462,12 +462,12 @@ def create_manifest(collection_id, object_id, config_path="~/.iiiflow.yml"):
         thumbnail_data = {"url": thumbnail_url, "width": thumbnail_width, "height": thumbnail_height}
         
         # Create the manifest
-        iiif_manifest = create_iiif_manifest(filesPath, url_root, obj_url_root, iiif_url_root, resource_format, manifest_label, metadata, thumbnail_data, resource_type)
+        iiif_manifest = create_iiif_manifest(filesPath, manifest_url_root, obj_url_root, iiif_url_root, resource_format, manifest_label, metadata, thumbnail_data, resource_type)
         manifest_dict = iiif_manifest.dict()
         manifest_dict = remove_nulls(manifest_dict)
         manifest_output = {
             '@context': "http://iiif.io/api/presentation/3/context.json",
-            'logo': f"{url_root}/logo.png",
+            'logo': f"{manifest_url_root}/logo.png",
             **manifest_dict
         }
 
