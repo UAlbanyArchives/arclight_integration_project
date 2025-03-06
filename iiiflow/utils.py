@@ -26,7 +26,7 @@ def log_path(config_path):
 
     return log_file_path
 
-def validate_config_and_paths(config_path, collection_id=None, object_id=None, return_url_roots=False, return_audio_thumbnail_file=False):
+def validate_config_and_paths(config_path, collection_id=None, object_id=None, return_url_roots=False, return_audio_thumbnail_file=False, return_lang_code=False):
     """
     Validates and retrieves paths based on the configuration file and inputs.
     Optionally returns the `url_root` from the configuration if `return_url_roots` is True.
@@ -58,6 +58,7 @@ def validate_config_and_paths(config_path, collection_id=None, object_id=None, r
     manifest_url_root = config.get("manifest_url_root")
     image_api_root = config.get("image_api_root")
     audio_thumbnail_file = config.get("audio_thumbnail_file")
+    lang_code = config.get("lang_code")
 
     if not discovery_storage_root:
         raise ValueError("`discovery_storage_root` not defined in configuration file.")
@@ -84,6 +85,9 @@ def validate_config_and_paths(config_path, collection_id=None, object_id=None, r
 
     if return_audio_thumbnail_file:
         config_data.append(audio_thumbnail_file)
+
+    if return_lang_code:
+        config_data.append(lang_code)
 
     return tuple(config_data)
 

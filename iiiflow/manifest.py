@@ -9,7 +9,6 @@ from iiif_prezi3 import Manifest, Canvas, Annotation, AnnotationPage, KeyValueSt
 from .utils import validate_config_and_paths, remove_nulls
 from .utils import get_image_dimensions, get_media_info
 
-
 def create_iiif_canvas(manifest, manifest_url_root, obj_url_root, label, resource_type, resource_path, page_count, thumbnail_data, **kwargs):
     """Create a IIIF Canvas for images, videos, or audio, with optional thumbnail."""
     supplementing_annotations = []
@@ -405,9 +404,11 @@ def create_manifest(collection_id, object_id, config_path="~/.iiiflow.yml"):
     """
 
     # Read config and validate paths
-    discovery_storage_root, log_file_path, object_path, manifest_url_root, image_api_root = validate_config_and_paths(
-        config_path, collection_id, object_id, True
+    discovery_storage_root, log_file_path, object_path, manifest_url_root, image_api_root, lang_code = validate_config_and_paths(
+        config_path, collection_id, object_id, True, False, True
     )
+
+    config.configs['helpers.auto_fields.AutoLang'].auto_lang = lang_code
 
     metadataPath = os.path.join(object_path, "metadata.yml")
     manifestPath = os.path.join(object_path, "manifest.json")
@@ -439,7 +440,7 @@ def create_manifest(collection_id, object_id, config_path="~/.iiiflow.yml"):
         print(f"{collection_id}/{object_id}")
 
         obj_url_root = f"{manifest_url_root}/{collection_id}/{object_id}"
-        iiif_url_root = f"{image_api_root}/iiif/3/%2F{collection_id}%2F{object_id}%2F{resource_format}"
+        iiif_url_root = f"{image_api_root}/{collection_id}%2F{object_id}%2F{resource_format}"
         if "title" in metadata.keys():
             manifest_label = metadata['title'].strip()
             if "date_display" in metadata.keys():

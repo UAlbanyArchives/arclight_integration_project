@@ -1,6 +1,7 @@
 ---
 discovery_storage_root: ./fixtures
 manifest_url_root: https://media.archives.albany.edu
-image_api_root: https://media.archives.albany.edu
+image_api_root: https://media.archives.albany.edu/iiif/3
 error_log_file: ./fixtures/errors.log
 audio_thumbnail_file: ./fixtures/thumbnail.jpg
+lang_code: en

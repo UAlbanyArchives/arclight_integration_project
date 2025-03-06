@@ -4,7 +4,7 @@
   "id": "https://media.archives.albany.edu/collection2/object2/manifest.json",
   "type": "Manifest",
   "label": {
-    "none": [
+    "en": [
       "UAlbany President Rodr\u00edguez Addresses Campus Community on COVID-19, 2020-03-12"
     ]
   },
@@ -96,12 +96,12 @@
   ],
   "requiredStatement": {
     "label": {
-      "none": [
+      "en": [
         "Attribution"
       ]
     },
     "value": {
-      "none": [
+      "en": [
         "<span>This object is in the public domain, but you are encouraged to attribute: <br/> M.E. Grenander Department of Special Collections and Archives, University Libraries, University at Albany, State University of New York <br/> <a href=\"http://creativecommons.org/publicdomain/mark/1.0/\" title=\"Public Domain\"><img src=\"https://licensebuttons.net/p/88x31.png\"/></a></span>"
       ]
     }
@@ -111,7 +111,7 @@
       "id": "https://media.archives.albany.edu/collection2/object2/content.txt",
       "type": "Text",
       "label": {
-        "none": [
+        "en": [
           "Download Text transcription"
         ]
       },
@@ -127,7 +127,7 @@
       "id": "https://media.archives.albany.edu/collection2/object2/canvas/p1",
       "type": "Canvas",
       "label": {
-        "none": [
+        "en": [
           "UAlbany_President_Rodriguez_Addresses_Campus_Community_on_COVID-19__0cOpr5VnBgU_.webm"
         ]
       },
