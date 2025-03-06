@@ -367,6 +367,8 @@ These fields have strict requirements as they support for automated processes.
 **rights_statement**: (OPTIONAL) This field is REQUIRED when the value for license is "Unknown." Known copyright status of the digital object. If used this field MUST be the canonical URL for a [RightsStatements.org](https://rightsstatements.org). Examples:
 * https://rightsstatements.org/page/InC-EDU/1.0/
 
+**manfest_label**: (OPTIONAL) A descriptive string used for the label field for IIIF manifests when a `title` is not present. In practice, this is the title and date derived from the archival object in ArchivesSpace.
+
 **behavior**: (OPTIONAL) Sets the [IIIF behavior](https://iiif.io/api/cookbook/recipe/0011-book-3-behavior/) at the object level. If this is not present, it will default to `individuals`. Options:
 * unordered
 * individuals
@@ -391,19 +393,31 @@ These fields have strict requirements as they support for automated processes.
 
 `metadata.yml` MAY have any number of metadata fields that are not used for automated purposes, but will be included in the `manifest.json` and later indexed into ArcLight. None of these fields are required and many are present due to legacy systems and practices.
 
-**title**: The file name of the digital object.
+#### UAlbany fields exported from Hyrax
+
+**title**: A descriptive name for the digital object.
 
 **date_display**: The date of creation determined and added to the archival object by the archivist, not necessarily the date the digital object was created.
 
-**collecting_area**: Archival collecting area of digital object. This is a derivative value of data contained in ArchivesSpace.
-
-**collection**: Collection name of digital object.
-
-**creator**: Name of user that uploaded digital object to Hyrax or SPE_DAO system.
+**creator**: Creator of the digital object.
 
 **contributor**: Name of user that aided in the description of the digital object.
 
-**description**: IF the digital object is an image, the description provides additional searchable content as well as a depiction for accessibility purposes (i.e. utilizes a screen reader).  
+**subject**: Local subject headings.
+
+**identifier**: A legacy identifier from LUNA, a previous DAMS used from 2008-2019.
+
+**date_digitized**: A YYYY-MM-DD date of digitization.
+
+**original_medium**: The original, typically analog, source medium for digitized objects.
+
+**master_format**: The preservation file format for digitized objects.
+
+**digitization_specifications**: Typically encoding and hardward details for audio or video digitization.
+
+**duration**: The time extent for audio and video materials.
+
+**description**: If the digital object is an image, the description provides additional searchable content as well as a depiction for accessibility purposes (i.e. utilizes a screen reader).  
 
 **processing_activity**: Details on how digital objects were processed or a link to the location of processing documentation.
 
