@@ -443,8 +443,10 @@ def create_manifest(collection_id, object_id, config_path="~/.iiiflow.yml"):
             manifest_label = metadata['title'].strip()
             if "date_display" in metadata.keys():
                 manifest_label = manifest_label + f", {metadata['date_display'].strip()}"
-        elif "manfest_label" in metadata.keys():
+        elif "manifest_label" in metadata.keys():
             manifest_label = metadata['manfest_label'].strip()
+        else:
+            manifest_label = ""
 
         thumbnail_path = os.path.join(object_path, "thumbnail.jpg")
         thumbnail_url = f"{obj_url_root}/thumbnail.jpg"
