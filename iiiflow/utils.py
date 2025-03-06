@@ -26,21 +26,21 @@ def log_path(config_path):
 
     return log_file_path
 
-def validate_config_and_paths(config_path, collection_id=None, object_id=None, return_url_root=False, return_audio_thumbnail_file=False):
+def validate_config_and_paths(config_path, collection_id=None, object_id=None, return_url_roots=False, return_audio_thumbnail_file=False):
     """
     Validates and retrieves paths based on the configuration file and inputs.
-    Optionally returns the `url_root` from the configuration if `return_url_root` is True.
+    Optionally returns the `url_root` from the configuration if `return_url_roots` is True.
 
     Args:
         config_path (str): Path to the configuration YAML file.
         collection_id (str): The collection ID.
         object_id (str): The object ID.
-        return_url_root (bool): Whether to return the `url_root` from the config.
+        return_url_roots (bool): Whether to return `manifest_url_root` and 'image_api_root' from the config.
         return_audio_thumbnail_file (bool): Whether to return the `audio_thumbnail_file` from the config.
 
     Returns:
         tuple: A tuple containing discovery_storage_root, log_file_path, object_path, 
-               and optionally url_root and/or audio_thumbnail_file if those options are True.
+               and optionally manifest_url_root, image_api_root, and/or audio_thumbnail_file if those options are True.
     """
     
     # Resolve configuration file path
@@ -55,7 +55,8 @@ def validate_config_and_paths(config_path, collection_id=None, object_id=None, r
 
     discovery_storage_root = config.get("discovery_storage_root")
     log_file_path = config.get("error_log_file")
-    url_root = config.get("manifest_url_root")
+    manifest_url_root = config.get("manifest_url_root")
+    image_api_root = config.get("image_api_root")
     audio_thumbnail_file = config.get("audio_thumbnail_file")
 
     if not discovery_storage_root:
@@ -77,8 +78,9 @@ def validate_config_and_paths(config_path, collection_id=None, object_id=None, r
         config_data.append(None)
 
     # If requested, return the url_root along with the other paths
-    if return_url_root:
-        config_data.append(url_root)
+    if return_url_roots:
+        config_data.append(manifest_url_root)
+        config_data.append(image_api_root)
 
     if return_audio_thumbnail_file:
         config_data.append(audio_thumbnail_file)

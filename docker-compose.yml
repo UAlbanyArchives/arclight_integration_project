@@ -17,3 +17,4 @@ services:
       - '//t/SPE_DAO:/media/Library/SPE_DAO'
     working_dir: /code
     command: bash -c "pip install -e . && pytest tests -vv"
+    #command: tail -f /dev/null
