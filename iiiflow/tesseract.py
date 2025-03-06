@@ -55,6 +55,7 @@ def create_hocr(collection_id, object_id, config_path="~/.iiiflow.yml"):
 
                     hocr_filepath = os.path.join(ocr_dir, f"{base_filename}")
                     txt_filepath = os.path.join(txt_dir, f"{base_filename}.txt")
+                    print ("\t" + f"Processing {filename}...")
 
                     tesseract_cmd = [
                         "tesseract",
