@@ -343,7 +343,8 @@ def create_iiif_manifest(file_dir, url_root, obj_url_root, iiif_url_root, resour
         }
     }
     original_file = metadata.get("original_file_legacy", None)
-    original_format = os.path.splitext(original_file)[1][1:]
+    if original_file:
+        original_format = os.path.splitext(original_file)[1][1:]
     plaintext_switch = False
     contentTxt = os.path.join(os.path.dirname(file_dir), "content.txt")
     if os.path.isfile(contentTxt):
