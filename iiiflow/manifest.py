@@ -439,7 +439,12 @@ def create_manifest(collection_id, object_id, config_path="~/.iiiflow.yml"):
 
         obj_url_root = f"{url_root}/{collection_id}/{object_id}"
         iiif_url_root = f"{url_root}/iiif/3/%2F{collection_id}%2F{object_id}%2F{resource_format}"
-        manifest_label = f"{metadata['title'].strip()}, {metadata['date_display'].strip()}"
+        if "title" in metadata.keys():
+            manifest_label = metadata['title'].strip()
+            if "date_display" in metadata.keys():
+                manifest_label = manifest_label + f", {metadata['date_display'].strip()}"
+        elif "manfest_label" in metadata.keys():
+            manifest_label = metadata['manfest_label'].strip()
 
         thumbnail_path = os.path.join(object_path, "thumbnail.jpg")
         thumbnail_url = f"{obj_url_root}/thumbnail.jpg"
