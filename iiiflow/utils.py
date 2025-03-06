@@ -26,7 +26,7 @@ def log_path(config_path):
 
     return log_file_path
 
-def validate_config_and_paths(config_path, collection_id=None, object_id=None, return_url_roots=False, return_audio_thumbnail_file=False, return_lang_code=False):
+def validate_config_and_paths(config_path, collection_id=None, object_id=None, return_url_roots=False, return_audio_thumbnail_file=False, return_provider=False, return_lang_code=False):
     """
     Validates and retrieves paths based on the configuration file and inputs.
     Optionally returns the `url_root` from the configuration if `return_url_roots` is True.
@@ -53,6 +53,7 @@ def validate_config_and_paths(config_path, collection_id=None, object_id=None, r
     with open(config_path, "r") as config_file:
         config = yaml.safe_load(config_file)
 
+    provider = config.get("provider")
     discovery_storage_root = config.get("discovery_storage_root")
     log_file_path = config.get("error_log_file")
     manifest_url_root = config.get("manifest_url_root")
@@ -85,6 +86,9 @@ def validate_config_and_paths(config_path, collection_id=None, object_id=None, r
 
     if return_audio_thumbnail_file:
         config_data.append(audio_thumbnail_file)
+
+    if return_provider:
+        config_data.append(provider)
 
     if return_lang_code:
         config_data.append(lang_code)

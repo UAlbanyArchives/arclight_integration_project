@@ -1,6 +1,23 @@
 {
   "@context": "http://iiif.io/api/presentation/3/context.json",
-  "logo": "https://media.archives.albany.edu/logo.png",
+  "provider": [
+    {
+      "id": "https://media.archives.albany.edu",
+      "type": "Agent",
+      "label": {
+        "en": [
+          "M.E. Grenander Department of Special Collections & Archives, University at Albany, SUNY"
+        ]
+      },
+      "logo": [
+        {
+          "id": "https://media.archives.albany.edu/logo.png",
+          "type": "Image",
+          "format": "image/png"
+        }
+      ]
+    }
+  ],
   "id": "https://media.archives.albany.edu/collection1/object1/manifest.json",
   "type": "Manifest",
   "label": {

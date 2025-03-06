@@ -404,8 +404,8 @@ def create_manifest(collection_id, object_id, config_path="~/.iiiflow.yml"):
     """
 
     # Read config and validate paths
-    discovery_storage_root, log_file_path, object_path, manifest_url_root, image_api_root, lang_code = validate_config_and_paths(
-        config_path, collection_id, object_id, True, False, True
+    discovery_storage_root, log_file_path, object_path, manifest_url_root, image_api_root, provider, lang_code = validate_config_and_paths(
+        config_path, collection_id, object_id, True, False, True, True
     )
 
     config.configs['helpers.auto_fields.AutoLang'].auto_lang = lang_code
@@ -466,9 +466,25 @@ def create_manifest(collection_id, object_id, config_path="~/.iiiflow.yml"):
         iiif_manifest = create_iiif_manifest(filesPath, manifest_url_root, obj_url_root, iiif_url_root, resource_format, manifest_label, metadata, thumbnail_data, resource_type)
         manifest_dict = iiif_manifest.dict()
         manifest_dict = remove_nulls(manifest_dict)
+
+        provider_data = [
+            {
+                "id": manifest_url_root,
+                "type": "Agent",
+                "label": { lang_code: [provider] },
+                "logo": [
+                    {
+                        "id": f"{manifest_url_root}/logo.png",
+                        "type": "Image",
+                        "format": "image/png"
+                    }
+                ]
+            }
+        ]
+
         manifest_output = {
             '@context': "http://iiif.io/api/presentation/3/context.json",
-            'logo': f"{manifest_url_root}/logo.png",
+            'provider': provider_data,
             **manifest_dict
         }
 
