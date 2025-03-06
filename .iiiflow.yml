@@ -1,4 +1,5 @@
 ---
+provider: "M.E. Grenander Department of Special Collections & Archives, University at Albany, SUNY"
 discovery_storage_root: ./fixtures
 manifest_url_root: https://media.archives.albany.edu
 image_api_root: https://media.archives.albany.edu/iiif/3

@@ -24,10 +24,13 @@ iiiflow expects a `.iiiflow.yml` config file in your home directory (`~`) that d
 
 ```
 ---
+provider: My provider
 discovery_storage_root: /path/to/digital_object_root
 manifest_url_root: https://my.server.org
+image_api_root: https://my.server.org/iiif/3
 error_log_file: /path/to/errors.log
 audio_thumbnail_file: ./fixtures/thumbnail.jpg
+lang_code: en
 ```
 
 Optionally, you can pass the path to any `.yml` file as the last arg of any iiiflow function.
