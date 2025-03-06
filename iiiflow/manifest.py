@@ -444,7 +444,7 @@ def create_manifest(collection_id, object_id, config_path="~/.iiiflow.yml"):
             if "date_display" in metadata.keys():
                 manifest_label = manifest_label + f", {metadata['date_display'].strip()}"
         elif "manifest_label" in metadata.keys():
-            manifest_label = metadata['manfest_label'].strip()
+            manifest_label = metadata['manifest_label'].strip()
         else:
             manifest_label = ""
 
