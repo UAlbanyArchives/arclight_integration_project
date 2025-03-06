@@ -367,7 +367,7 @@ These fields have strict requirements as they support for automated processes.
 **rights_statement**: (OPTIONAL) This field is REQUIRED when the value for license is "Unknown." Known copyright status of the digital object. If used this field MUST be the canonical URL for a [RightsStatements.org](https://rightsstatements.org). Examples:
 * https://rightsstatements.org/page/InC-EDU/1.0/
 
-**manfest_label**: (OPTIONAL) A descriptive string used for the label field for IIIF manifests when a `title` is not present. In practice, this is the title and date derived from the archival object in ArchivesSpace.
+**manfest_label**: (OPTIONAL) A descriptive string used for the label field for IIIF manifests when a `title` is not present. This field is REQUIRED when title is not present. In practice, this is the title and date derived from the archival object in ArchivesSpace. While its not great practice to duplicate description here, this is necessary as IIIF manifest require a descriptive label.
 
 **behavior**: (OPTIONAL) Sets the [IIIF behavior](https://iiif.io/api/cookbook/recipe/0011-book-3-behavior/) at the object level. If this is not present, it will default to `individuals`. Options:
 * unordered
