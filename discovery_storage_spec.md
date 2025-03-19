@@ -399,6 +399,8 @@ These fields have strict requirements as they support for automated processes.
 
 **date_display**: The date of creation determined and added to the archival object by the archivist, not necessarily the date the digital object was created.
 
+**language**: The language(s) of the material.
+
 **creator**: Creator of the digital object.
 
 **contributor**: Name of user that aided in the description of the digital object.

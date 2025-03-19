@@ -52,7 +52,7 @@ def validate_config_and_paths(config_path, collection_id=None, object_id=None, r
     # Load configuration
     with open(config_path, "r") as config_file:
         config = yaml.safe_load(config_file)
-
+    
     provider = config.get("provider")
     discovery_storage_root = config.get("discovery_storage_root")
     log_file_path = config.get("error_log_file")
@@ -129,6 +129,7 @@ def remove_nulls(d):
 
 def get_image_dimensions(image_path):
     # Get the width and height for an image
+    Image.MAX_IMAGE_PIXELS = None
     with Image.open(image_path) as img:
         # Get the dimensions of the image (width, height)
         width, height = img.size
