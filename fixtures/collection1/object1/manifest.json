@@ -192,13 +192,13 @@
               "type": "Annotation",
               "motivation": "painting",
               "body": {
-                "id": "https://media.archives.albany.edu/iiif/3%2Fcollection1%2Fobject1%2Fptif%2Froot-01.ptif/full/max/0/default.jpg",
+                "id": "https://media.archives.albany.edu/iiif/3/%2Fcollection1%2Fobject1%2Fptif%2Froot-01.ptif/full/max/0/default.jpg",
                 "type": "Image",
                 "height": 4688,
                 "width": 3344,
                 "service": [
                   {
-                    "id": "https://media.archives.albany.edu/iiif/3%2Fcollection1%2Fobject1%2Fptif%2Froot-01.ptif",
+                    "id": "https://media.archives.albany.edu/iiif/3/%2Fcollection1%2Fobject1%2Fptif%2Froot-01.ptif",
                     "type": "ImageService3",
                     "profile": "level1"
                   }
@@ -244,13 +244,13 @@
               "type": "Annotation",
               "motivation": "painting",
               "body": {
-                "id": "https://media.archives.albany.edu/iiif/3%2Fcollection1%2Fobject1%2Fptif%2Froot-02.ptif/full/max/0/default.jpg",
+                "id": "https://media.archives.albany.edu/iiif/3/%2Fcollection1%2Fobject1%2Fptif%2Froot-02.ptif/full/max/0/default.jpg",
                 "type": "Image",
                 "height": 4688,
                 "width": 3382,
                 "service": [
                   {
-                    "id": "https://media.archives.albany.edu/iiif/3%2Fcollection1%2Fobject1%2Fptif%2Froot-02.ptif",
+                    "id": "https://media.archives.albany.edu/iiif/3/%2Fcollection1%2Fobject1%2Fptif%2Froot-02.ptif",
                     "type": "ImageService3",
                     "profile": "level1"
                   }
@@ -296,13 +296,13 @@
               "type": "Annotation",
               "motivation": "painting",
               "body": {
-                "id": "https://media.archives.albany.edu/iiif/3%2Fcollection1%2Fobject1%2Fptif%2Froot-03.ptif/full/max/0/default.jpg",
+                "id": "https://media.archives.albany.edu/iiif/3/%2Fcollection1%2Fobject1%2Fptif%2Froot-03.ptif/full/max/0/default.jpg",
                 "type": "Image",
                 "height": 4688,
                 "width": 3311,
                 "service": [
                   {
-                    "id": "https://media.archives.albany.edu/iiif/3%2Fcollection1%2Fobject1%2Fptif%2Froot-03.ptif",
+                    "id": "https://media.archives.albany.edu/iiif/3/%2Fcollection1%2Fobject1%2Fptif%2Froot-03.ptif",
                     "type": "ImageService3",
                     "profile": "level1"
                   }

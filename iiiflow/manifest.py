@@ -17,10 +17,11 @@ def create_iiif_canvas(manifest, manifest_url_root, obj_url_root, label, resourc
     # Default to not setting height and width
     height = kwargs.get("height", None)
     width = kwargs.get("width", None)
+    lang_code = kwargs["lang_code"]
     
     if resource_type == "Image":
         # Handle image resources
-        canvas = manifest.make_canvas(id=f"{obj_url_root}/canvas/p{page_count}", label=label, height=height, width=width)
+        canvas = manifest.make_canvas(id=f"{obj_url_root}/canvas/p{page_count}", label={lang_code: [label]}, height=height, width=width)
         service = [
                   {
                     "id": kwargs["image_url"],
@@ -126,7 +127,7 @@ def create_iiif_canvas(manifest, manifest_url_root, obj_url_root, label, resourc
                 "id": f"{obj_url_root}/vtt/{os.path.basename(vtt_file)}",
                 "type": "Text",
                 "format": "text/vtt",
-                "label": { "en": [ "WebVTT (captions)" ] }
+                "label": { lang_code: [ "WebVTT (captions)" ] }
             })
         
         # Check for TXT transcription file
@@ -137,7 +138,7 @@ def create_iiif_canvas(manifest, manifest_url_root, obj_url_root, label, resourc
                 "id": f"{obj_url_root}/txt/{os.path.basename(txt_file)}",
                 "type": "Text",
                 "format": "text/plain",
-                "label": { "en": [ "Text transcription" ] }
+                "label": { lang_code: [ "Text transcription" ] }
             })
         """
 
@@ -184,7 +185,7 @@ def create_iiif_canvas(manifest, manifest_url_root, obj_url_root, label, resourc
 
 
 
-def create_iiif_manifest(file_dir, manifest_url_root, obj_url_root, iiif_url_root, resource_format, label, metadata, thumbnail_data, resource_type):
+def create_iiif_manifest(file_dir, manifest_url_root, obj_url_root, iiif_url_root, resource_format, label, metadata, thumbnail_data, resource_type, lang_code):
     orgText = "M.E. Grenander Department of Special Collections and Archives, University Libraries, University at Albany, State University of New York"
 
     # Set IIIF manifest behavior
@@ -197,10 +198,14 @@ def create_iiif_manifest(file_dir, manifest_url_root, obj_url_root, iiif_url_roo
     rights = None  # Initialize rights
     if "license" in metadata and metadata['license'] and metadata['license'].lower().strip() != "unknown":
         rights = metadata["license"]
-        if "publicdomain" in rights:
+        if "/publicdomain/" in rights:
             attributionStatement = f"<span>This object is in the public domain, but you are encouraged to attribute: <br/> {orgText} <br/> <a href=\"{rights}\" title=\"Public Domain\"><img src=\"https://licensebuttons.net/p/88x31.png\"/></a></span>"
-        elif "by-nc-nd" in rights:
+        elif "/by-nc-nd/" in rights:
             attributionStatement = f"<span>{orgText} <br/> <a href=\"{rights}\" title=\"CC BY-NC-ND 4.0\"><img src=\"https://licensebuttons.net/l/by-nc-nd/4.0/88x31.png\"/></a></span>"
+        elif "/by-nc-sa/" in rights:
+            attributionStatement = f"<span>{orgText} <br/> <a href=\"{rights}\" title=\"CC BY-NC-SA 4.0\"><img src=\"https://licensebuttons.net/l/by-nc-sa/4.0/88x31.png\"/></a></span>"
+        elif "/by/" in rights:
+            attributionStatement = f"<span>{orgText} <br/> <a href=\"{rights}\" title=\"CC BY 4.0\"><img src=\"https://licensebuttons.net/l/by/4.0/88x31.png\"/></a></span>"
     elif "rights_statement" in metadata and metadata['rights_statement']:
         rights = metadata["rights_statement"]
         if "InC-EDU" in rights:
@@ -211,9 +216,12 @@ def create_iiif_manifest(file_dir, manifest_url_root, obj_url_root, iiif_url_roo
         rights = "https://rightsstatements.org/page/InC-EDU/1.0/"
         stmt = "In Copyright - Educational Use Permitted"
         attributionStatement = f"<span>{orgText} <br/> <a href=\"{rights}\" title=\"{stmt}\"><img src=\"https://rightsstatements.org/files/buttons/InC-EDU.dark.svg\"/></a></span>"
-
+    
     # Correct structure for requiredStatement using KeyValueString
-    requiredStatement = KeyValueString(label="Attribution", value=attributionStatement)
+    requiredStatement = KeyValueString(
+        label={lang_code: ["Attribution"]},
+        value={lang_code: [attributionStatement]}
+    )
 
     # Create a new IIIF Manifest
     manifest = Manifest(
@@ -250,13 +258,13 @@ def create_iiif_manifest(file_dir, manifest_url_root, obj_url_root, iiif_url_roo
             if value:  # Only add metadata if the value is not empty
                 if isinstance(value, list):  # Handle list of values
                     manifest.metadata.append({
-                        "label": {"en": [key]},
-                        "value": {"en": value}  # Directly use the list
+                        "label": {lang_code: [key]},
+                        "value": {lang_code: value}  # Directly use the list
                     })
                 else:  # Handle single value
                     manifest.metadata.append({
-                        "label": {"en": [key]},
-                        "value": {"en": [value]}
+                        "label": {lang_code: [key]},
+                        "value": {lang_code: [value]}
                     })
 
     # Loop through the resources in the directory
@@ -274,13 +282,13 @@ def create_iiif_manifest(file_dir, manifest_url_root, obj_url_root, iiif_url_roo
             # Use the media URL (modify this to suit your media hosting environment)
             media_url = f"{obj_url_root}/{os.path.basename(file_dir)}/{quoted_file}"
             create_iiif_canvas(manifest, manifest_url_root, obj_url_root, resource_file, resource_type, resource_path, page_count, thumbnail_data,
-                               media_url=media_url, filename=filename)
+                               media_url=media_url, filename=filename, lang_code=lang_code)
         elif resource_file.lower().endswith(resource_format.lower()):
             img_width, img_height = get_image_dimensions(resource_path)
 
             image_url = f"{iiif_url_root}%2F{quoted_file}"
             create_iiif_canvas(manifest, manifest_url_root, obj_url_root, resource_file, "Image", resource_path, page_count, thumbnail_data,
-                               resource_format=resource_format, height=img_height, width=img_width, image_url=image_url, filename=filename)
+                               resource_format=resource_format, height=img_height, width=img_width, image_url=image_url, filename=filename, lang_code=lang_code)
     manifest_renderings = []
     # Check for alternative renderings to add
     alt_rendering_formats = {
@@ -440,7 +448,7 @@ def create_manifest(collection_id, object_id, config_path="~/.iiiflow.yml"):
         print(f"{collection_id}/{object_id}")
 
         obj_url_root = f"{manifest_url_root}/{collection_id}/{object_id}"
-        iiif_url_root = f"{image_api_root}%2F{collection_id}%2F{object_id}%2F{resource_format}"
+        iiif_url_root = f"{image_api_root}/%2F{collection_id}%2F{object_id}%2F{resource_format}"
         if "title" in metadata.keys():
             manifest_label = metadata['title'].strip()
             if "date_display" in metadata.keys():
@@ -463,7 +471,7 @@ def create_manifest(collection_id, object_id, config_path="~/.iiiflow.yml"):
         thumbnail_data = {"url": thumbnail_url, "width": thumbnail_width, "height": thumbnail_height}
         
         # Create the manifest
-        iiif_manifest = create_iiif_manifest(filesPath, manifest_url_root, obj_url_root, iiif_url_root, resource_format, manifest_label, metadata, thumbnail_data, resource_type)
+        iiif_manifest = create_iiif_manifest(filesPath, manifest_url_root, obj_url_root, iiif_url_root, resource_format, manifest_label, metadata, thumbnail_data, resource_type, lang_code)
         manifest_dict = iiif_manifest.dict()
         manifest_dict = remove_nulls(manifest_dict)
 

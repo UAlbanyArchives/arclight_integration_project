@@ -56,14 +56,17 @@ class Collections:
             storage_root (str): The root directory path where all collections are stored.
         """
         self.collections = []  # Initialize an empty list to store the Collection objects
-
         # Iterate through all items in the storage_root directory
         for collection_id in os.listdir(storage_root):
             collection_path = os.path.join(storage_root, collection_id)  # Get the full path for each collection
             if os.path.isdir(collection_path):  # Check if the item is a directory (indicating a collection)
                 # If it is a directory, create a new Collection object and add it to the collections list
                 self.collections.append(Collection(id=collection_id, collection_path=collection_path))
-
+    
+    def __len__(self):
+        """Return the number of collections."""
+        return len(self.collections)
+    
     def __iter__(self):
         """
         Make the Collections object iterable. This allows us to loop through all collections.

@@ -116,3 +116,11 @@ for collection in collections:
 This runs the tests with all dependancies
 
 `docker-compose run test`
+
+### Pushing a release
+
+After running tests.
+```
+python -m build
+twine upload dist/*
+```

@@ -6,7 +6,7 @@ requirements = [
     "pypdf==3.14.0",
     "requests==2.32.3",
     "pycryptodome==3.15.0",
-    "iiif-prezi3==1.2.1",
+    "iiif-prezi3==2.0.1",
     "PyMuPDF==1.24.11",
     "openai-whisper==20240930",
     "mutagen==1.47.0",
@@ -18,7 +18,7 @@ requirements = [
 
 setuptools.setup(
     name="iiiflow",
-    version="0.2.1",
+    version="0.2.2",
     author="Gregory Wiedeman",
     author_email="gwiedeman@albany.edu",
     description="An IIIF pipeline tool using the Digital Object Discovery Storage Specification.",
