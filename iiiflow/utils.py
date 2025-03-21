@@ -40,7 +40,7 @@ def validate_config_and_paths(config_path, collection_id=None, object_id=None, r
 
     Returns:
         tuple: A tuple containing discovery_storage_root, log_file_path, object_path, 
-               and optionally manifest_url_root, image_api_root, and/or audio_thumbnail_file if those options are True.
+               and optionally manifest_url_root, image_api_root, audio_thumbnail_file, provider, and/or lang_code if those options are True.
     """
     
     # Resolve configuration file path

@@ -5,6 +5,7 @@ import json
 import traceback
 import urllib.parse
 from PIL import Image
+from iiiflow.metadata import update_metadata_fields
 from iiif_prezi3 import Manifest, Canvas, Annotation, AnnotationPage, KeyValueString, config
 from .utils import validate_config_and_paths, remove_nulls
 from .utils import get_image_dimensions, get_media_info
@@ -209,11 +210,11 @@ def create_iiif_manifest(file_dir, manifest_url_root, obj_url_root, iiif_url_roo
     elif "rights_statement" in metadata and metadata['rights_statement']:
         rights = metadata["rights_statement"]
         if "InC-EDU" in rights:
-            rights = "https://rightsstatements.org/page/InC-EDU/1.0/"
+            rights = "https://rightsstatements.org/vocab/InC-EDU/1.0/"
             stmt = "In Copyright - Educational Use Permitted"
             attributionStatement = f"<span>{orgText} <br/> <a href=\"{rights}\" title=\"{stmt}\"><img src=\"https://rightsstatements.org/files/buttons/InC-EDU.dark.svg\"/></a></span>"
     else:
-        rights = "https://rightsstatements.org/page/InC-EDU/1.0/"
+        rights = "https://rightsstatements.org/vocab/InC-EDU/1.0/"
         stmt = "In Copyright - Educational Use Permitted"
         attributionStatement = f"<span>{orgText} <br/> <a href=\"{rights}\" title=\"{stmt}\"><img src=\"https://rightsstatements.org/files/buttons/InC-EDU.dark.svg\"/></a></span>"
     
@@ -232,40 +233,8 @@ def create_iiif_manifest(file_dir, manifest_url_root, obj_url_root, iiif_url_roo
         requiredStatement=requiredStatement,
     )
 
-    # Add metadata fields to the manifest
-    fields = [
-        "title", 
-        "date_display", 
-        "resource_type", 
-        "coverage", 
-        "extent", 
-        "collection", 
-        "collecting_area", 
-        "description", 
-        "subject",
-        "processing_activity",
-        "creator",
-        "contributor",
-        "identifier",
-        "source",
-        "master_format",
-        "date_digitized",
-        "date_published"
-    ]
-    manifest.metadata = []
-    for key, value in metadata.items():
-        if key in fields:
-            if value:  # Only add metadata if the value is not empty
-                if isinstance(value, list):  # Handle list of values
-                    manifest.metadata.append({
-                        "label": {lang_code: [key]},
-                        "value": {lang_code: value}  # Directly use the list
-                    })
-                else:  # Handle single value
-                    manifest.metadata.append({
-                        "label": {lang_code: [key]},
-                        "value": {lang_code: [value]}
-                    })
+    # adds metadata keys from metadata.yml
+    manifest = update_metadata_fields(manifest, metadata, lang_code)
 
     # Loop through the resources in the directory
     page_count = 0

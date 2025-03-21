@@ -77,7 +77,9 @@ from iiiflow import create_transcription
 create_transcription("collection1", "object1")
 ```
 
-### Validate metadata.yml
+### Manage metadata.yml
+
+#### Validation
 
 Validates metadata.yml using rules defined in the [Digital Object Discovery Storage Specification](https://github.com/UAlbanyArchives/arclight_integration_project/blob/main/discovery_storage_spec.md).
 
@@ -85,6 +87,16 @@ Validates metadata.yml using rules defined in the [Digital Object Discovery Stor
 from iiiflow import validate_metadata
 
 validate_metadata("collection1", "object1")
+```
+
+#### Updating metadata
+
+It is much faster to directly update metadata in `manifest.json` from `metadata.yml` rather then re-building the whole manifest from scratch. This also updates the manifest `behavior` field.
+
+```
+from iiiflow import update_metadata
+
+update_metadata("collection1", "object1")
 ```
 
 ### Create manifest
