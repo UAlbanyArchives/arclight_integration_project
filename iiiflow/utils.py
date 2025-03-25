@@ -28,22 +28,38 @@ def log_path(config_path):
     return log_file_path
 
 def normalize_image_api_root(image_api_root):
+    """
+    Normalizes an IIIF image API root URL by ensuring:
+    - The root always ends with a single `/`
+    - `/iiif/[version]/` remains unchanged with a trailing `/`
+    - Subfolders after `/iiif/[version]` have `/` replaced with `%2F`
+    - A trailing `%2F` is added if subfolders exist
+
+    Args:
+        image_api_root (str): The input URL to be normalized.
+
+    Returns:
+        str: The properly formatted IIIF image API root.
+    """
+    
     # Ensure the root always ends with a single slash
     if not image_api_root.endswith('/'):
         image_api_root += '/'
-    
-    # Regex to match /iiif/[version] and capture any subfolders
-    match = re.search(r'(/iiif/\d+)(/.*)', image_api_root)
+
+    # Regex to match the full URL up to /iiif/[version] and capture any subfolders
+    match = re.search(r'(.*/iiif/\d+/)(.*)', image_api_root)
     
     if match:
-        version_part = match.group(1)  # /iiif/[version]
+        base_url = match.group(1)  # Keep everything up to /iiif/[version]/
         subfolders = match.group(2).strip('/')  # Remove leading/trailing slashes from subfolders
+        
         if subfolders:
             encoded_subfolders = subfolders.replace('/', '%2F')  # Encode slashes
-            return f"{version_part}/{encoded_subfolders}%2F"  # Ensure trailing %2F for subfolders
-        return f"{version_part}/"  # Ensure a trailing slash for /iiif/[version]
-    
-    return image_api_root
+            return f"{base_url}{encoded_subfolders}%2F"  # Ensure trailing %2F for subfolders
+        
+        return base_url  # Keep /iiif/[version]/ unchanged
+
+    return image_api_root  # If no match, return as is
 
 def validate_config_and_paths(config_path, collection_id=None, object_id=None, return_url_roots=False, return_audio_thumbnail_file=False, return_provider=False, return_lang_code=False):
     """
