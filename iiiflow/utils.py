@@ -1,4 +1,5 @@
 import os
+import re
 import yaml
 import ffmpeg
 import traceback
@@ -25,6 +26,24 @@ def log_path(config_path):
         log_file_path = config.get("error_log_file")
 
     return log_file_path
+
+def normalize_image_api_root(image_api_root):
+    # Ensure the root always ends with a single slash
+    if not image_api_root.endswith('/'):
+        image_api_root += '/'
+    
+    # Regex to match /iiif/[version] and capture any subfolders
+    match = re.search(r'(/iiif/\d+)(/.*)', image_api_root)
+    
+    if match:
+        version_part = match.group(1)  # /iiif/[version]
+        subfolders = match.group(2).strip('/')  # Remove leading/trailing slashes from subfolders
+        if subfolders:
+            encoded_subfolders = subfolders.replace('/', '%2F')  # Encode slashes
+            return f"{version_part}/{encoded_subfolders}%2F"  # Ensure trailing %2F for subfolders
+        return f"{version_part}/"  # Ensure a trailing slash for /iiif/[version]
+    
+    return image_api_root
 
 def validate_config_and_paths(config_path, collection_id=None, object_id=None, return_url_roots=False, return_audio_thumbnail_file=False, return_provider=False, return_lang_code=False):
     """
@@ -57,7 +76,7 @@ def validate_config_and_paths(config_path, collection_id=None, object_id=None, r
     discovery_storage_root = config.get("discovery_storage_root")
     log_file_path = config.get("error_log_file")
     manifest_url_root = config.get("manifest_url_root")
-    image_api_root = config.get("image_api_root")
+    image_api_root = normalize_image_api_root(config.get("image_api_root"))
     audio_thumbnail_file = config.get("audio_thumbnail_file")
     lang_code = config.get("lang_code")
 

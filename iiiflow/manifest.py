@@ -417,7 +417,8 @@ def create_manifest(collection_id, object_id, config_path="~/.iiiflow.yml"):
         print(f"{collection_id}/{object_id}")
 
         obj_url_root = f"{manifest_url_root}/{collection_id}/{object_id}"
-        iiif_url_root = f"{image_api_root}/%2F{collection_id}%2F{object_id}%2F{resource_format}"
+        # image_api_root has been normalized to always include trailing slash (/) or %2F for subfolders after the IIIF image api
+        iiif_url_root = f"{image_api_root}{collection_id}%2F{object_id}%2F{resource_format}"
         if "title" in metadata.keys():
             manifest_label = metadata['title'].strip()
             if "date_display" in metadata.keys():
