@@ -29,36 +29,12 @@
     {
       "label": {
         "en": [
-          "title"
+          "resource_type"
         ]
       },
       "value": {
         "en": [
-          "UAlbany President Rodr\u00edguez Addresses Campus Community on COVID-19"
-        ]
-      }
-    },
-    {
-      "label": {
-        "en": [
-          "collecting_area"
-        ]
-      },
-      "value": {
-        "en": [
-          "University Archives"
-        ]
-      }
-    },
-    {
-      "label": {
-        "en": [
-          "collection"
-        ]
-      },
-      "value": {
-        "en": [
-          "General Reference Collection"
+          "Video"
         ]
       }
     },
@@ -77,24 +53,12 @@
     {
       "label": {
         "en": [
-          "resource_type"
+          "preservation_package"
         ]
       },
       "value": {
         "en": [
-          "Video"
-        ]
-      }
-    },
-    {
-      "label": {
-        "en": [
-          "date_display"
-        ]
-      },
-      "value": {
-        "en": [
-          "2020-03-12"
+          "ua950.002_9xmmh3GHfRyEVvUNM6t865"
         ]
       }
     },
@@ -119,7 +83,7 @@
     },
     "value": {
       "en": [
-        "<span>This object is in the public domain, but you are encouraged to attribute: <br/> M.E. Grenander Department of Special Collections and Archives, University Libraries, University at Albany, State University of New York <br/> <a href=\"http://creativecommons.org/publicdomain/mark/1.0/\" title=\"Public Domain\"><img src=\"https://licensebuttons.net/p/88x31.png\"/></a></span>"
+        "<span>This object is in the public domain, but you are encouraged to attribute: <br/> M.E. Grenander Department of Special Collections and Archives, University Libraries, University at Albany, State University of New York <br/> <a href=\"https://creativecommons.org/publicdomain/mark/1.0/\" title=\"Public Domain\"><img src=\"https://licensebuttons.net/p/88x31.png\"/></a></span>"
       ]
     }
   },
@@ -135,7 +99,7 @@
       "format": "text/plain"
     }
   ],
-  "rights": "http://creativecommons.org/publicdomain/mark/1.0/",
+  "rights": "https://creativecommons.org/publicdomain/mark/1.0/",
   "behavior": [
     "individuals"
   ],

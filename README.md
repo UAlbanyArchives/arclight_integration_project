@@ -51,6 +51,16 @@ from iiiflow import make_thumbnail
 make_thumbnail("collection1", "object1")
 ```
 
+### Create a PDF
+
+Creates a PDF alternative rendering
+
+```
+from iiiflow import create_pdf
+
+create_pdf("collection1", "object1")
+```
+
 ### Create pyramidal Tiffs
 
 Uses the .ptif extension to distinguish from traditional tiffs.

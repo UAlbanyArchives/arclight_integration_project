@@ -29,36 +29,12 @@
     {
       "label": {
         "en": [
-          "title"
+          "resource_type"
         ]
       },
       "value": {
         "en": [
-          "Commencement Program"
-        ]
-      }
-    },
-    {
-      "label": {
-        "en": [
-          "collecting_area"
-        ]
-      },
-      "value": {
-        "en": [
-          "University Archives"
-        ]
-      }
-    },
-    {
-      "label": {
-        "en": [
-          "collection"
-        ]
-      },
-      "value": {
-        "en": [
-          "Commencement Programs Collection"
+          "Document"
         ]
       }
     },
@@ -77,24 +53,12 @@
     {
       "label": {
         "en": [
-          "resource_type"
+          "preservation_package"
         ]
       },
       "value": {
         "en": [
-          "Document"
-        ]
-      }
-    },
-    {
-      "label": {
-        "en": [
-          "date_display"
-        ]
-      },
-      "value": {
-        "en": [
-          "1996"
+          "ua935_idzpkZLpFpktuGPG5Gxhxm"
         ]
       }
     },
@@ -119,7 +83,7 @@
     },
     "value": {
       "en": [
-        "<span>This object is in the public domain, but you are encouraged to attribute: <br/> M.E. Grenander Department of Special Collections and Archives, University Libraries, University at Albany, State University of New York <br/> <a href=\"http://creativecommons.org/publicdomain/mark/1.0/\" title=\"Public Domain\"><img src=\"https://licensebuttons.net/p/88x31.png\"/></a></span>"
+        "<span>This object is in the public domain, but you are encouraged to attribute: <br/> M.E. Grenander Department of Special Collections and Archives, University Libraries, University at Albany, State University of New York <br/> <a href=\"https://creativecommons.org/publicdomain/mark/1.0/\" title=\"Public Domain\"><img src=\"https://licensebuttons.net/p/88x31.png\"/></a></span>"
       ]
     }
   },
@@ -135,17 +99,17 @@
       "format": "text/plain"
     },
     {
-      "id": "https://media.archives.albany.edu/collection1/object1/pdf/root.pdf",
+      "id": "https://media.archives.albany.edu/collection1/object1/pdf/binder.pdf",
       "type": "Text",
       "label": {
         "en": [
-          "root.pdf (Original)"
+          "binder.pdf"
         ]
       },
       "format": "application/pdf"
     }
   ],
-  "rights": "http://creativecommons.org/publicdomain/mark/1.0/",
+  "rights": "https://creativecommons.org/publicdomain/mark/1.0/",
   "behavior": [
     "paged"
   ],
@@ -192,13 +156,13 @@
               "type": "Annotation",
               "motivation": "painting",
               "body": {
-                "id": "https://media.archives.albany.edu/iiif/3/%2Fcollection1%2Fobject1%2Fptif%2Froot-01.ptif/full/max/0/default.jpg",
+                "id": "https://media.archives.albany.edu/iiif/3/collection1%2Fobject1%2Fptif%2Froot-01.ptif/full/max/0/default.jpg",
                 "type": "Image",
                 "height": 4688,
                 "width": 3344,
                 "service": [
                   {
-                    "id": "https://media.archives.albany.edu/iiif/3/%2Fcollection1%2Fobject1%2Fptif%2Froot-01.ptif",
+                    "id": "https://media.archives.albany.edu/iiif/3/collection1%2Fobject1%2Fptif%2Froot-01.ptif",
                     "type": "ImageService3",
                     "profile": "level1"
                   }
@@ -244,13 +208,13 @@
               "type": "Annotation",
               "motivation": "painting",
               "body": {
-                "id": "https://media.archives.albany.edu/iiif/3/%2Fcollection1%2Fobject1%2Fptif%2Froot-02.ptif/full/max/0/default.jpg",
+                "id": "https://media.archives.albany.edu/iiif/3/collection1%2Fobject1%2Fptif%2Froot-02.ptif/full/max/0/default.jpg",
                 "type": "Image",
                 "height": 4688,
                 "width": 3382,
                 "service": [
                   {
-                    "id": "https://media.archives.albany.edu/iiif/3/%2Fcollection1%2Fobject1%2Fptif%2Froot-02.ptif",
+                    "id": "https://media.archives.albany.edu/iiif/3/collection1%2Fobject1%2Fptif%2Froot-02.ptif",
                     "type": "ImageService3",
                     "profile": "level1"
                   }
@@ -296,13 +260,13 @@
               "type": "Annotation",
               "motivation": "painting",
               "body": {
-                "id": "https://media.archives.albany.edu/iiif/3/%2Fcollection1%2Fobject1%2Fptif%2Froot-03.ptif/full/max/0/default.jpg",
+                "id": "https://media.archives.albany.edu/iiif/3/collection1%2Fobject1%2Fptif%2Froot-03.ptif/full/max/0/default.jpg",
                 "type": "Image",
                 "height": 4688,
                 "width": 3311,
                 "service": [
                   {
-                    "id": "https://media.archives.albany.edu/iiif/3/%2Fcollection1%2Fobject1%2Fptif%2Froot-03.ptif",
+                    "id": "https://media.archives.albany.edu/iiif/3/collection1%2Fobject1%2Fptif%2Froot-03.ptif",
                     "type": "ImageService3",
                     "profile": "level1"
                   }

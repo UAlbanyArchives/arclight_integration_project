@@ -1,6 +1,7 @@
 import os
 from .utils import validate_config_and_paths
 from .ptif import create_ptif
+from .pdf import create_pdf
 from .tesseract import create_hocr
 from .thumbnail import make_thumbnail
 from .metadata import validate_metadata

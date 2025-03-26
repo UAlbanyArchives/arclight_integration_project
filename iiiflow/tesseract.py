@@ -71,7 +71,7 @@ def create_hocr(collection_id, object_id, config_path="~/.iiiflow.yml"):
                         process = Popen(tesseract_cmd, stdout=PIPE, stderr=PIPE)
                         stdout, stderr = process.communicate()
                         if process.returncode != 0:
-                            raise RuntimeError(stderr.decode("utf-8"))
+                            raise RuntimeError(f"{stdout.decode('utf-8')}\n{stderr.decode('utf-8')}")
 
                         # Move the generated .txt file to the txt directory
                         if not os.path.isfile(generated_txt_path):
