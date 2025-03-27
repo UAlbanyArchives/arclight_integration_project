@@ -8,38 +8,35 @@ from subprocess import Popen, PIPE
 from .utils import check_no_image_type
 from .utils import validate_config_and_paths
 
-def process_image_for_pdf(image_path, base_tmp_dir="tmp", max_size=1500, quality=85):
+def resize_image(img_path, max_size=1500):
     """
-    Processes an image (PNG or JPG) for inclusion in a PDF:
-    - Resizes to max_size while maintaining aspect ratio.
-    - Converts PNG to compressed JPG.
-    - Saves both the temp JPG and a corresponding single-page temp PDF in tmp_dir.
+    Resizes an image while maintaining aspect ratio, ensuring the longest side is at most `max_size`.
+    Converts PNG images to JPEG for smaller file size.
+
+    Args:
+        img_path (str): Path to the image.
+        max_size (int): Maximum size for the longest side.
 
     Returns:
-        (temp_jpg_path, temp_pdf_path, tmp_dir)
+        str: Path to the resized image (saved as a temporary file).
     """
-    # Create a unique temp directory inside base_tmp_dir for processed images
-    tmp_dir = os.path.join(os.path.dirname(image_path), base_tmp_dir)
-    os.makedirs(tmp_dir, exist_ok=True)
+    # Extract filename and extension
+    base, ext = os.path.splitext(img_path)
+    ext = ext.lower()
 
-    # Determine new file paths
-    base_name = os.path.splitext(os.path.basename(image_path))[0]
-    temp_jpg_path = os.path.join(tmp_dir, base_name + ".jpg")
-    temp_pdf_path = os.path.join(tmp_dir, base_name + ".pdf")
+    # Set new filename with _resized
+    resized_img_path = f"{base}_resized.jpg"  # Always save as JPG
 
-    # Open and process image
-    image = Image.open(image_path).convert("RGB")  # Convert to RGB to remove transparency if PNG
-    image.thumbnail((max_size, max_size))  # Resize while maintaining aspect ratio
+    with Image.open(img_path) as img:
+        img.thumbnail((max_size, max_size), Image.LANCZOS)
 
-    # Save as a compressed JPEG
-    image.save(temp_jpg_path, "JPEG", quality=quality)
+        # Convert PNG to JPEG to reduce size
+        if ext == ".png":
+            img = img.convert("RGB")  # Convert to RGB since JPEG doesn't support alpha transparency
 
-    # Convert to single-page PDF
-    image.save(temp_pdf_path, "PDF")
+        img.save(resized_img_path, format="JPEG", quality=85)  # Save with reduced quality to further reduce size
 
-    return temp_jpg_path, temp_pdf_path, tmp_dir  # Return paths to temp files and directory
-
-
+    return resized_img_path
 
 def create_pdf(collection_id, object_id, config_path="~/.iiiflow.yml"):
     """
@@ -82,13 +79,19 @@ def create_pdf(collection_id, object_id, config_path="~/.iiiflow.yml"):
         [f for f in os.listdir(img_dir) if f.lower().endswith(img_priorities)]
     )
 
+    temp_resized_files = []  # Store resized images for cleanup
+
     for img in image_files:
         print(f"\tConverting {img} to searchable PDF...")
         img_path = os.path.join(img_dir, img)
 
+        # reduce image size
+        resized_img_path = resize_image(img_path, max_size=1500)
+        temp_resized_files.append(resized_img_path)  # Store for cleanup
+
         # Generate a searchable PDF from the image using Tesseract
         temp_pdf_path = os.path.join(pdf_path, f"{img[:-4]}.pdf")
-        tesseract_cmd = ["tesseract", img_path, temp_pdf_path[:-4], "pdf"]
+        tesseract_cmd = ["tesseract", resized_img_path, temp_pdf_path[:-4], "pdf"]
         
         process = Popen(tesseract_cmd, stdout=PIPE, stderr=PIPE)
         stdout, stderr = process.communicate()
@@ -113,6 +116,8 @@ def create_pdf(collection_id, object_id, config_path="~/.iiiflow.yml"):
 
     # Cleanup: Remove individual PDFs
     print("Cleaning up temporary files...")
+    for temp_img in temp_resized_files:
+        os.remove(temp_img)
     for pdf in pdf_files_to_merge:
         os.remove(pdf)
 
