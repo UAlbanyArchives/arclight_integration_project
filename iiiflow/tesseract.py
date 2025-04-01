@@ -48,7 +48,7 @@ def create_hocr(collection_id, object_id, config_path="~/.iiiflow.yml"):
         # Aggregate all text files into a single content.txt file
         content_file_path = os.path.join(object_path, "content.txt")
         with open(content_file_path, "w", encoding="utf-8") as content_file:
-            for filename in os.listdir(img_dir):
+            for filename in sorted(os.listdir(img_dir)):
                 if filename.lower().endswith((".jpg", ".jpeg", ".png", ".tif")):
                     img_filepath = os.path.join(img_dir, filename)
                     base_filename = os.path.splitext(filename)[0]

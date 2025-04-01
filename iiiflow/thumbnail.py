@@ -101,7 +101,7 @@ def make_thumbnail(collection_id, object_id, config_path="~/.iiiflow.yml"):
                     for format_ext in image_order:
                         image_dir = os.path.join(object_path, format_ext)
                         if os.path.isdir(image_dir) and len(os.listdir(image_dir)) > 0:
-                            image_path = os.path.join(image_dir, os.listdir(image_dir)[0])
+                            image_path = os.path.join(image_dir, sorted(os.listdir(image_dir))[0])
                             subprocess.run([
                                     'convert', image_path,
                                     '-resize',
