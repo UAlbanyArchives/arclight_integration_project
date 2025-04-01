@@ -73,7 +73,7 @@ def create_transcription(collection_id, object_id, config_path="~/.iiiflow.yml")
             format_path = os.path.join(object_path, audio_format)
             if os.path.isdir(format_path) and len(os.listdir(format_path)) > 0:
                 file_paths.extend(
-                    [os.path.join(format_path, f) for f in os.listdir(format_path) if f.lower().endswith(f".{audio_format}")]
+                    [os.path.join(format_path, f) for f in sorted(os.listdir(format_path)) if f.lower().endswith(f".{audio_format}")]
                 )
                 break
     elif metadata["resource_type"].lower() == "video":
@@ -83,7 +83,7 @@ def create_transcription(collection_id, object_id, config_path="~/.iiiflow.yml")
             format_path = os.path.join(object_path, video_format)
             if os.path.isdir(format_path) and len(os.listdir(format_path)) > 0:
                 file_paths.extend(
-                    [os.path.join(format_path, f) for f in os.listdir(format_path) if f.lower().endswith(f".{video_format}")]
+                    [os.path.join(format_path, f) for f in sorted(os.listdir(format_path)) if f.lower().endswith(f".{video_format}")]
                 )
                 break
     

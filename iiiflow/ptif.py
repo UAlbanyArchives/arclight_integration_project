@@ -38,7 +38,7 @@ def create_ptif(collection_id, object_id, config_path="~/.iiiflow.yml"):
         if not os.path.isdir(ptif_path):
             os.mkdir(ptif_path)
 
-        for img in os.listdir(img_path):
+        for img in sorted(os.listdir(img_path)):
             if img.lower().endswith((".jpg", ".jpeg", ".png", ".tif")):
                 print(f"\tConverting {img}...")
                 img_filepath = os.path.join(img_path, img)
