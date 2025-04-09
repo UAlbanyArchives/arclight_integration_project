@@ -5,7 +5,6 @@ import traceback
 from iiif_prezi3 import Manifest
 from .utils import validate_config_and_paths
 
-from iiif_prezi3 import Manifest  
 
 def update_metadata_fields(manifest, metadata, lang_code="en"):
     """
