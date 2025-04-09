@@ -46,9 +46,17 @@ def update_metadata_fields(manifest, metadata, lang_code="en"):
 
     for field in fields:
         if field in metadata and metadata[field]:  
+            value = metadata[field]
+
+            # If value is a list (like subjects), keep it as a list of strings
+            if isinstance(value, list):
+                value_list = [str(v) for v in value if v]
+            else:
+                value_list = [str(value)]
+
             new_metadata.append({
                 "label": {lang_code: [field]},
-                "value": {lang_code: [str(metadata[field])]}
+                "value": {lang_code: value_list}
             })
 
     # Handle both dict-based and iiif_prezi3 Manifest objects
