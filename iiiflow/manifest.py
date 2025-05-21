@@ -419,7 +419,9 @@ def create_manifest(collection_id, object_id, config_path="~/.iiiflow.yml"):
         obj_url_root = f"{manifest_url_root}/{collection_id}/{object_id}"
         # image_api_root has been normalized to always include trailing slash (/) or %2F for subfolders after the IIIF image api
         iiif_url_root = f"{image_api_root}{collection_id}%2F{object_id}%2F{resource_format}"
-        if 'title' in metadata and metadata['title']:
+        if "manifest_label" in metadata.keys():
+            manifest_label = metadata['manifest_label'].strip()
+        elif 'title' in metadata and metadata['title']:
             manifest_label = metadata['title'].strip()
             if 'date_display' in metadata and metadata['date_display']:
                 manifest_label += f", {metadata['date_display'].strip()}"
@@ -430,10 +432,6 @@ def create_manifest(collection_id, object_id, config_path="~/.iiiflow.yml"):
                     break
             else:
                 manifest_label = "Untitled"
-        elif "manifest_label" in metadata.keys():
-            manifest_label = metadata['manifest_label'].strip()
-        else:
-            manifest_label = ""
 
         thumbnail_path = os.path.join(object_path, "thumbnail.jpg")
         thumbnail_url = f"{obj_url_root}/thumbnail.jpg"
