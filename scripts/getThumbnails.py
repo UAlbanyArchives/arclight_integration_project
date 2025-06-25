@@ -7,9 +7,9 @@ import traceback
 import shutil
 
 if os.name == "nt":
-    root = "\\\\Lincoln\\Library\\SPE_DAO"
+    root = "\\\\Lincoln\\Library\\SPE_DAO\\aa_migration"
 else:
-    root = "/media/Library/SPE_DAO"
+    root = "/media/Library/SPE_DAO/aa_migration"
 
 root_url = 'https://archives.albany.edu/downloads/'
 log_path = "/media/Library/ESPYderivatives/export_logs/thumbs"
@@ -18,7 +18,10 @@ def download_thumbnails(collection_id=None, force=None):
     for col in os.listdir(root):
         col_path = os.path.join(root, col)
 
-        log_file = os.path.join(log_path, collection_id + ".log")
+        if collection_id:
+            log_file = os.path.join(log_path, collection_id + ".log")
+        else:
+            log_file = os.path.join(log_path, "all.log")
 
         # Check if collection_id is provided and matches the current collection
         if collection_id and collection_id not in col:
@@ -37,7 +40,7 @@ def download_thumbnails(collection_id=None, force=None):
                     continue
 
                 thumbnail_path = os.path.join(objPath, 'thumbnail.jpg')
-
+                force = True
                 if not os.path.isfile(thumbnail_path) or force:
 
                     print(f"Loading thumbnail for {objPath}...")

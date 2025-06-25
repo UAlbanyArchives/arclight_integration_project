@@ -5,9 +5,9 @@ import shutil
 import whisper
 
 if os.name == "nt":
-    root = "\\\\Lincoln\\Library\\SPE_DAO"
+    root = "\\\\Lincoln\\Library\\SPE_DAO\\aa_migration"
 else:
-    root = "/media/Library/SPE_DAO"
+    root = "/media/Library/SPE_DAO/aa_migration"
 
 def format_timestamp(seconds):
     # Convert seconds to hh:mm:ss.mmm format
