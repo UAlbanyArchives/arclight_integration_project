@@ -133,6 +133,25 @@ for collection in collections:
 			create_manifest(collection.id, object_id)
 ```
 
+### Rebuild manifests
+
+There is also a built-in command to rebuild manifests
+
+#### Default: Regenerate manifests older than 25 hours
+```
+rebuild-manifests
+```
+
+#### Regenerate if older than 12 hours
+```
+rebuild-manifests --hours 12
+```
+
+#### Only for one collection, with a 6-hour threshold
+```
+rebuild-manifests --collection-id apap101 --hours 6
+```
+
 ### Tests
 
 This runs the tests with all dependancies

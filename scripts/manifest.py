@@ -11,9 +11,9 @@ from iiif_prezi3 import Manifest, Canvas, Annotation, AnnotationPage, KeyValueSt
 config.configs['helpers.auto_fields.AutoLang'].auto_lang = "en"
 
 if os.name == "nt":
-    root = "\\\\Lincoln\\Library\\SPE_DAO"
+    root = "\\\\Lincoln\\Library\\SPE_DAO\\aa_migration"
 else:
-    root = "/media/Library/SPE_DAO"
+    root = "/media/Library/SPE_DAO/aa_migration"
 
 def remove_nulls(d):
     """Recursively remove keys with None values from a dictionary or list."""

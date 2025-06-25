@@ -6,9 +6,9 @@ from pypdf import PdfReader, PdfWriter
 import traceback
 
 if os.name == "nt":
-    root = "\\\\Lincoln\\Library\\SPE_DAO"
+    root = "\\\\Lincoln\\Library\\SPE_DAO\\aa_migration"
 else:
-    root = "/media/Library/SPE_DAO"
+    root = "/media/Library/SPE_DAO/aa_migration"
 
 log_path = "/media/Library/ESPYderivatives/export_logs/tiffs"
 
@@ -19,7 +19,10 @@ def convert_images(collection_id=None, object_id=None):
         if collection_id and collection_id not in col:
             continue  # Skip this collection if it doesn't match
 
-        log_file = os.path.join(log_path, collection_id + ".log")
+        if collection_id:
+            log_file = os.path.join(log_path, collection_id + ".log")
+        else:
+            log_file = os.path.join(log_path, "all.log")
 
         try:
 

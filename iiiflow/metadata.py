@@ -37,7 +37,7 @@ def update_metadata_fields(manifest, metadata, lang_code="en"):
         "source",
         "master_format",
         "date_digitized",
-        "date_published",
+        "date_uploaded",
     ]
 
     # Create new metadata list
@@ -107,7 +107,7 @@ def validate_metadata(collection_id, object_id, config_path="~/.iiiflow.yml"):
         "preservation_package",
         "resource_type",
         "license",
-        "date_published"
+        "date_uploaded"
     ]
     min_length = 1
     for key in required_keys:
