@@ -347,7 +347,10 @@ def create_iiif_manifest(file_dir, manifest_url_root, obj_url_root, iiif_url_roo
                 rendering_filepath = os.path.join(rendering_format, rendering_file)
                 if os.path.isfile(rendering_filepath):
                     if rendering_file == original_file:
-                        alt_label = f"{rendering_file} (Original)"
+                        if not os.path.splitext(original_file).lower() == ".pdf":
+                            alt_label = f"{rendering_file} (Original)"
+                        else:
+                            alt_label = f"{rendering_file}"
                     elif format_ext == "txt":
                         # skip text renderings if content.txt already added
                         if os.path.isfile(contentTxt):
