@@ -30,12 +30,13 @@ def main():
         for object_id in collection.objects:
             object_path = os.path.join(collection.path, object_id)
             manifest_path = os.path.join(object_path, "manifest.json")
+            metadata_path = os.path.join(object_path, "metadata.yml")
 
             should_create = (
                 not os.path.isfile(manifest_path) or
                 os.path.getmtime(manifest_path) < cutoff_time
             )
 
-            if should_create:
+            if should_create and os.path.isfile(metadata_path):
                 print(f"Creating manifest for {object_id}")
                 create_manifest(collection.id, object_id)
