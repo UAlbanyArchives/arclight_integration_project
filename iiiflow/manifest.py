@@ -154,7 +154,7 @@ def create_iiif_canvas(manifest, manifest_url_root, obj_url_root, label, resourc
                     "type": "Annotation",
                     "motivation": "supplementing",
                     "body": supplementing_annotations,
-                    "target": f"{manifest_url_root}/canvas/p{page_count}"
+                    "target": f"{obj_url_root}/canvas/p{page_count}"
                 }
             ]
         }]
