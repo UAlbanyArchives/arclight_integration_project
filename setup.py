@@ -12,12 +12,14 @@ requirements = [
     "ffmpeg-python==0.2.0",
     "pyvips==2.2.3",
     "pandas==2.2.3",
+    "beautifulsoup4==4.12.3",
+    "pysolr==3.10.0",
     "pytest",
 ]
 
 setuptools.setup(
     name="iiiflow",
-    version="0.6.4",
+    version="0.7.0",
     author="Gregory Wiedeman",
     author_email="gwiedeman@albany.edu",
     description="An IIIF pipeline tool using the Digital Object Discovery Storage Specification.",

@@ -186,7 +186,7 @@ def create_iiif_canvas(manifest, manifest_url_root, obj_url_root, label, resourc
 
 
 
-def create_iiif_manifest(file_dir, manifest_url_root, obj_url_root, iiif_url_root, resource_format, label, metadata, thumbnail_data, resource_type, lang_code):
+def create_iiif_manifest(file_dir, manifest_url_root, obj_url_root, iiif_url_root, resource_format, label, metadata, thumbnail_data, resource_type, lang_code, config_path="~/.iiiflow.yml"):
     orgText = "M.E. Grenander Department of Special Collections and Archives, University Libraries, University at Albany, State University of New York"
 
     # Set IIIF manifest behavior
@@ -368,6 +368,37 @@ def create_iiif_manifest(file_dir, manifest_url_root, obj_url_root, iiif_url_roo
     if manifest_renderings:
         manifest.rendering = manifest_renderings
 
+    # Add content search service if HOCR files exist
+    hocr_dir = os.path.join(os.path.dirname(file_dir), "hocr")
+    if os.path.isdir(hocr_dir) and os.listdir(hocr_dir):
+        # Check if content search service URL is configured
+        try:
+            import yaml
+            if config_path.startswith("~"):
+                config_path = os.path.expanduser(config_path)
+            with open(config_path, "r") as config_file:
+                config = yaml.safe_load(config_file)
+            
+            content_search_url = config.get("content_search_url")
+            if content_search_url:
+                # Extract collection_id and object_id from obj_url_root
+                # obj_url_root format: {manifest_url_root}/{collection_id}/{object_id}
+                path_parts = obj_url_root.split('/')
+                if len(path_parts) >= 2:
+                    collection_id = path_parts[-2]
+                    object_id = path_parts[-1]
+                    
+                    # Add content search service to manifest
+                    manifest.service = [{
+                        "@context": "http://iiif.io/api/search/2/context.json",
+                        "id": f"{content_search_url}/{collection_id}/{object_id}",
+                        "type": "SearchService2",
+                        "profile": "http://iiif.io/api/search/2/search",
+                        "label": {lang_code: ["Content Search"]}
+                    }]
+        except Exception as e:
+            print(f"Warning: Could not add content search service: {e}")
+
     return manifest
 
 
@@ -449,7 +480,7 @@ def create_manifest(collection_id, object_id, config_path="~/.iiiflow.yml"):
         thumbnail_data = {"url": thumbnail_url, "width": thumbnail_width, "height": thumbnail_height}
         
         # Create the manifest
-        iiif_manifest = create_iiif_manifest(filesPath, manifest_url_root, obj_url_root, iiif_url_root, resource_format, manifest_label, metadata, thumbnail_data, resource_type, lang_code)
+        iiif_manifest = create_iiif_manifest(filesPath, manifest_url_root, obj_url_root, iiif_url_root, resource_format, manifest_label, metadata, thumbnail_data, resource_type, lang_code, config_path)
         manifest_dict = iiif_manifest.dict()
         manifest_dict = remove_nulls(manifest_dict)
 

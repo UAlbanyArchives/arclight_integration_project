@@ -9,6 +9,7 @@ from .metadata import update_metadata
 from .manifest import create_manifest
 from .transcribe import create_transcription
 from .conversions import pdf_to_jpgs
+from .hocr_indexer import index_hocr_to_solr
 #from .conversions import document_to_images
 
 # Function to retrieve the root directory where collections are stored
