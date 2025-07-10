@@ -33,7 +33,7 @@ audio_thumbnail_file: ./fixtures/thumbnail.jpg
 lang_code: en
 solr_url: http://localhost:8983
 solr_core: iiif_content_search
-content_search_url: https://my.server.org/search
+content_search_url: https://my.server.org/search/1
 ```
 
 Optionally, you can pass the path to any `.yml` file as the last arg of any iiiflow function.
@@ -43,7 +43,7 @@ For audio thumbnails and test to work, set audio_thumbnail_file to either a loca
 For Solr indexing and content search functionality:
 - `solr_url`: URL to your Solr instance (e.g., http://localhost:8983)
 - `solr_core`: Name of the Solr core for content search (default: iiif_content_search)
-- `content_search_url`: Base URL for your IIIF Content Search 2.0 endpoint
+- `content_search_url`: The URL for your IIIF Content Search 1.0 endpoint
 
 ```
 create_ptif("collection1", "object1", "path/to/config.yml")
