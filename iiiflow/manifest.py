@@ -390,10 +390,10 @@ def create_iiif_manifest(file_dir, manifest_url_root, obj_url_root, iiif_url_roo
                     
                     # Add content search service to manifest
                     manifest.service = [{
-                        "@context": "http://iiif.io/api/search/2/context.json",
-                        "id": f"{content_search_url}/{collection_id}/{object_id}",
-                        "type": "SearchService2",
-                        "profile": "http://iiif.io/api/search/2/search",
+                        "@context": "http://iiif.io/api/search/1/context.json",
+                        "id": f"{content_search_url}",
+                        "type": "SearchService",
+                        "profile": "http://iiif.io/api/search/1/search",
                         "label": {lang_code: ["Content Search"]}
                     }]
         except Exception as e:
