@@ -38,7 +38,7 @@ def index_hocr_to_solr(collection_id, object_id, config_path="~/.iiiflow.yml"):
     ocr_dir = os.path.join(object_path, "hocr")
 
     if not os.path.isdir(ocr_dir):
-        raise FileNotFoundError(f"hOCR directory not found: {ocr_dir}")
+        print(f"hOCR directory not found: {ocr_dir}")
 
     print(f"Indexing OCR for {collection_id}/{object_id} into core '{solr_core}'...")
 
