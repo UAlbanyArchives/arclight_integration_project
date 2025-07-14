@@ -28,7 +28,7 @@ def index_hocr_to_solr(collection_id, object_id, config_path="~/.iiiflow.yml"):
 
     solr_endpoint = f"{solr_url}/{solr_core}"
 
-    solr = pysolr.Solr(solr_endpoint, always_commit=False, timeout=10)
+    solr = pysolr.Solr(solr_endpoint, always_commit=False, timeout=600)
 
     # Get paths
     discovery_storage_root, log_file_path, object_path = validate_config_and_paths(
@@ -70,6 +70,7 @@ def index_hocr_to_solr(collection_id, object_id, config_path="~/.iiiflow.yml"):
             doc = {
                 'id': f"{collection_id}_{object_id}_p{page_count}",
                 'canvas_id_ssi': canvas_id,
+                'object_id_ssi': f"{collection_id}/{object_id}",
                 f'ocr_text_{lang_code}_tsimv': full_text,
                 f'ocr_hitbox_{lang_code}_tsm': [
                     f"{b['word']}|{b['bbox']}" for b in bboxes
