@@ -13,13 +13,14 @@ requirements = [
     "pyvips==2.2.3",
     "pandas==2.2.3",
     "beautifulsoup4==4.12.3",
+    "lxml>=5.3.0",
     "pysolr==3.10.0",
     "pytest",
 ]
 
 setuptools.setup(
     name="iiiflow",
-    version="0.7.4",
+    version="0.7.5",
     author="Gregory Wiedeman",
     author_email="gwiedeman@albany.edu",
     description="An IIIF pipeline tool using the Digital Object Discovery Storage Specification.",
