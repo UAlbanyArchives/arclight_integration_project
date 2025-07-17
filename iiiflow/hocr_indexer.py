@@ -1,10 +1,10 @@
 import os
 import yaml
 import pysolr
-from bs4 import BeautifulSoup
+from lxml import etree
 from .utils import validate_config_and_paths
 
-def index_hocr_to_solr(collection_id, object_id, config_path="~/.iiiflow.yml"):
+def index_hocr_to_solr(collection_id, object_id, skip_if_indexed=False, config_path="~/.iiiflow.yml"):
     """
     Parses hOCR files and indexes them into Solr for IIIF Content Search.
 
@@ -12,6 +12,7 @@ def index_hocr_to_solr(collection_id, object_id, config_path="~/.iiiflow.yml"):
         collection_id (str): The collection ID.
         object_id (str): The object ID.
         config_path (str): Path to the configuration YAML file.
+        skip_if_indexed (bool): If True, skips indexing if object is already in Solr.
     """
     # Resolve and load config
     if config_path.startswith("~"):
@@ -27,8 +28,15 @@ def index_hocr_to_solr(collection_id, object_id, config_path="~/.iiiflow.yml"):
         raise ValueError("Missing 'solr_core' in config")
 
     solr_endpoint = f"{solr_url}/{solr_core}"
-
     solr = pysolr.Solr(solr_endpoint, always_commit=False, timeout=600)
+
+    # Check if object is already indexed
+    if skip_if_indexed:
+        object_id_val = f"{collection_id}/{object_id}"
+        results = solr.search(f"object_id_ssi:{object_id_val}", rows=1)
+        if results.hits > 0:
+            print(f"Skipping already-indexed object: {object_id_val}")
+            return
 
     # Get paths
     discovery_storage_root, log_file_path, object_path = validate_config_and_paths(
@@ -53,13 +61,13 @@ def index_hocr_to_solr(collection_id, object_id, config_path="~/.iiiflow.yml"):
             canvas_id = f"{obj_url_root}/{collection_id}/{object_id}/canvas/p{page_count}"
 
             with open(hocr.path, 'r', encoding='utf-8') as f:
-                soup = BeautifulSoup(f, 'html.parser')
+                tree = etree.parse(f)
 
             words = []
             bboxes = []
-            for span in soup.find_all('span', class_='ocrx_word'):
-                word = span.get_text(strip=True)
-                title = span.get('title', '')
+            for word_span in tree.xpath("//span[contains(@class, 'ocrx_word')]"):
+                word = word_span.text or ''
+                title = word_span.attrib.get("title", "")
                 if 'bbox' in title:
                     bbox = title.split('bbox')[1].split(';')[0].strip()
                     bboxes.append({'word': word, 'bbox': bbox})
@@ -81,7 +89,9 @@ def index_hocr_to_solr(collection_id, object_id, config_path="~/.iiiflow.yml"):
             docs.append(doc)
 
     if docs:
-        solr.add(docs)
+        BATCH_SIZE = 100
+        for i in range(0, len(docs), BATCH_SIZE):
+            solr.add(docs[i:i+BATCH_SIZE])
         solr.commit()
         print(f"Successfully indexed {page_count} pages for {object_id}")
     else:
