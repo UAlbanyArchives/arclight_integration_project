@@ -2,6 +2,7 @@ import os
 import yaml
 import pysolr
 from lxml import etree
+from lxml import html
 from .utils import validate_config_and_paths
 
 def index_hocr_to_solr(collection_id, object_id, skip_if_indexed=False, config_path="~/.iiiflow.yml"):
@@ -14,6 +15,9 @@ def index_hocr_to_solr(collection_id, object_id, skip_if_indexed=False, config_p
         config_path (str): Path to the configuration YAML file.
         skip_if_indexed (bool): If True, skips indexing if object is already in Solr.
     """
+
+    NS = {'x': 'http://www.w3.org/1999/xhtml'}
+
     # Resolve and load config
     if config_path.startswith("~"):
         config_path = os.path.expanduser(config_path)
@@ -61,11 +65,11 @@ def index_hocr_to_solr(collection_id, object_id, skip_if_indexed=False, config_p
             canvas_id = f"{obj_url_root}/{collection_id}/{object_id}/canvas/p{page_count}"
 
             with open(hocr.path, 'r', encoding='utf-8') as f:
-                tree = etree.parse(f)
+                tree = html.parse(f)
 
             words = []
             bboxes = []
-            for word_span in tree.xpath("//span[contains(@class, 'ocrx_word')]"):
+            for word_span in tree.xpath("//span[contains(@class, 'ocrx_word')]", namespaces=NS):
                 word = word_span.text or ''
                 title = word_span.attrib.get("title", "")
                 if 'bbox' in title:
