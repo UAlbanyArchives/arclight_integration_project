@@ -170,6 +170,14 @@ rebuild-manifests --hours 12
 rebuild-manifests --collection-id apap101 --hours 6
 ```
 
+### Index collection
+
+There is also a built-in command to re/index all the HOCR for a collection
+
+```
+index-collection apap999
+```
+
 ### Tests
 
 This runs the tests with all dependancies

@@ -20,7 +20,7 @@ requirements = [
 
 setuptools.setup(
     name="iiiflow",
-    version="0.7.6",
+    version="0.7.7",
     author="Gregory Wiedeman",
     author_email="gwiedeman@albany.edu",
     description="An IIIF pipeline tool using the Digital Object Discovery Storage Specification.",
@@ -35,7 +35,8 @@ setuptools.setup(
     install_requires=requirements,
     entry_points={
         'console_scripts': [
-            'rebuild-manifests=iiiflow.update_manifests:main'
+            'rebuild-manifests=iiiflow.update_manifests:main',
+            'index-collection=iiiflow.index_collection:main'
         ],
     },
     python_requires=">=3.8",
