@@ -42,11 +42,11 @@ def create_video_thumbnail(video_path, thumbnail_path):
     duration = get_video_duration(video_path)
     # Use 30 seconds or the end of the video if shorter
     if duration <= 2:
-        timestamp = max(0, duration - 0.5)  # edge case: very short videos
+        timestamp = max(0, duration - 0.5)
     elif duration < 30:
-        timestamp = max(0, duration - 2)    # 2 seconds before the end
+        timestamp = max(0, duration - 2)
     else:
-        timestamp = 30                      # fixed 30s mark for long videos
+        timestamp = 30
 
     cmd = [
         "ffmpeg",
