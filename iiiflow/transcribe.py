@@ -7,31 +7,35 @@ import traceback
 import subprocess
 from .utils import validate_config_and_paths
 
-def format_timestamp(seconds):
+def format_timestamp(total_seconds):
     # Convert seconds to hh:mm:ss.mmm format
-    hours = int(seconds // 3600)
-    minutes = int((seconds % 3600) // 60)
-    seconds = int(seconds % 60)
-    milliseconds = int((seconds % 1) * 1000)
+    hours = int(total_seconds // 3600)
+    minutes = int((total_seconds % 3600) // 60)
+    seconds = int(total_seconds % 60)
+    milliseconds = int((total_seconds - int(total_seconds)) * 1000)
     return f"{hours:02}:{minutes:02}:{seconds:02}.{milliseconds:03}"
 
 def has_audio_stream(path: str) -> bool:
-    # Check if a file even has an audio stream
-    cmd = [
-        "ffprobe",
-        "-v", "error",
-        "-select_streams", "a",
-        "-show_entries", "stream=index",
-        "-of", "json",
-        path
-    ]
-    result = subprocess.run(cmd, capture_output=True, text=True)
-    data = json.loads(result.stdout or "{}")
-    return bool(data.get("streams"))
+    try:
+        result = subprocess.run(
+            [
+                "ffprobe",
+                "-v", "error",
+                "-select_streams", "a",
+                "-show_entries", "stream=index",
+                "-of", "json",
+                path
+            ],
+            capture_output=True,
+            text=True,
+            check=False
+        )
+        data = json.loads(result.stdout or "{}")
+        return bool(data.get("streams"))
+    except Exception:
+        return False
 
-def transcribe_file(file_path, vtt_file_path, txt_file_path):
-    # Load the Whisper model
-    model = whisper.load_model("base")
+def transcribe_file(model, file_path, vtt_file_path, txt_file_path):
     result = model.transcribe(file_path, task="transcribe", language="en")
 
     # Open the output VTT and TXT files
@@ -103,6 +107,9 @@ def create_transcription(collection_id, object_id, config_path="~/.iiiflow.yml")
                 )
                 break
     
+    # Load the Whisper model
+    model = whisper.load_model("base")
+    
     # Process each file
     for file_path in file_paths:
         
@@ -118,16 +125,13 @@ def create_transcription(collection_id, object_id, config_path="~/.iiiflow.yml")
         print(f"Transcribing file: {file_path}")
 
         if has_audio_stream(file_path):
-            # Transcribe and save in both VTT and TXT formats
-            transcribe_file(file_path, vtt_file_path, txt_file_path)
-        else:
-            print(f"Unable to transcribe file {file_path}. Appears to have no audio track.")
+            transcribe_file(model, file_path, vtt_file_path, txt_file_path)
 
-        # Copy or append to content.txt
-        if os.path.isfile(content_txt_path):
-            with open(content_txt_path, "a") as content_file:
-                with open(txt_file_path, "r") as txt_file:
-                    content = txt_file.read()
-                content_file.write("\n" + content)
+            if os.path.isfile(content_txt_path):
+                with open(content_txt_path, "a", encoding="utf-8") as content_file, \
+                     open(txt_file_path, "r", encoding="utf-8") as txt_file:
+                    content_file.write("\n" + txt_file.read())
+            else:
+                shutil.copy2(txt_file_path, content_txt_path)
         else:
-            shutil.copy2(txt_file_path, content_txt_path)
+            print(f"Skipping {file_path}: no audio stream")
