@@ -328,7 +328,7 @@ def create_iiif_manifest(file_dir, manifest_url_root, obj_url_root, iiif_url_roo
                     "id": f"{obj_url_root}/content.txt",
                     "type": "Text",
                     "format": "text/plain",
-                    "label": "Download Text transcription"
+                    "label": "Automated Text transcription"
                 })
     for format_ext in alt_rendering_formats.keys():
         rendering_format = os.path.join(os.path.dirname(file_dir), format_ext)
