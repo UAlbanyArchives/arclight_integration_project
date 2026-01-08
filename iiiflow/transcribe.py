@@ -38,6 +38,10 @@ def has_audio_stream(path: str) -> bool:
 def transcribe_file(model, file_path, vtt_file_path, txt_file_path):
     result = model.transcribe(file_path, task="transcribe", language="en")
 
+    # Check if transcription produced any segments
+    if not result.get("segments"):
+        return False
+
     # Open the output VTT and TXT files
     with open(vtt_file_path, 'w', encoding='utf-8') as vtt_file, \
          open(txt_file_path, 'w', encoding='utf-8') as txt_file:
@@ -56,6 +60,7 @@ def transcribe_file(model, file_path, vtt_file_path, txt_file_path):
             txt_file.write(f"{segment['text'].strip()}\n")
 
     print(f"Transcription saved to {vtt_file_path} and {txt_file_path}")
+    return True
 
 def create_transcription(collection_id, object_id, config_path="~/.iiiflow.yml"):
     """
@@ -112,26 +117,26 @@ def create_transcription(collection_id, object_id, config_path="~/.iiiflow.yml")
     
     # Process each file
     for file_path in file_paths:
-        
-        # Create transcription output directories if they don't exist
-        if not os.path.isdir(vtt_output_dir):
-            os.mkdir(vtt_output_dir)
-        if not os.path.isdir(txt_output_dir):
-            os.mkdir(txt_output_dir)
-
         filename, file_extension = os.path.splitext(os.path.basename(file_path))
         vtt_file_path = os.path.join(vtt_output_dir, f"{filename}.vtt")
         txt_file_path = os.path.join(txt_output_dir, f"{filename}.txt")
         print(f"Transcribing file: {file_path}")
 
         if has_audio_stream(file_path):
-            transcribe_file(model, file_path, vtt_file_path, txt_file_path)
+            transcribed = transcribe_file(model, file_path, vtt_file_path, txt_file_path)
+            
+            if transcribed:
+                # Create output directories only if transcription was successful
+                if not os.path.isdir(vtt_output_dir):
+                    os.mkdir(vtt_output_dir)
+                if not os.path.isdir(txt_output_dir):
+                    os.mkdir(txt_output_dir)
 
-            if os.path.isfile(content_txt_path):
-                with open(content_txt_path, "a", encoding="utf-8") as content_file, \
-                     open(txt_file_path, "r", encoding="utf-8") as txt_file:
-                    content_file.write("\n" + txt_file.read())
-            else:
-                shutil.copy2(txt_file_path, content_txt_path)
+                if os.path.isfile(content_txt_path):
+                    with open(content_txt_path, "a", encoding="utf-8") as content_file, \
+                         open(txt_file_path, "r", encoding="utf-8") as txt_file:
+                        content_file.write("\n" + txt_file.read())
+                else:
+                    shutil.copy2(txt_file_path, content_txt_path)
         else:
             print(f"Skipping {file_path}: no audio stream")
