@@ -336,8 +336,9 @@ def create_iiif_manifest(file_dir, manifest_url_root, obj_url_root, iiif_url_roo
         #if os.path.isdir(rendering_format) and len(os.listdir(rendering_format)) == 1:
         if os.path.isdir(rendering_format):
             rendering_files = []
-            if len(os.listdir(rendering_format)) == 1 or not "file_sets" in metadata.keys():
-                rendering_files = [os.listdir(rendering_format)[0]]
+            dir_contents = os.listdir(rendering_format)
+            if len(dir_contents) > 0 and (len(dir_contents) == 1 or not "file_sets" in metadata.keys()):
+                rendering_files = [dir_contents[0]]
             else:
                 for file_set in metadata["file_sets"].values():
                     if file_set.lower().endswith(format_ext):
