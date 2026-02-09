@@ -7,7 +7,7 @@ requirements = [
     "requests==2.32.3",
     "pycryptodome==3.15.0",
     "iiif-prezi3==2.0.1",
-    "openai-whisper==20240930",
+    "openai-whisper==20250625",
     "mutagen==1.47.0",
     "ffmpeg-python==0.2.0",
     "pyvips==2.2.3",
@@ -20,7 +20,7 @@ requirements = [
 
 setuptools.setup(
     name="iiiflow",
-    version="0.8.2",
+    version="0.8.3",
     author="Gregory Wiedeman",
     author_email="gwiedeman@albany.edu",
     description="An IIIF pipeline tool using the Digital Object Discovery Storage Specification.",
