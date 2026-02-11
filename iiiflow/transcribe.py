@@ -42,6 +42,10 @@ def transcribe_file(model, file_path, vtt_file_path, txt_file_path):
     if not result.get("segments"):
         return False
 
+    # Create parent directories safely (only if we have successful transcription)
+    os.makedirs(os.path.dirname(vtt_file_path), exist_ok=True)
+    os.makedirs(os.path.dirname(txt_file_path), exist_ok=True)
+
     # Open the output VTT and TXT files
     with open(vtt_file_path, 'w', encoding='utf-8') as vtt_file, \
          open(txt_file_path, 'w', encoding='utf-8') as txt_file:
@@ -126,12 +130,6 @@ def create_transcription(collection_id, object_id, config_path="~/.iiiflow.yml")
             transcribed = transcribe_file(model, file_path, vtt_file_path, txt_file_path)
             
             if transcribed:
-                # Create output directories only if transcription was successful
-                if not os.path.isdir(vtt_output_dir):
-                    os.mkdir(vtt_output_dir)
-                if not os.path.isdir(txt_output_dir):
-                    os.mkdir(txt_output_dir)
-
                 if os.path.isfile(content_txt_path):
                     with open(content_txt_path, "a", encoding="utf-8") as content_file, \
                          open(txt_file_path, "r", encoding="utf-8") as txt_file:
