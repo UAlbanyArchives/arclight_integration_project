@@ -3,6 +3,7 @@ import yaml
 import shutil
 import traceback
 from PIL import Image
+from PIL import ImageOps
 from pypdf import PdfMerger
 from subprocess import Popen, PIPE
 from .utils import check_no_image_type
@@ -28,10 +29,12 @@ def resize_image(img_path, max_size=1500):
     resized_img_path = f"{base}_resized.jpg"  # Always save as JPG
 
     with Image.open(img_path) as img:
+        # Apply EXIF orientation so saved output is physically upright.
+        img = ImageOps.exif_transpose(img)
         img.thumbnail((max_size, max_size), Image.LANCZOS)
 
         # Convert PNG to JPEG to reduce size
-        if ext == ".png":
+        if ext == ".png" or img.mode in ("RGBA", "LA", "P"):
             img = img.convert("RGB")  # Convert to RGB since JPEG doesn't support alpha transparency
 
         img.save(resized_img_path, format="JPEG", quality=85)  # Save with reduced quality to further reduce size

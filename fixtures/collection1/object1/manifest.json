@@ -93,7 +93,7 @@
       "type": "Text",
       "label": {
         "en": [
-          "Download Text transcription"
+          "Automated Text transcription"
         ]
       },
       "format": "text/plain"

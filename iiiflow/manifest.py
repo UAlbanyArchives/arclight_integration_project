@@ -311,7 +311,7 @@ def create_iiif_manifest(file_dir, manifest_url_root, obj_url_root, iiif_url_roo
         },
         "txt": {
             "mimetype": "text/plain",
-            "label": "Download Text transcription"
+            "label": "Automated Text transcription"
         },
         "csv": {
             "mimetype": "text/csv",
