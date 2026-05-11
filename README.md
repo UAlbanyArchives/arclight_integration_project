@@ -182,7 +182,25 @@ index-collection apap999
 
 This runs the tests with all dependancies
 
-`docker-compose run test`
+`docker compose run --rm tests`
+
+Run individual test groups:
+
+`docker compose run --rm test-conversions`
+
+`docker compose run --rm test-metadata`
+
+`docker compose run --rm test-thumbnail`
+
+`docker compose run --rm test-manifest`
+
+`docker compose run --rm test-pdf`
+
+`docker compose run --rm test-ptif`
+
+`docker compose run --rm test-tesseract`
+
+`docker compose run --rm test-transcription`
 
 ### Pushing a release
 
