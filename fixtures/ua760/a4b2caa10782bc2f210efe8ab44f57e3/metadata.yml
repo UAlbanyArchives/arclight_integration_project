@@ -11,3 +11,4 @@ processing_activity: 'Processing documentation available at: https://wiki.albany
 representative_id: b85165998
 resource_type: Document
 visibility: open
+automated_text_tool: tesseract

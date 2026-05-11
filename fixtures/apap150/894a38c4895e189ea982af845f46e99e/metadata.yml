@@ -11,3 +11,4 @@ representative_id: kp78gg37r
 resource_type: Video
 rights_statement: https://rightsstatements.org/vocab/InC-EDU/1.0/
 visibility: open
+automated_text_tool: tesseract

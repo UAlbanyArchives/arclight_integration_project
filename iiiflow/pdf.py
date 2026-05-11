@@ -60,6 +60,21 @@ def create_pdf(collection_id, object_id, config_path="~/.iiiflow.yml"):
         config_path, collection_id, object_id
     )
 
+    metadata_path = os.path.join(object_path, "metadata.yml")
+    metadata = {}
+    if os.path.isfile(metadata_path):
+        with open(metadata_path, "r", encoding="utf-8") as metadata_file:
+            metadata = yaml.safe_load(metadata_file) or {}
+
+    original_file_legacy = metadata.get("original_file_legacy", "")
+    original_ext = os.path.splitext(original_file_legacy)[1].lower() if isinstance(original_file_legacy, str) else ""
+    if original_ext == ".pdf":
+        print(
+            f"Skipping PDF creation for {collection_id}/{object_id}: "
+            f"original_file_legacy is already a PDF ({original_file_legacy})."
+        )
+        return
+
     img_dir = None
     for folder in img_priorities:
         img_dir = os.path.join(object_path, folder)

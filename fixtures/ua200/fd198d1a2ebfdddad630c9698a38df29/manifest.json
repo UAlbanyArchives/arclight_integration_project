@@ -105,17 +105,17 @@
       "type": "Text",
       "label": {
         "en": [
-          "Download Text transcription"
+          "Automated Text transcription"
         ]
       },
       "format": "text/plain"
     },
     {
-      "id": "https://media.archives.albany.edu/ua200/fd198d1a2ebfdddad630c9698a38df29/pdf/fd198d1a2ebfdddad630c9698a38df29.pdf",
+      "id": "https://media.archives.albany.edu/ua200/fd198d1a2ebfdddad630c9698a38df29/pdf/binder.pdf",
       "type": "Text",
       "label": {
         "en": [
-          "fd198d1a2ebfdddad630c9698a38df29.pdf"
+          "binder.pdf"
         ]
       },
       "format": "application/pdf"
@@ -175,8 +175,8 @@
         {
           "id": "https://media.archives.albany.edu/ua200/fd198d1a2ebfdddad630c9698a38df29/thumbnail.jpg",
           "type": "Image",
-          "height": 150,
-          "width": 200,
+          "height": 225,
+          "width": 300,
           "format": "image/jpeg"
         }
       ],

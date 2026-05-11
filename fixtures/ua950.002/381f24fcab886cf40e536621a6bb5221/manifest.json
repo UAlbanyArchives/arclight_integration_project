@@ -1,0 +1,193 @@
+{
+  "@context": "http://iiif.io/api/presentation/3/context.json",
+  "provider": [
+    {
+      "id": "https://media.archives.albany.edu",
+      "type": "Agent",
+      "label": {
+        "en": [
+          "M.E. Grenander Department of Special Collections & Archives, University at Albany, SUNY"
+        ]
+      },
+      "logo": [
+        {
+          "id": "https://media.archives.albany.edu/logo.png",
+          "type": "Image",
+          "format": "image/png"
+        }
+      ]
+    }
+  ],
+  "id": "https://media.archives.albany.edu/ua950.002/381f24fcab886cf40e536621a6bb5221/manifest.json",
+  "type": "Manifest",
+  "label": {
+    "en": [
+      "UAlbany_President_Rodriguez_Addresses_Campus_Community_on_COVID-19__0cOpr5VnBgU_.mp4"
+    ]
+  },
+  "metadata": [
+    {
+      "label": {
+        "en": [
+          "legacy_id"
+        ]
+      },
+      "value": {
+        "en": [
+          "zs25xt70r"
+        ]
+      }
+    },
+    {
+      "label": {
+        "en": [
+          "resource_type"
+        ]
+      },
+      "value": {
+        "en": [
+          "Video"
+        ]
+      }
+    },
+    {
+      "label": {
+        "en": [
+          "coverage"
+        ]
+      },
+      "value": {
+        "en": [
+          "whole"
+        ]
+      }
+    },
+    {
+      "label": {
+        "en": [
+          "preservation_package"
+        ]
+      },
+      "value": {
+        "en": [
+          "ua950.002_9xmmh3GHfRyEVvUNM6t865"
+        ]
+      }
+    },
+    {
+      "label": {
+        "en": [
+          "date_uploaded"
+        ]
+      },
+      "value": {
+        "en": [
+          "2023-10-18T13:35:23+00:00"
+        ]
+      }
+    }
+  ],
+  "requiredStatement": {
+    "label": {
+      "en": [
+        "Attribution"
+      ]
+    },
+    "value": {
+      "en": [
+        "<span>M.E. Grenander Department of Special Collections and Archives, University Libraries, University at Albany, State University of New York <br/> <a href=\"https://creativecommons.org/licenses/by/4.0/\" title=\"CC BY 4.0\"><img src=\"https://licensebuttons.net/l/by/4.0/88x31.png\"/></a></span>"
+      ]
+    }
+  },
+  "rendering": [
+    {
+      "id": "https://media.archives.albany.edu/ua950.002/381f24fcab886cf40e536621a6bb5221/content.txt",
+      "type": "Text",
+      "label": {
+        "en": [
+          "Automated Text transcription"
+        ]
+      },
+      "format": "text/plain"
+    },
+    {
+      "id": "https://media.archives.albany.edu/ua950.002/381f24fcab886cf40e536621a6bb5221/pdf/A_message_of_thanks_from_UAlbany_s_leadership_team__s5KjCWG0JvY_.pdf",
+      "type": "Text",
+      "label": {
+        "en": [
+          "A_message_of_thanks_from_UAlbany_s_leadership_team__s5KjCWG0JvY_.pdf"
+        ]
+      },
+      "format": "application/pdf"
+    },
+    {
+      "id": "https://media.archives.albany.edu/ua950.002/381f24fcab886cf40e536621a6bb5221/docx/A_message_of_thanks_from_UAlbany_s_leadership_team__s5KjCWG0JvY_.docx",
+      "type": "Text",
+      "label": {
+        "en": [
+          "A_message_of_thanks_from_UAlbany_s_leadership_team__s5KjCWG0JvY_.docx"
+        ]
+      },
+      "format": "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+    }
+  ],
+  "service": [
+    {
+      "id": "https://media.archives.albany.edu/search/1/ua950.002/381f24fcab886cf40e536621a6bb5221",
+      "type": "SearchService",
+      "label": {
+        "en": [
+          "Content Search"
+        ]
+      },
+      "profile": "http://iiif.io/api/search/1/search"
+    }
+  ],
+  "rights": "https://creativecommons.org/licenses/by/4.0/",
+  "behavior": [
+    "individuals"
+  ],
+  "items": [
+    {
+      "id": "https://media.archives.albany.edu/ua950.002/381f24fcab886cf40e536621a6bb5221/canvas/p1",
+      "type": "Canvas",
+      "label": {
+        "en": [
+          "UAlbany_President_Rodriguez_Addresses_Campus_Community_on_COVID-19__0cOpr5VnBgU_.webm"
+        ]
+      },
+      "duration": 170.414,
+      "thumbnail": [
+        {
+          "id": "https://media.archives.albany.edu/ua950.002/381f24fcab886cf40e536621a6bb5221/thumbnail.jpg",
+          "type": "Image",
+          "height": 225,
+          "width": 300,
+          "format": "image/jpeg"
+        }
+      ],
+      "items": [
+        {
+          "id": "https://media.archives.albany.edu/ua950.002/381f24fcab886cf40e536621a6bb5221/canvas/page/p11",
+          "type": "AnnotationPage",
+          "items": [
+            {
+              "id": "https://media.archives.albany.edu/ua950.002/381f24fcab886cf40e536621a6bb5221/canvas/1/page/annotation",
+              "type": "Annotation",
+              "motivation": "painting",
+              "body": {
+                "id": "https://media.archives.albany.edu/ua950.002/381f24fcab886cf40e536621a6bb5221/webm/UAlbany_President_Rodriguez_Addresses_Campus_Community_on_COVID-19__0cOpr5VnBgU_.webm",
+                "type": "Video",
+                "height": 240,
+                "width": 320,
+                "duration": 170.414,
+                "format": "video/webm"
+              },
+              "target": "https://media.archives.albany.edu/ua950.002/381f24fcab886cf40e536621a6bb5221/canvas/p1"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

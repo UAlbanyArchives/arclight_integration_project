@@ -16,5 +16,6 @@ date_structured: ''
 date_uploaded: '2024-05-29T20:53:02+00:00'
 original_file_legacy: root.pdf
 behavior: paged
+automated_text_tool: tesseract
 file_sets:
   hh63tf88j: root.pdf

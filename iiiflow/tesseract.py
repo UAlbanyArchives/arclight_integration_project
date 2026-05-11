@@ -1,9 +1,12 @@
 import os
 import time
+import yaml
 import traceback
 from subprocess import Popen, PIPE
 from .utils import check_no_image_type
 from .utils import validate_config_and_paths
+
+ALLOWED_AUTOMATED_TEXT_TOOLS = {"tesseract"}
 
 def create_hocr(collection_id, object_id, config_path="~/.iiiflow.yml"):
     """
@@ -26,6 +29,21 @@ def create_hocr(collection_id, object_id, config_path="~/.iiiflow.yml"):
     img_dir = os.path.join(object_path, "jpg")
     ocr_dir = os.path.join(object_path, "hocr")
     txt_dir = os.path.join(object_path, "txt")
+    metadata_path = os.path.join(object_path, "metadata.yml")
+
+    metadata = {}
+    if os.path.isfile(metadata_path):
+        with open(metadata_path, "r", encoding="utf-8") as metadata_file:
+            metadata = yaml.safe_load(metadata_file) or {}
+
+    automated_text_tool = metadata.get("automated_text_tool")
+    automated_text_tool_normalized = str(automated_text_tool).strip().lower() if automated_text_tool is not None else ""
+    if automated_text_tool is not None and automated_text_tool_normalized not in ALLOWED_AUTOMATED_TEXT_TOOLS:
+        print(
+            f"Skipping OCR for {collection_id}/{object_id}: "
+            f"automated_text_tool='{automated_text_tool_normalized}' is not permitted for tesseract."
+        )
+        return
 
     print(f"Processing {collection_id}/{object_id}...")
 
@@ -91,3 +109,8 @@ def create_hocr(collection_id, object_id, config_path="~/.iiiflow.yml"):
                             log.write(traceback.format_exc())
 
     print(f"Completed processing for collection {collection_id}.")
+
+    if metadata_path and os.path.isfile(metadata_path):
+        metadata["automated_text_tool"] = "tesseract"
+        with open(metadata_path, "w", encoding="utf-8") as metadata_file:
+            yaml.safe_dump(metadata, metadata_file, sort_keys=False)

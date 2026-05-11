@@ -12,6 +12,8 @@ def test_pdf_to_jpgs():
 
     pdf_path = os.path.join(fixture_path, "test.pdf")
     out_path = os.path.join(fixture_path, "conversions")
+    if os.path.isdir(out_path):
+        shutil.rmtree(out_path)
     os.mkdir(out_path)
 
     pdf_to_jpgs(pdf_path, out_path, config_path=config_path)

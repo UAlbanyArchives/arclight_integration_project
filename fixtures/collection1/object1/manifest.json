@@ -109,6 +109,18 @@
       "format": "application/pdf"
     }
   ],
+  "service": [
+    {
+      "id": "https://media.archives.albany.edu/search/1/collection1/object1",
+      "type": "SearchService",
+      "label": {
+        "en": [
+          "Content Search"
+        ]
+      },
+      "profile": "http://iiif.io/api/search/1/search"
+    }
+  ],
   "rights": "https://creativecommons.org/publicdomain/mark/1.0/",
   "behavior": [
     "paged"

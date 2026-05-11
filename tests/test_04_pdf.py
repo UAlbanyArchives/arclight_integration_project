@@ -1,53 +1,47 @@
 import os
-import shutil
-import pytest
-import filecmp
+import yaml
 from iiiflow import create_pdf
-from test_utils import load_config, iterate_collections_and_objects
+from test_utils import load_config, iterate_collections_and_objects, create_temp_fixture_config, assert_pdf_matches
 
 config_path = "./.iiiflow.yml"
 discovery_storage_root, log_file_path = load_config(config_path)
 
-@pytest.fixture
-def clean_pdf():
-    # This fixture removes the existing manifest.json the start of the test
+def test_pdf(tmp_path):
+    # Test to see if create_pdf() creates the same PDF.
 
-    def cleanup_action(collection_id, object_id, object_path):
-        pdf_path = os.path.join(object_path, "pdf")
-        pdf_files = [f for f in os.listdir(pdf_path) if f.lower().endswith(".pdf")]
-        if len(pdf_files) != 1:
-            raise RuntimeError(f"Expected 1 PDF in {pdf_path}, but found {len(pdf_files)}: {pdf_files}")
-        pdf_file = os.path.join(pdf_path, pdf_files[0])
-        if os.path.isfile(pdf_file):
-            os.remove(pdf_file)
-            print(f"Deleted pdf: {pdf_file}")
-
-    return cleanup_action
-
-
-def test_pdf(clean_pdf):
-    # Test to see if create_pdf() creates the same PDF
+    temp_discovery_storage_root, temp_config_path = create_temp_fixture_config(tmp_path, config_path)
 
     def test_action(collection_id, object_id, object_path):
+        canonical_object_path = os.path.join(discovery_storage_root, collection_id, object_id)
+        metadata_path = os.path.join(object_path, "metadata.yml")
+        metadata = {}
+        if os.path.isfile(metadata_path):
+            with open(metadata_path, "r", encoding="utf-8") as metadata_file:
+                metadata = yaml.safe_load(metadata_file) or {}
+        original_file_legacy = str(metadata.get("original_file_legacy", ""))
+        original_ext = os.path.splitext(original_file_legacy)[1].lower()
 
         pdf_path = os.path.join(object_path, "pdf")
         if os.path.isdir(pdf_path):
+            canonical_pdf_path = os.path.join(canonical_object_path, "pdf")
 
-            pdf_files = [f for f in os.listdir(pdf_path) if f.lower().endswith(".pdf")]
+            pdf_files = [f for f in os.listdir(canonical_pdf_path) if f.lower().endswith(".pdf")]
             if len(pdf_files) != 1:
-                raise RuntimeError(f"Expected 1 PDF in {pdf_path}, but found {len(pdf_files)}: {pdf_files}")
-            
+                raise RuntimeError(f"Expected 1 PDF in {canonical_pdf_path}, but found {len(pdf_files)}: {pdf_files}")
+
             pdf_file = os.path.join(pdf_path, pdf_files[0])
-            pdf_tmp = shutil.copy(pdf_file, pdf_file + ".tmp")
-            clean_pdf(collection_id, object_id, object_path)
-            create_pdf(collection_id, object_id, config_path=config_path)
+            canonical_pdf_file = os.path.join(canonical_pdf_path, pdf_files[0])
+            if os.path.isfile(pdf_file) and original_ext != ".pdf":
+                os.remove(pdf_file)
 
-            # Check the manifest
-            assert os.path.isfile(pdf_file), "PDF was not created."
-            assert os.path.getsize(pdf_file) > 0, f"PDF {pdf_file} is empty."
-            assert filecmp.cmp(pdf_file, pdf_tmp), f"PDF does not match previous version."
+            create_pdf(collection_id, object_id, config_path=temp_config_path)
 
-            # remove tmp PDF
-            os.remove(pdf_tmp)
+            generated_pdf_files = [f for f in os.listdir(pdf_path) if f.lower().endswith(".pdf")]
+            assert len(generated_pdf_files) == 1, f"Expected 1 generated PDF in {pdf_path}, but found {len(generated_pdf_files)}: {generated_pdf_files}"
+            generated_pdf_file = os.path.join(pdf_path, generated_pdf_files[0])
 
-    iterate_collections_and_objects(discovery_storage_root, test_action)
+            assert os.path.isfile(generated_pdf_file), "PDF was not created."
+            assert os.path.getsize(generated_pdf_file) > 0, f"PDF {generated_pdf_file} is empty."
+            assert_pdf_matches(generated_pdf_file, canonical_pdf_file)
+
+    iterate_collections_and_objects(temp_discovery_storage_root, test_action)

@@ -6,3 +6,4 @@ image_api_root: https://media.archives.albany.edu/iiif/3
 error_log_file: ./fixtures/errors.log
 audio_thumbnail_file: ./fixtures/thumbnail.jpg
 lang_code: en
+content_search_url: https://media.archives.albany.edu/search/1

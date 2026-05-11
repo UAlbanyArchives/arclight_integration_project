@@ -1,19 +1,9 @@
 import os
-from .utils import validate_config_and_paths
-from .ptif import create_ptif
-from .pdf import create_pdf
-from .tesseract import create_hocr
-from .thumbnail import make_thumbnail
-from .metadata import validate_metadata
-from .metadata import update_metadata
-from .manifest import create_manifest
-from .transcribe import create_transcription
-from .conversions import pdf_to_jpgs
-from .hocr_indexer import index_hocr_to_solr
-#from .conversions import document_to_images
 
 # Function to retrieve the root directory where collections are stored
 def storage_root(config_path="~/.iiiflow.yml"):
+    from .utils import validate_config_and_paths
+
     # `validate_config_and_paths` returns three values: discovery_storage_root, log_file_path, and object_path
     # Here, without sending it a collection_id and object_id, object_path will be None
     discovery_storage_root, log_file_path, object_path = validate_config_and_paths(config_path)
@@ -79,6 +69,67 @@ class Collections:
         """
         return iter(self.collections)
 
-# Instantiate the Collections object using the root directory obtained from storage_root()
-# This will load all the collections found in the discovery storage root directory
-collections = Collections(storage_root())  # collections is now a Collections object containing all Collection objects
+def get_collections(config_path="~/.iiiflow.yml"):
+    """Create and return a Collections instance on demand."""
+    return Collections(storage_root(config_path))
+
+
+def __getattr__(name):
+    """Lazily initialise `collections` on first access so import-time side effects
+    (reading ~/.iiiflow.yml, scanning the filesystem) are deferred until needed."""
+    if name == "collections":
+        import sys
+        value = get_collections()
+        setattr(sys.modules[__name__], "collections", value)
+        return value
+    raise AttributeError(f"module {__name__!r} has no attribute {name!r}")
+
+
+def create_ptif(*args, **kwargs):
+    from .ptif import create_ptif as _create_ptif
+    return _create_ptif(*args, **kwargs)
+
+
+def create_pdf(*args, **kwargs):
+    from .pdf import create_pdf as _create_pdf
+    return _create_pdf(*args, **kwargs)
+
+
+def create_hocr(*args, **kwargs):
+    from .tesseract import create_hocr as _create_hocr
+    return _create_hocr(*args, **kwargs)
+
+
+def make_thumbnail(*args, **kwargs):
+    from .thumbnail import make_thumbnail as _make_thumbnail
+    return _make_thumbnail(*args, **kwargs)
+
+
+def validate_metadata(*args, **kwargs):
+    from .metadata import validate_metadata as _validate_metadata
+    return _validate_metadata(*args, **kwargs)
+
+
+def update_metadata(*args, **kwargs):
+    from .metadata import update_metadata as _update_metadata
+    return _update_metadata(*args, **kwargs)
+
+
+def create_manifest(*args, **kwargs):
+    from .manifest import create_manifest as _create_manifest
+    return _create_manifest(*args, **kwargs)
+
+
+def create_transcription(*args, **kwargs):
+    from .transcribe import create_transcription as _create_transcription
+    return _create_transcription(*args, **kwargs)
+
+
+def pdf_to_jpgs(*args, **kwargs):
+    from .conversions import pdf_to_jpgs as _pdf_to_jpgs
+    return _pdf_to_jpgs(*args, **kwargs)
+
+
+def index_hocr_to_solr(*args, **kwargs):
+    from .hocr_indexer import index_hocr_to_solr as _index_hocr_to_solr
+    return _index_hocr_to_solr(*args, **kwargs)

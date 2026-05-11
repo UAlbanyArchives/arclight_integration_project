@@ -7,6 +7,8 @@ import traceback
 import subprocess
 from .utils import validate_config_and_paths
 
+ALLOWED_AUTOMATED_TEXT_TOOLS = {"whisper"}
+
 def format_timestamp(total_seconds):
     # Convert seconds to hh:mm:ss.mmm format
     hours = int(total_seconds // 3600)
@@ -93,6 +95,15 @@ def create_transcription(collection_id, object_id, config_path="~/.iiiflow.yml")
     with open(metadata_path, 'r', encoding="utf-8") as yml_file:
         metadata = yaml.safe_load(yml_file)
 
+    automated_text_tool = metadata.get("automated_text_tool")
+    automated_text_tool_normalized = str(automated_text_tool).strip().lower() if automated_text_tool is not None else ""
+    if automated_text_tool is not None and automated_text_tool_normalized not in ALLOWED_AUTOMATED_TEXT_TOOLS:
+        print(
+            f"Skipping transcription for {collection_id}/{object_id}: "
+            f"automated_text_tool='{automated_text_tool_normalized}' is not permitted for whisper."
+        )
+        return
+
     # Determine file type and paths based on resource type
     file_paths = []
     if metadata["resource_type"].lower() == "audio":
@@ -138,3 +149,7 @@ def create_transcription(collection_id, object_id, config_path="~/.iiiflow.yml")
                     shutil.copy2(txt_file_path, content_txt_path)
         else:
             print(f"Skipping {file_path}: no audio stream")
+
+    metadata["automated_text_tool"] = "whisper"
+    with open(metadata_path, "w", encoding="utf-8") as metadata_file:
+        yaml.safe_dump(metadata, metadata_file, sort_keys=False)

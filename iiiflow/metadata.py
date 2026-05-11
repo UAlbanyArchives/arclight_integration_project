@@ -153,11 +153,17 @@ def validate_metadata(collection_id, object_id, config_path="~/.iiiflow.yml"):
     		if not metadata[field] in controlled_fields[field]:
     			raise ValueError(f"Invalid metadata.yml for {object_path}. Invalid controlled field {field} value {metadata[field]}.")
 
-    rights_statements = [
-    	"https://rightsstatements.org/vocab/InC-EDU/1.0/"
-    ]
+    rights_statement_variants = {
+        "https://rightsstatements.org/vocab/inc-edu/1.0/",
+        "https://rightsstatements.org/page/inc-edu/1.0/",
+    }
     if metadata["license"].strip().lower() == "unknown":
-        if not metadata["rights_statement"] in rights_statements:
+        rights_statement = metadata.get("rights_statement")
+        if not rights_statement or not isinstance(rights_statement, str):
+            raise ValueError(f"Invalid metadata.yml for {object_path}. Missing rights_statement with Unknown license.")
+
+        normalized_rights_statement = rights_statement.strip().lower()
+        if normalized_rights_statement not in rights_statement_variants:
             raise ValueError(f"Invalid metadata.yml for {object_path}. Missing or invalid rights_statement with Unknown license.")
 
     return True

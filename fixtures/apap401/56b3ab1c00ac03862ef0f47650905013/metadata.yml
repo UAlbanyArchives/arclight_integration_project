@@ -4,3 +4,4 @@ manifest_label: George Edwards, 2010 April 6
 preservation_package: apap401_hJPcTbb2bRpQZe8eGGLXF8
 resource_type: Audio
 rights_statement: https://rightsstatements.org/page/InC-EDU/1.0/
+automated_text_tool: whisper

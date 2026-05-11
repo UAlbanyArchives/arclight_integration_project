@@ -1,64 +1,84 @@
 import os
-import shutil
-import pytest
+import yaml
 from iiiflow import create_hocr
-from test_utils import load_config, iterate_collections_and_objects
+from test_utils import load_config, iterate_collections_and_objects, create_temp_fixture_config, assert_text_file_similar
 
 config_path = "./.iiiflow.yml"
 discovery_storage_root, log_file_path = load_config(config_path)
 
-@pytest.fixture
-def clean_text_directories():
-    # This fixture cleans up any ptif directories at the start of the test
+def test_tesseract(tmp_path):
 
-    def cleanup_action(collection_id, object_id, object_path):
-        hocr_path = os.path.join(object_path, "hocr")
-        txt_path = os.path.join(object_path, "txt")
-        content_path = os.path.join(object_path, "content.txt")
-        if os.path.isdir(hocr_path):
-            shutil.rmtree(hocr_path)  # Delete the hocr directory
-            print(f"Deleted hocr directory: {hocr_path}")
-        if os.path.isdir(txt_path):
-            shutil.rmtree(txt_path)  # Delete the txt directory
-            print(f"Deleted txt directory: {txt_path}")
-        if os.path.isfile(content_path):
-            os.remove(content_path)  # Delete content.txt
-            print(f"Deleted content.txt: {content_path}")
-
-    return cleanup_action
-
-
-def test_tesseract(clean_text_directories):
+    temp_discovery_storage_root, temp_config_path = create_temp_fixture_config(tmp_path, config_path)
 
     def test_action(collection_id, object_id, object_path):
-        
+        canonical_object_path = os.path.join(discovery_storage_root, collection_id, object_id)
+        metadata_path = os.path.join(object_path, "metadata.yml")
+        metadata = {}
+        if os.path.isfile(metadata_path):
+            with open(metadata_path, "r", encoding="utf-8") as metadata_file:
+                metadata = yaml.safe_load(metadata_file) or {}
+
+        automated_text_tool = metadata.get("automated_text_tool")
+        automated_text_tool_normalized = str(automated_text_tool).strip().lower() if automated_text_tool is not None else ""
+        should_run_tesseract = automated_text_tool is None or automated_text_tool_normalized == "tesseract"
 
         # Check for HOCR and TXT
         img_formats = ["jpg", "png", "jpeg", "tif"]
         for img_format in img_formats:
-            format_path = os.path.join(object_path, img_format)
+            format_path = os.path.join(canonical_object_path, img_format)
             if os.path.isdir(format_path):
+                hocr_path = os.path.join(object_path, "hocr")
+                txt_path = os.path.join(object_path, "txt")
+                content_path = os.path.join(object_path, "content.txt")
 
-                clean_text_directories(collection_id, object_id, object_path)
-                create_hocr(collection_id, object_id, config_path=config_path)
+                if os.path.isdir(hocr_path):
+                    for filename in os.listdir(hocr_path):
+                        os.remove(os.path.join(hocr_path, filename))
+                if os.path.isdir(txt_path):
+                    for filename in os.listdir(txt_path):
+                        os.remove(os.path.join(txt_path, filename))
+                if os.path.isfile(content_path):
+                    os.remove(content_path)
 
-                for input_file in os.listdir(format_path):
+                create_hocr(collection_id, object_id, config_path=temp_config_path)
+
+                if not should_run_tesseract:
+                    assert not os.path.isfile(content_path), (
+                        f"content.txt should not be created when automated_text_tool is '{automated_text_tool_normalized}'"
+                    )
+                    break
+
+                generated_hocr_dir = os.path.join(object_path, "hocr")
+                generated_txt_dir = os.path.join(object_path, "txt")
+                canonical_hocr_dir = os.path.join(canonical_object_path, "hocr")
+                canonical_txt_dir = os.path.join(canonical_object_path, "txt")
+
+                for input_file in sorted(os.listdir(format_path)):
                     if input_file.lower().endswith(img_format):
                         hocr_file = os.path.splitext(input_file)[0] + ".hocr"
-                        hocr_path = os.path.join(object_path, "hocr", hocr_file)
+                        generated_hocr_path = os.path.join(generated_hocr_dir, hocr_file)
                         txt_file = os.path.splitext(input_file)[0] + ".txt"
-                        txt_path = os.path.join(object_path, "txt", txt_file)
+                        generated_txt_path = os.path.join(generated_txt_dir, txt_file)
+                        canonical_hocr_path = os.path.join(canonical_hocr_dir, hocr_file)
+                        canonical_txt_path = os.path.join(canonical_txt_dir, txt_file)
 
                         # Assert the output
-                        assert os.path.isfile(hocr_path), "HOCR file was not created."
-                        assert os.path.getsize(hocr_path) > 0, f"{hocr_file} is empty."
-                        assert os.path.isfile(txt_path), "TXT file was not created."
-                        assert os.path.getsize(txt_path) > 0, f"{txt_file} is empty."
+                        assert os.path.isfile(generated_hocr_path), "HOCR file was not created."
+                        assert os.path.getsize(generated_hocr_path) > 0, f"{hocr_file} is empty."
+                        if os.path.isfile(canonical_hocr_path):
+                            assert os.path.getsize(canonical_hocr_path) > 0, f"Canonical {hocr_file} is empty."
+
+                        assert os.path.isfile(generated_txt_path), "TXT file was not created."
+                        # Per-page OCR text can vary substantially; enforce quality via content.txt below.
+
                 # Check for content.txt
-                content_path = os.path.join(object_path, "content.txt")
                 assert os.path.isfile(content_path), "content.txt file was not created."
                 assert os.path.getsize(content_path) > 0, "content.txt is empty."
+                canonical_content_path = os.path.join(canonical_object_path, "content.txt")
+                if os.path.isfile(canonical_content_path):
+                    assert_text_file_similar(content_path, canonical_content_path, min_length_ratio=0.75, min_similarity_ratio=0.8)
+
                 break
 
-    iterate_collections_and_objects(discovery_storage_root, test_action)
+    iterate_collections_and_objects(temp_discovery_storage_root, test_action)
     

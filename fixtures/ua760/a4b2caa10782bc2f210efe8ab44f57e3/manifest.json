@@ -117,7 +117,7 @@
       "type": "Text",
       "label": {
         "en": [
-          "Download Text transcription"
+          "Automated Text transcription"
         ]
       },
       "format": "text/plain"
@@ -177,8 +177,8 @@
         {
           "id": "https://media.archives.albany.edu/ua760/a4b2caa10782bc2f210efe8ab44f57e3/thumbnail.jpg",
           "type": "Image",
-          "height": 338,
-          "width": 262,
+          "height": 300,
+          "width": 232,
           "format": "image/jpeg"
         }
       ],
