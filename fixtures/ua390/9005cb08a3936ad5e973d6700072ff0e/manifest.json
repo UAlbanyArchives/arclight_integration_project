@@ -1,0 +1,219 @@
+{
+  "@context": "http://iiif.io/api/presentation/3/context.json",
+  "provider": [
+    {
+      "id": "https://media.archives.albany.edu",
+      "type": "Agent",
+      "label": {
+        "en": [
+          "M.E. Grenander Department of Special Collections & Archives, University at Albany, SUNY"
+        ]
+      },
+      "logo": [
+        {
+          "id": "https://media.archives.albany.edu/logo.png",
+          "type": "Image",
+          "format": "image/png"
+        }
+      ]
+    }
+  ],
+  "id": "https://media.archives.albany.edu/ua390/9005cb08a3936ad5e973d6700072ff0e/manifest.json",
+  "type": "Manifest",
+  "label": {
+    "en": [
+      "nam_ua_390_pm_021395.jpg"
+    ]
+  },
+  "metadata": [
+    {
+      "label": {
+        "en": [
+          "legacy_id"
+        ]
+      },
+      "value": {
+        "en": [
+          "gf06g891q"
+        ]
+      }
+    },
+    {
+      "label": {
+        "en": [
+          "resource_type"
+        ]
+      },
+      "value": {
+        "en": [
+          "Image"
+        ]
+      }
+    },
+    {
+      "label": {
+        "en": [
+          "preservation_package"
+        ]
+      },
+      "value": {
+        "en": [
+          "ua390_axFmMZXjBf34LVN3FoXLre"
+        ]
+      }
+    },
+    {
+      "label": {
+        "en": [
+          "description"
+        ]
+      },
+      "value": {
+        "en": [
+          "1860 portrait of Normal School Alumnus J. Oscar Blakely. Taken from D.H. Cochrane's autograph book, dated June 28, 1860. Blakely led African American troops during the Civil War."
+        ]
+      }
+    },
+    {
+      "label": {
+        "en": [
+          "subjects"
+        ]
+      },
+      "value": {
+        "en": [
+          "Barrick, Thomas",
+          "University Archives Photographs",
+          "Civil War, 1861-1865",
+          "Class of 1860"
+        ]
+      }
+    },
+    {
+      "label": {
+        "en": [
+          "creator"
+        ]
+      },
+      "value": {
+        "en": [
+          "University at Albany"
+        ]
+      }
+    },
+    {
+      "label": {
+        "en": [
+          "contributor"
+        ]
+      },
+      "value": {
+        "en": [
+          "MW"
+        ]
+      }
+    },
+    {
+      "label": {
+        "en": [
+          "identifier"
+        ]
+      },
+      "value": {
+        "en": [
+          "nam_ua_390_pm_021395"
+        ]
+      }
+    },
+    {
+      "label": {
+        "en": [
+          "master_format"
+        ]
+      },
+      "value": {
+        "en": [
+          "TIF"
+        ]
+      }
+    },
+    {
+      "label": {
+        "en": [
+          "date_uploaded"
+        ]
+      },
+      "value": {
+        "en": [
+          "2019-02-01T21:08:32+00:00"
+        ]
+      }
+    }
+  ],
+  "requiredStatement": {
+    "label": {
+      "en": [
+        "Attribution"
+      ]
+    },
+    "value": {
+      "en": [
+        "<span>M.E. Grenander Department of Special Collections and Archives, University Libraries, University at Albany, State University of New York <br/> <a href=\"https://creativecommons.org/licenses/by/4.0/\" title=\"CC BY 4.0\"><img src=\"https://licensebuttons.net/l/by/4.0/88x31.png\"/></a></span>"
+      ]
+    }
+  },
+  "rights": "https://creativecommons.org/licenses/by/4.0/",
+  "behavior": [
+    "individuals"
+  ],
+  "items": [
+    {
+      "id": "https://media.archives.albany.edu/ua390/9005cb08a3936ad5e973d6700072ff0e/canvas/p1",
+      "type": "Canvas",
+      "label": {
+        "en": [
+          "nam_ua_390_pm_021395.ptif"
+        ]
+      },
+      "height": 5840,
+      "width": 4418,
+      "thumbnail": [
+        {
+          "id": "https://media.archives.albany.edu/ua390/9005cb08a3936ad5e973d6700072ff0e/thumbnail.jpg",
+          "type": "Image",
+          "height": 150,
+          "width": 113,
+          "format": "image/jpeg"
+        }
+      ],
+      "items": [
+        {
+          "id": "https://media.archives.albany.edu/ua390/9005cb08a3936ad5e973d6700072ff0e/page/p1/1",
+          "type": "AnnotationPage",
+          "items": [
+            {
+              "id": "https://media.archives.albany.edu/ua390/9005cb08a3936ad5e973d6700072ff0e/annotation/nam_ua_390_pm_021395",
+              "type": "Annotation",
+              "motivation": "painting",
+              "body": {
+                "id": "https://media.archives.albany.edu/iiif/3/ua390%2F9005cb08a3936ad5e973d6700072ff0e%2Fptif%2Fnam_ua_390_pm_021395.ptif/full/max/0/default.jpg",
+                "type": "Image",
+                "height": 5840,
+                "width": 4418,
+                "service": [
+                  {
+                    "id": "https://media.archives.albany.edu/iiif/3/ua390%2F9005cb08a3936ad5e973d6700072ff0e%2Fptif%2Fnam_ua_390_pm_021395.ptif",
+                    "type": "ImageService3",
+                    "profile": "level1"
+                  }
+                ],
+                "format": "image/tiff"
+              },
+              "target": "https://media.archives.albany.edu/ua390/9005cb08a3936ad5e973d6700072ff0e/canvas/p1"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

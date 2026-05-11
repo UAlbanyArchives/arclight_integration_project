@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+ <head>
+  <title></title>
+  <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+  <meta name='ocr-system' content='tesseract 5.3.0' />
+  <meta name='ocr-capabilities' content='ocr_page ocr_carea ocr_par ocr_line ocrx_word ocrp_wconf'/>
+ </head>
+ <body>
+  <div class='ocr_page' id='page_1' title='image "/media/Library/SPE_DAO/ua200/bc386j70j/jpg/fd198d1a2ebfdddad630c9698a38df29-1.jpg"; bbox 0 0 1500 1125; ppageno 0; scan_res 150 150'>
+   <div class='ocr_carea' id='block_1_1' title="bbox 58 18 1491 198">
+    <p class='ocr_par' id='par_1_1' lang='eng' title="bbox 58 18 1491 198">
+     <span class='ocr_line' id='line_1_1' title="bbox 58 18 1491 198; baseline 0 -100; x_size 83.375; x_descenders 20.84375; x_ascenders 20.84375">
+      <span class='ocrx_word' id='word_1_1' title='bbox 58 18 200 149; x_wconf 4'>he.</span>
+      <span class='ocrx_word' id='word_1_2' title='bbox 243 36 1036 98; x_wconf 62'>UNIVERSITYAT</span>
+      <span class='ocrx_word' id='word_1_3' title='bbox 980 22 1491 198; x_wconf 12'>HRSA</span>
+     </span>
+    </p>
+   </div>
+   <div class='ocr_carea' id='block_1_2' title="bbox 252 111 887 211">
+    <p class='ocr_par' id='par_1_2' lang='eng' title="bbox 252 111 887 211">
+     <span class='ocr_line' id='line_1_2' title="bbox 252 111 887 211; baseline 0 -62; x_size 44; x_descenders 10; x_ascenders 13">
+      <span class='ocrx_word' id='word_1_4' title='bbox 252 111 360 163; x_wconf 77'>Stare</span>
+      <span class='ocrx_word' id='word_1_5' title='bbox 374 115 630 211; x_wconf 40'>eee</span>
+      <span class='ocrx_word' id='word_1_6' title='bbox 613 115 662 149; x_wconf 95'>of</span>
+      <span class='ocrx_word' id='word_1_7' title='bbox 671 115 775 149; x_wconf 82'>New</span>
+      <span class='ocrx_word' id='word_1_8' title='bbox 786 115 887 149; x_wconf 96'>York</span>
+     </span>
+    </p>
+   </div>
+   <div class='ocr_photo' id='block_1_3' title="bbox 0 114 1500 206"></div>
+   <div class='ocr_carea' id='block_1_4' title="bbox 93 577 1228 734">
+    <p class='ocr_par' id='par_1_3' lang='eng' title="bbox 93 577 1228 734">
+     <span class='ocr_caption' id='line_1_3' title="bbox 93 577 1228 638; baseline 0 -14; x_size 61; x_descenders 14; x_ascenders 16">
+      <span class='ocrx_word' id='word_1_9' title='bbox 93 590 109 606; x_wconf 60'>*</span>
+      <span class='ocrx_word' id='word_1_10' title='bbox 178 578 428 638; x_wconf 95'>Approval</span>
+      <span class='ocrx_word' id='word_1_11' title='bbox 448 577 501 625; x_wconf 96'>of</span>
+      <span class='ocrx_word' id='word_1_12' title='bbox 537 580 751 625; x_wconf 96'>Minutes</span>
+      <span class='ocrx_word' id='word_1_13' title='bbox 772 577 826 625; x_wconf 96'>of</span>
+      <span class='ocrx_word' id='word_1_14' title='bbox 840 578 978 638; x_wconf 70'>April</span>
+      <span class='ocrx_word' id='word_1_15' title='bbox 999 580 1075 634; x_wconf 70'>24,</span>
+      <span class='ocrx_word' id='word_1_16' title='bbox 1100 579 1228 625; x_wconf 96'>2006</span>
+     </span>
+     <span class='ocr_caption' id='line_1_4' title="bbox 93 674 667 734; baseline 0.002 -14; x_size 60; x_descenders 13; x_ascenders 14">
+      <span class='ocrx_word' id='word_1_17' title='bbox 93 686 109 702; x_wconf 53'>*</span>
+      <span class='ocrx_word' id='word_1_18' title='bbox 179 674 467 721; x_wconf 85'>President’s</span>
+      <span class='ocrx_word' id='word_1_19' title='bbox 488 676 667 734; x_wconf 96'>Report</span>
+     </span>
+    </p>
+   </div>
+   <div class='ocr_photo' id='block_1_5' title="bbox 0 739 1500 932"></div>
+  </div>
+ </body>
+</html>

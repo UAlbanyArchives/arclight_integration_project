@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+ <head>
+  <title></title>
+  <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+  <meta name='ocr-system' content='tesseract 5.3.0' />
+  <meta name='ocr-capabilities' content='ocr_page ocr_carea ocr_par ocr_line ocrx_word ocrp_wconf'/>
+ </head>
+ <body>
+  <div class='ocr_page' id='page_1' title='image "/media/Library/SPE_DAO/ua200/bc386j70j/jpg/fd198d1a2ebfdddad630c9698a38df29-5.jpg"; bbox 0 0 1500 1125; ppageno 0; scan_res 150 150'>
+   <div class='ocr_separator' id='block_1_1' title="bbox 894 240 900 351"></div>
+   <div class='ocr_photo' id='block_1_2' title="bbox 0 0 0 853"></div>
+   <div class='ocr_carea' id='block_1_3' title="bbox 650 623 691 688">
+    <p class='ocr_par' id='par_1_1' lang='eng' title="bbox 650 623 691 688">
+     <span class='ocr_line' id='line_1_1' title="bbox 650 623 691 688; baseline -0.081 -9.676; x_size 20; x_descenders 5; x_ascenders 5">
+      <span class='ocrx_word' id='word_1_1' title='bbox 650 623 691 688; x_wconf 0'>r)</span>
+     </span>
+    </p>
+   </div>
+   <div class='ocr_carea' id='block_1_4' title="bbox 535 619 616 661">
+    <p class='ocr_par' id='par_1_2' lang='eng' title="bbox 535 619 616 661">
+     <span class='ocr_line' id='line_1_2' title="bbox 535 619 615 634; baseline 0 -6; x_size 28.666666; x_descenders 7.1666665; x_ascenders 7.1666665">
+      <span class='ocrx_word' id='word_1_2' title='bbox 535 626 549 634; x_wconf 85'>=</span>
+      <span class='ocrx_word' id='word_1_3' title='bbox 611 619 615 628; x_wconf 58'>/</span>
+     </span>
+     <span class='ocr_line' id='line_1_3' title="bbox 593 629 616 661; baseline 0 0; x_size 42.666668; x_descenders 10.666667; x_ascenders 10.666666">
+      <span class='ocrx_word' id='word_1_4' title='bbox 593 629 616 661; x_wconf 93'>A</span>
+     </span>
+    </p>
+   </div>
+   <div class='ocr_photo' id='block_1_5' title="bbox 0 636 0 853"></div>
+   <div class='ocr_carea' id='block_1_6' title="bbox 136 619 456 686">
+    <p class='ocr_par' id='par_1_3' lang='eng' title="bbox 136 619 456 686">
+     <span class='ocr_line' id='line_1_4' title="bbox 136 619 456 686; baseline -0.006 0; x_size 89.555557; x_descenders 22.388889; x_ascenders 22.388889">
+      <span class='ocrx_word' id='word_1_5' title='bbox 136 619 456 686; x_wconf 91'>MEETIN</span>
+     </span>
+    </p>
+   </div>
+  </div>
+ </body>
+</html>

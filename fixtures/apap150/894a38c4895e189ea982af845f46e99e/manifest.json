@@ -1,0 +1,187 @@
+{
+  "@context": "http://iiif.io/api/presentation/3/context.json",
+  "provider": [
+    {
+      "id": "https://media.archives.albany.edu",
+      "type": "Agent",
+      "label": {
+        "en": [
+          "M.E. Grenander Department of Special Collections & Archives, University at Albany, SUNY"
+        ]
+      },
+      "logo": [
+        {
+          "id": "https://media.archives.albany.edu/logo.png",
+          "type": "Image",
+          "format": "image/png"
+        }
+      ]
+    }
+  ],
+  "id": "https://media.archives.albany.edu/apap150/894a38c4895e189ea982af845f46e99e/manifest.json",
+  "type": "Manifest",
+  "label": {
+    "en": [
+      "894a38c4895e189ea982af845f46e99e.MPG"
+    ]
+  },
+  "metadata": [
+    {
+      "label": {
+        "en": [
+          "legacy_id"
+        ]
+      },
+      "value": {
+        "en": [
+          "08612n52b"
+        ]
+      }
+    },
+    {
+      "label": {
+        "en": [
+          "resource_type"
+        ]
+      },
+      "value": {
+        "en": [
+          "Video"
+        ]
+      }
+    },
+    {
+      "label": {
+        "en": [
+          "coverage"
+        ]
+      },
+      "value": {
+        "en": [
+          "whole"
+        ]
+      }
+    },
+    {
+      "label": {
+        "en": [
+          "preservation_package"
+        ]
+      },
+      "value": {
+        "en": [
+          "apap150_zxQpJEjPB8FqgrD8haH592"
+        ]
+      }
+    },
+    {
+      "label": {
+        "en": [
+          "date_uploaded"
+        ]
+      },
+      "value": {
+        "en": [
+          "2018-12-21T15:17:40+00:00"
+        ]
+      }
+    }
+  ],
+  "requiredStatement": {
+    "label": {
+      "en": [
+        "Attribution"
+      ]
+    },
+    "value": {
+      "en": [
+        "<span>M.E. Grenander Department of Special Collections and Archives, University Libraries, University at Albany, State University of New York <br/> <a href=\"https://rightsstatements.org/vocab/InC-EDU/1.0/\" title=\"In Copyright - Educational Use Permitted\"><img src=\"https://rightsstatements.org/files/buttons/InC-EDU.dark.svg\"/></a></span>"
+      ]
+    }
+  },
+  "rendering": [
+    {
+      "id": "https://media.archives.albany.edu/apap150/894a38c4895e189ea982af845f46e99e/content.txt",
+      "type": "Text",
+      "label": {
+        "en": [
+          "Download Text transcription"
+        ]
+      },
+      "format": "text/plain"
+    }
+  ],
+  "rights": "https://rightsstatements.org/vocab/InC-EDU/1.0/",
+  "behavior": [
+    "individuals"
+  ],
+  "items": [
+    {
+      "id": "https://media.archives.albany.edu/apap150/894a38c4895e189ea982af845f46e99e/canvas/p1",
+      "type": "Canvas",
+      "label": {
+        "en": [
+          "894a38c4895e189ea982af845f46e99e.webm"
+        ]
+      },
+      "duration": 380.032,
+      "thumbnail": [
+        {
+          "id": "https://media.archives.albany.edu/apap150/894a38c4895e189ea982af845f46e99e/thumbnail.jpg",
+          "type": "Image",
+          "height": 240,
+          "width": 320,
+          "format": "image/jpeg"
+        }
+      ],
+      "items": [
+        {
+          "id": "https://media.archives.albany.edu/apap150/894a38c4895e189ea982af845f46e99e/canvas/page/p11",
+          "type": "AnnotationPage",
+          "items": [
+            {
+              "id": "https://media.archives.albany.edu/apap150/894a38c4895e189ea982af845f46e99e/canvas/1/page/annotation",
+              "type": "Annotation",
+              "motivation": "painting",
+              "body": {
+                "id": "https://media.archives.albany.edu/apap150/894a38c4895e189ea982af845f46e99e/webm/894a38c4895e189ea982af845f46e99e.webm",
+                "type": "Video",
+                "height": 240,
+                "width": 320,
+                "duration": 380.032,
+                "format": "video/webm"
+              },
+              "target": "https://media.archives.albany.edu/apap150/894a38c4895e189ea982af845f46e99e/canvas/p1"
+            }
+          ]
+        }
+      ],
+      "annotations": [
+        {
+          "id": "https://media.archives.albany.edu/apap150/894a38c4895e189ea982af845f46e99e/canvas/1/supplementing",
+          "type": "AnnotationPage",
+          "items": [
+            {
+              "id": "https://media.archives.albany.edu/apap150/894a38c4895e189ea982af845f46e99e/canvas/1/annotation",
+              "type": "Annotation",
+              "motivation": "supplementing",
+              "body": [
+                {
+                  "id": "https://media.archives.albany.edu/apap150/894a38c4895e189ea982af845f46e99e/vtt/894a38c4895e189ea982af845f46e99e.vtt",
+                  "type": "Text",
+                  "format": "text/vtt",
+                  "label": {
+                    "en": [
+                      "WebVTT (captions)"
+                    ]
+                  }
+                }
+              ],
+              "target": "https://media.archives.albany.edu/apap150/894a38c4895e189ea982af845f46e99e/canvas/p1"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

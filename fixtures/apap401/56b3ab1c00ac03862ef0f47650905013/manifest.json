@@ -1,0 +1,183 @@
+{
+  "@context": "http://iiif.io/api/presentation/3/context.json",
+  "provider": [
+    {
+      "id": "https://media.archives.albany.edu",
+      "type": "Agent",
+      "label": {
+        "en": [
+          "M.E. Grenander Department of Special Collections & Archives, University at Albany, SUNY"
+        ]
+      },
+      "logo": [
+        {
+          "id": "https://media.archives.albany.edu/logo.png",
+          "type": "Image",
+          "format": "image/png"
+        }
+      ]
+    }
+  ],
+  "id": "https://media.archives.albany.edu/apap401/56b3ab1c00ac03862ef0f47650905013/manifest.json",
+  "type": "Manifest",
+  "label": {
+    "en": [
+      "George Edwards, 2010 April 6"
+    ]
+  },
+  "metadata": [
+    {
+      "label": {
+        "en": [
+          "resource_type"
+        ]
+      },
+      "value": {
+        "en": [
+          "Audio"
+        ]
+      }
+    },
+    {
+      "label": {
+        "en": [
+          "preservation_package"
+        ]
+      },
+      "value": {
+        "en": [
+          "apap401_hJPcTbb2bRpQZe8eGGLXF8"
+        ]
+      }
+    },
+    {
+      "label": {
+        "en": [
+          "date_uploaded"
+        ]
+      },
+      "value": {
+        "en": [
+          "2025-11-25T14:40:15.243898-05:00"
+        ]
+      }
+    }
+  ],
+  "requiredStatement": {
+    "label": {
+      "en": [
+        "Attribution"
+      ]
+    },
+    "value": {
+      "en": [
+        "<span>M.E. Grenander Department of Special Collections and Archives, University Libraries, University at Albany, State University of New York <br/> <a href=\"https://rightsstatements.org/vocab/InC-EDU/1.0/\" title=\"In Copyright - Educational Use Permitted\"><img src=\"https://rightsstatements.org/files/buttons/InC-EDU.dark.svg\"/></a></span>"
+      ]
+    }
+  },
+  "rendering": [
+    {
+      "id": "https://media.archives.albany.edu/apap401/56b3ab1c00ac03862ef0f47650905013/content.txt",
+      "type": "Text",
+      "label": {
+        "en": [
+          "Download Text transcription"
+        ]
+      },
+      "format": "text/plain"
+    },
+    {
+      "id": "https://media.archives.albany.edu/apap401/56b3ab1c00ac03862ef0f47650905013/mp3/George%20Edwards.mp3",
+      "type": "Text",
+      "label": {
+        "en": [
+          "George Edwards.mp3"
+        ]
+      },
+      "format": "audio/mpeg"
+    }
+  ],
+  "rights": "https://rightsstatements.org/vocab/InC-EDU/1.0/",
+  "behavior": [
+    "individuals"
+  ],
+  "items": [
+    {
+      "id": "https://media.archives.albany.edu/apap401/56b3ab1c00ac03862ef0f47650905013/canvas/p1",
+      "type": "Canvas",
+      "label": {
+        "en": [
+          "George Edwards.ogg"
+        ]
+      },
+      "duration": 125.33551,
+      "thumbnail": [
+        {
+          "id": "https://media.archives.albany.edu/apap401/56b3ab1c00ac03862ef0f47650905013/thumbnail.jpg",
+          "type": "Image",
+          "height": 442,
+          "width": 442,
+          "format": "image/jpeg"
+        }
+      ],
+      "items": [
+        {
+          "id": "https://media.archives.albany.edu/apap401/56b3ab1c00ac03862ef0f47650905013/canvas/page/p11",
+          "type": "AnnotationPage",
+          "items": [
+            {
+              "id": "https://media.archives.albany.edu/apap401/56b3ab1c00ac03862ef0f47650905013/canvas/1/page/annotation",
+              "type": "Annotation",
+              "motivation": "painting",
+              "body": {
+                "id": "https://media.archives.albany.edu/apap401/56b3ab1c00ac03862ef0f47650905013/ogg/George%20Edwards.ogg",
+                "type": "Sound",
+                "duration": 125.33551,
+                "format": "audio/ogg"
+              },
+              "target": "https://media.archives.albany.edu/apap401/56b3ab1c00ac03862ef0f47650905013/canvas/p1"
+            },
+            {
+              "id": "https://media.archives.albany.edu/apap401/56b3ab1c00ac03862ef0f47650905013/canvas/1/page/annotation/mp3",
+              "type": "Annotation",
+              "motivation": "painting",
+              "body": {
+                "id": "https://media.archives.albany.edu/apap401/56b3ab1c00ac03862ef0f47650905013/mp3/George%20Edwards.mp3",
+                "type": "Sound",
+                "duration": 125.33551,
+                "format": "audio/mpeg"
+              },
+              "target": "https://media.archives.albany.edu/canvas/p1"
+            }
+          ]
+        }
+      ],
+      "annotations": [
+        {
+          "id": "https://media.archives.albany.edu/apap401/56b3ab1c00ac03862ef0f47650905013/canvas/1/supplementing",
+          "type": "AnnotationPage",
+          "items": [
+            {
+              "id": "https://media.archives.albany.edu/apap401/56b3ab1c00ac03862ef0f47650905013/canvas/1/annotation",
+              "type": "Annotation",
+              "motivation": "supplementing",
+              "body": [
+                {
+                  "id": "https://media.archives.albany.edu/apap401/56b3ab1c00ac03862ef0f47650905013/vtt/George Edwards.vtt",
+                  "type": "Text",
+                  "format": "text/vtt",
+                  "label": {
+                    "en": [
+                      "WebVTT (captions)"
+                    ]
+                  }
+                }
+              ],
+              "target": "https://media.archives.albany.edu/apap401/56b3ab1c00ac03862ef0f47650905013/canvas/p1"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

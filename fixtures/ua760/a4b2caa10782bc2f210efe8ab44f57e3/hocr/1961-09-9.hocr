@@ -1,0 +1,385 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+ <head>
+  <title></title>
+  <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+  <meta name='ocr-system' content='tesseract 5.3.0' />
+  <meta name='ocr-capabilities' content='ocr_page ocr_carea ocr_par ocr_line ocrx_word ocrp_wconf'/>
+ </head>
+ <body>
+  <div class='ocr_page' id='page_1' title='image "/media/Library/SPE_DAO/ua760/dr26zg116/jpg/1961-09-9.jpg"; bbox 0 0 1279 1648; ppageno 0; scan_res 150 150'>
+   <div class='ocr_separator' id='block_1_1' title="bbox 3 0 1279 8"></div>
+   <div class='ocr_carea' id='block_1_2' title="bbox 125 129 1027 170">
+    <p class='ocr_par' id='par_1_1' lang='eng' title="bbox 125 129 1027 170">
+     <span class='ocr_line' id='line_1_1' title="bbox 125 129 501 153; baseline -0.011 -3; x_size 22; x_descenders 4; x_ascenders 4">
+      <span class='ocrx_word' id='word_1_1' title='bbox 125 132 212 153; x_wconf 96'>College</span>
+      <span class='ocrx_word' id='word_1_2' title='bbox 225 130 249 148; x_wconf 96'>of</span>
+      <span class='ocrx_word' id='word_1_3' title='bbox 264 129 376 148; x_wconf 95'>Education</span>
+      <span class='ocrx_word' id='word_1_4' title='bbox 389 131 413 147; x_wconf 95'>at</span>
+      <span class='ocrx_word' id='word_1_5' title='bbox 425 130 501 151; x_wconf 96'>Albany</span>
+     </span>
+     <span class='ocr_line' id='line_1_2' title="bbox 915 152 1027 170; baseline 0.009 -1; x_size 23.017544; x_descenders 5.0175438; x_ascenders 5">
+      <span class='ocrx_word' id='word_1_6' title='bbox 915 152 1027 170; x_wconf 93'>Immediate</span>
+     </span>
+    </p>
+   </div>
+   <div class='ocr_carea' id='block_1_3' title="bbox 125 179 526 199">
+    <p class='ocr_par' id='par_1_2' lang='eng' title="bbox 125 179 526 199">
+     <span class='ocr_line' id='line_1_3' title="bbox 125 179 526 199; baseline -0.007 0; x_size 23.310345; x_descenders 5.3103447; x_ascenders 4">
+      <span class='ocrx_word' id='word_1_7' title='bbox 125 181 189 199; x_wconf 93'>Frank</span>
+      <span class='ocrx_word' id='word_1_8' title='bbox 201 181 222 198; x_wconf 88'>G.</span>
+      <span class='ocrx_word' id='word_1_9' title='bbox 238 179 326 198; x_wconf 75'>Carrino</span>
+      <span class='ocrx_word' id='word_1_10' title='bbox 350 179 439 197; x_wconf 72'>HO31254</span>
+      <span class='ocrx_word' id='word_1_11' title='bbox 453 180 485 197; x_wconf 74'>Ex.</span>
+      <span class='ocrx_word' id='word_1_12' title='bbox 502 179 526 196; x_wconf 91'>75</span>
+     </span>
+    </p>
+   </div>
+   <div class='ocr_carea' id='block_1_4' title="bbox 164 377 563 473">
+    <p class='ocr_par' id='par_1_3' lang='eng' title="bbox 164 377 416 396">
+     <span class='ocr_line' id='line_1_4' title="bbox 164 377 416 396; baseline 0.008 -2; x_size 23.585493; x_descenders 5.5854926; x_ascenders 4">
+      <span class='ocrx_word' id='word_1_13' title='bbox 164 377 200 394; x_wconf 96'>TO:</span>
+      <span class='ocrx_word' id='word_1_14' title='bbox 216 377 340 396; x_wconf 96'>Greenville</span>
+      <span class='ocrx_word' id='word_1_15' title='bbox 354 378 416 396; x_wconf 93'>Local</span>
+     </span>
+    </p>
+
+    <p class='ocr_par' id='par_1_4' lang='eng' title="bbox 166 403 563 473">
+     <span class='ocr_line' id='line_1_5' title="bbox 215 403 563 426; baseline -0.003 -4; x_size 22; x_descenders 4; x_ascenders 5">
+      <span class='ocrx_word' id='word_1_16' title='bbox 215 405 291 426; x_wconf 93'>George</span>
+      <span class='ocrx_word' id='word_1_17' title='bbox 305 405 325 422; x_wconf 88'>E.</span>
+      <span class='ocrx_word' id='word_1_18' title='bbox 340 404 462 423; x_wconf 90'>Bleezarde,</span>
+      <span class='ocrx_word' id='word_1_19' title='bbox 480 403 563 423; x_wconf 36'>Bditor,</span>
+     </span>
+     <span class='ocr_line' id='line_1_6' title="bbox 166 429 351 448; baseline 0 -1; x_size 21.848148; x_descenders 4.8481483; x_ascenders 4.8481483">
+      <span class='ocrx_word' id='word_1_20' title='bbox 166 430 201 448; x_wconf 95'>164</span>
+      <span class='ocrx_word' id='word_1_21' title='bbox 212 429 266 447; x_wconf 95'>Main</span>
+      <span class='ocrx_word' id='word_1_22' title='bbox 278 430 351 447; x_wconf 96'>Street</span>
+     </span>
+     <span class='ocr_line' id='line_1_7' title="bbox 166 455 375 473; baseline -0.005 0; x_size 22.186529; x_descenders 5.1865287; x_ascenders 4">
+      <span class='ocrx_word' id='word_1_23' title='bbox 166 456 250 473; x_wconf 89'>Ravena,</span>
+      <span class='ocrx_word' id='word_1_24' title='bbox 265 455 304 472; x_wconf 96'>New</span>
+      <span class='ocrx_word' id='word_1_25' title='bbox 315 455 375 472; x_wconf 88'>York.</span>
+     </span>
+    </p>
+   </div>
+   <div class='ocr_carea' id='block_1_5' title="bbox 165 552 1189 1173">
+    <p class='ocr_par' id='par_1_5' lang='eng' title="bbox 165 552 1189 826">
+     <span class='ocr_line' id='line_1_8' title="bbox 228 552 1176 575; baseline -0.001 -3; x_size 22; x_descenders 4; x_ascenders 5">
+      <span class='ocrx_word' id='word_1_26' title='bbox 228 556 263 574; x_wconf 90'>Dr,</span>
+      <span class='ocrx_word' id='word_1_27' title='bbox 280 556 329 572; x_wconf 48'>Evan</span>
+      <span class='ocrx_word' id='word_1_28' title='bbox 342 556 362 572; x_wconf 82'>R.</span>
+      <span class='ocrx_word' id='word_1_29' title='bbox 379 554 476 574; x_wconf 96'>Collins,</span>
+      <span class='ocrx_word' id='word_1_30' title='bbox 491 554 603 572; x_wconf 95'>President</span>
+      <span class='ocrx_word' id='word_1_31' title='bbox 616 554 639 572; x_wconf 95'>of</span>
+      <span class='ocrx_word' id='word_1_32' title='bbox 654 555 692 572; x_wconf 95'>the</span>
+      <span class='ocrx_word' id='word_1_33' title='bbox 705 554 766 571; x_wconf 96'>State</span>
+      <span class='ocrx_word' id='word_1_34' title='bbox 777 553 904 575; x_wconf 95'>University</span>
+      <span class='ocrx_word' id='word_1_35' title='bbox 916 553 1004 575; x_wconf 96'>College</span>
+      <span class='ocrx_word' id='word_1_36' title='bbox 1016 553 1039 570; x_wconf 96'>of</span>
+      <span class='ocrx_word' id='word_1_37' title='bbox 1055 552 1176 571; x_wconf 85'>Education,</span>
+     </span>
+     <span class='ocr_line' id='line_1_9' title="bbox 165 602 1091 626; baseline -0.003 -4; x_size 22; x_descenders 4; x_ascenders 5">
+      <span class='ocrx_word' id='word_1_38' title='bbox 165 605 251 626; x_wconf 96'>Albany,</span>
+      <span class='ocrx_word' id='word_1_39' title='bbox 266 604 316 622; x_wconf 96'>will</span>
+      <span class='ocrx_word' id='word_1_40' title='bbox 329 604 392 625; x_wconf 96'>speak</span>
+      <span class='ocrx_word' id='word_1_41' title='bbox 404 606 428 622; x_wconf 93'>at</span>
+      <span class='ocrx_word' id='word_1_42' title='bbox 442 603 554 621; x_wconf 91'>thedinner</span>
+      <span class='ocrx_word' id='word_1_43' title='bbox 567 603 654 625; x_wconf 96'>meeting</span>
+      <span class='ocrx_word' id='word_1_44' title='bbox 667 604 691 621; x_wconf 96'>of</span>
+      <span class='ocrx_word' id='word_1_45' title='bbox 705 604 742 621; x_wconf 96'>the</span>
+      <span class='ocrx_word' id='word_1_46' title='bbox 753 603 829 624; x_wconf 95'>Albany</span>
+      <span class='ocrx_word' id='word_1_47' title='bbox 842 603 929 624; x_wconf 95'>College</span>
+      <span class='ocrx_word' id='word_1_48' title='bbox 941 603 965 620; x_wconf 96'>of</span>
+      <span class='ocrx_word' id='word_1_49' title='bbox 980 602 1091 620; x_wconf 96'>Education</span>
+     </span>
+     <span class='ocr_line' id='line_1_10' title="bbox 165 651 1115 676; baseline -0.003 -4; x_size 22; x_descenders 4; x_ascenders 4">
+      <span class='ocrx_word' id='word_1_50' title='bbox 165 654 254 676; x_wconf 93'>Library</span>
+      <span class='ocrx_word' id='word_1_51' title='bbox 265 653 341 672; x_wconf 29'>Aluani</span>
+      <span class='ocrx_word' id='word_1_52' title='bbox 352 653 491 671; x_wconf 96'>Association</span>
+      <span class='ocrx_word' id='word_1_53' title='bbox 504 658 529 671; x_wconf 96'>on</span>
+      <span class='ocrx_word' id='word_1_54' title='bbox 540 654 641 675; x_wconf 95'>Thursday</span>
+      <span class='ocrx_word' id='word_1_55' title='bbox 655 652 751 675; x_wconf 96'>evening,</span>
+      <span class='ocrx_word' id='word_1_56' title='bbox 765 653 855 671; x_wconf 96'>October</span>
+      <span class='ocrx_word' id='word_1_57' title='bbox 869 653 901 671; x_wconf 95'>12,</span>
+      <span class='ocrx_word' id='word_1_58' title='bbox 916 652 966 670; x_wconf 96'>This</span>
+      <span class='ocrx_word' id='word_1_59' title='bbox 979 652 1054 670; x_wconf 96'>dinner</span>
+      <span class='ocrx_word' id='word_1_60' title='bbox 1065 651 1115 670; x_wconf 90'>will</span>
+     </span>
+     <span class='ocr_line' id='line_1_11' title="bbox 167 702 1189 726; baseline -0.002 -4; x_size 22; x_descenders 4; x_ascenders 5">
+      <span class='ocrx_word' id='word_1_61' title='bbox 167 705 280 723; x_wconf 66'>celebrate</span>
+      <span class='ocrx_word' id='word_1_62' title='bbox 292 704 330 722; x_wconf 96'>the</span>
+      <span class='ocrx_word' id='word_1_63' title='bbox 343 704 393 721; x_wconf 78'>355th</span>
+      <span class='ocrx_word' id='word_1_64' title='bbox 405 703 542 726; x_wconf 95'>anniversary</span>
+      <span class='ocrx_word' id='word_1_65' title='bbox 555 704 578 721; x_wconf 96'>of</span>
+      <span class='ocrx_word' id='word_1_66' title='bbox 593 704 630 721; x_wconf 95'>the</span>
+      <span class='ocrx_word' id='word_1_67' title='bbox 642 703 742 725; x_wconf 96'>founding</span>
+      <span class='ocrx_word' id='word_1_68' title='bbox 755 703 778 721; x_wconf 96'>of</span>
+      <span class='ocrx_word' id='word_1_69' title='bbox 793 704 831 721; x_wconf 96'>the</span>
+      <span class='ocrx_word' id='word_1_70' title='bbox 844 704 966 724; x_wconf 66'>Department</span>
+      <span class='ocrx_word' id='word_1_71' title='bbox 980 703 1003 720; x_wconf 96'>of</span>
+      <span class='ocrx_word' id='word_1_72' title='bbox 1018 702 1189 723; x_wconf 94'>Librarianship,</span>
+     </span>
+     <span class='ocr_line' id='line_1_12' title="bbox 167 752 1168 775; baseline -0.002 -3; x_size 22; x_descenders 4; x_ascenders 5">
+      <span class='ocrx_word' id='word_1_73' title='bbox 167 755 202 772; x_wconf 94'>and</span>
+      <span class='ocrx_word' id='word_1_74' title='bbox 215 753 265 772; x_wconf 95'>will</span>
+      <span class='ocrx_word' id='word_1_75' title='bbox 279 754 303 772; x_wconf 95'>be</span>
+      <span class='ocrx_word' id='word_1_76' title='bbox 316 754 366 771; x_wconf 96'>held</span>
+      <span class='ocrx_word' id='word_1_77' title='bbox 382 753 404 771; x_wconf 96'>in</span>
+      <span class='ocrx_word' id='word_1_78' title='bbox 418 753 555 775; x_wconf 96'>conjunction</span>
+      <span class='ocrx_word' id='word_1_79' title='bbox 567 754 617 771; x_wconf 95'>with</span>
+      <span class='ocrx_word' id='word_1_80' title='bbox 630 754 667 771; x_wconf 95'>the</span>
+      <span class='ocrx_word' id='word_1_81' title='bbox 681 754 718 770; x_wconf 96'>New</span>
+      <span class='ocrx_word' id='word_1_82' title='bbox 729 754 780 771; x_wconf 96'>York</span>
+      <span class='ocrx_word' id='word_1_83' title='bbox 792 753 880 774; x_wconf 95'>Library</span>
+      <span class='ocrx_word' id='word_1_84' title='bbox 891 752 1031 771; x_wconf 96'>Association</span>
+      <span class='ocrx_word' id='word_1_85' title='bbox 1041 753 1168 770; x_wconf 96'>Conference</span>
+     </span>
+     <span class='ocr_line' id='line_1_13' title="bbox 166 803 914 826; baseline -0.001 -4; x_size 23; x_descenders 5; x_ascenders 5">
+      <span class='ocrx_word' id='word_1_86' title='bbox 166 806 190 822; x_wconf 93'>at</span>
+      <span class='ocrx_word' id='word_1_87' title='bbox 204 805 241 822; x_wconf 96'>the</span>
+      <span class='ocrx_word' id='word_1_88' title='bbox 254 804 340 822; x_wconf 74'>Laurels</span>
+      <span class='ocrx_word' id='word_1_89' title='bbox 352 804 416 821; x_wconf 94'>Hotel</span>
+      <span class='ocrx_word' id='word_1_90' title='bbox 430 804 466 821; x_wconf 87'>and</span>
+      <span class='ocrx_word' id='word_1_91' title='bbox 479 805 567 826; x_wconf 96'>Country</span>
+      <span class='ocrx_word' id='word_1_92' title='bbox 580 804 639 823; x_wconf 95'>Club,</span>
+      <span class='ocrx_word' id='word_1_93' title='bbox 653 803 789 823; x_wconf 86'>Monticello,</span>
+      <span class='ocrx_word' id='word_1_94' title='bbox 806 804 843 821; x_wconf 96'>New</span>
+      <span class='ocrx_word' id='word_1_95' title='bbox 854 804 914 821; x_wconf 86'>York.</span>
+     </span>
+    </p>
+
+    <p class='ocr_par' id='par_1_6' lang='eng' title="bbox 167 852 1155 1125">
+     <span class='ocr_line' id='line_1_14' title="bbox 230 852 1155 875; baseline -0.001 -4; x_size 22; x_descenders 4; x_ascenders 5">
+      <span class='ocrx_word' id='word_1_96' title='bbox 230 855 263 873; x_wconf 92'>Dr.</span>
+      <span class='ocrx_word' id='word_1_97' title='bbox 281 853 356 875; x_wconf 92'>Irving</span>
+      <span class='ocrx_word' id='word_1_98' title='bbox 365 854 489 873; x_wconf 90'>Verechoor,</span>
+      <span class='ocrx_word' id='word_1_99' title='bbox 505 858 542 872; x_wconf 96'>new</span>
+      <span class='ocrx_word' id='word_1_100' title='bbox 554 853 655 872; x_wconf 96'>director</span>
+      <span class='ocrx_word' id='word_1_101' title='bbox 668 854 690 871; x_wconf 95'>of</span>
+      <span class='ocrx_word' id='word_1_102' title='bbox 705 854 742 871; x_wconf 93'>the</span>
+      <span class='ocrx_word' id='word_1_103' title='bbox 757 854 880 875; x_wconf 88'>Depertment</span>
+      <span class='ocrx_word' id='word_1_104' title='bbox 893 853 916 870; x_wconf 96'>of</span>
+      <span class='ocrx_word' id='word_1_105' title='bbox 931 852 1102 874; x_wconf 94'>Librarianship,</span>
+      <span class='ocrx_word' id='word_1_106' title='bbox 1118 853 1155 870; x_wconf 95'>and</span>
+     </span>
+     <span class='ocr_line' id='line_1_15' title="bbox 168 902 1144 925; baseline -0.003 -3; x_size 22; x_descenders 4; x_ascenders 5">
+      <span class='ocrx_word' id='word_1_107' title='bbox 168 904 280 922; x_wconf 96'>Professor</span>
+      <span class='ocrx_word' id='word_1_108' title='bbox 293 904 367 921; x_wconf 95'>Robert</span>
+      <span class='ocrx_word' id='word_1_109' title='bbox 379 904 478 925; x_wconf 95'>Burgess,</span>
+      <span class='ocrx_word' id='word_1_110' title='bbox 492 904 530 921; x_wconf 95'>who</span>
+      <span class='ocrx_word' id='word_1_111' title='bbox 544 903 643 925; x_wconf 95'>recently</span>
+      <span class='ocrx_word' id='word_1_112' title='bbox 657 904 755 921; x_wconf 96'>returned</span>
+      <span class='ocrx_word' id='word_1_113' title='bbox 769 903 820 921; x_wconf 95'>from</span>
+      <span class='ocrx_word' id='word_1_114' title='bbox 832 905 868 920; x_wconf 96'>two</span>
+      <span class='ocrx_word' id='word_1_115' title='bbox 881 904 918 920; x_wconf 93'>and</span>
+      <span class='ocrx_word' id='word_1_116' title='bbox 932 903 1029 920; x_wconf 94'>one-half</span>
+      <span class='ocrx_word' id='word_1_117' title='bbox 1042 906 1105 924; x_wconf 82'>years</span>
+      <span class='ocrx_word' id='word_1_118' title='bbox 1121 902 1144 919; x_wconf 95'>in</span>
+     </span>
+     <span class='ocr_line' id='line_1_16' title="bbox 167 952 1090 974; baseline 0 -3; x_size 22; x_descenders 3; x_ascenders 6">
+      <span class='ocrx_word' id='word_1_119' title='bbox 167 954 239 973; x_wconf 96'>Korea,</span>
+      <span class='ocrx_word' id='word_1_120' title='bbox 253 953 304 971; x_wconf 96'>will</span>
+      <span class='ocrx_word' id='word_1_121' title='bbox 318 955 379 974; x_wconf 95'>greet</span>
+      <span class='ocrx_word' id='word_1_122' title='bbox 392 954 430 971; x_wconf 95'>the</span>
+      <span class='ocrx_word' id='word_1_123' title='bbox 441 952 526 971; x_wconf 82'>Alumni.</span>
+      <span class='ocrx_word' id='word_1_124' title='bbox 542 954 618 971; x_wconf 96'>Guests</span>
+      <span class='ocrx_word' id='word_1_125' title='bbox 631 953 654 971; x_wconf 96'>of</span>
+      <span class='ocrx_word' id='word_1_126' title='bbox 668 954 731 970; x_wconf 95'>honor</span>
+      <span class='ocrx_word' id='word_1_127' title='bbox 742 952 792 970; x_wconf 95'>will</span>
+      <span class='ocrx_word' id='word_1_128' title='bbox 806 953 830 970; x_wconf 96'>be</span>
+      <span class='ocrx_word' id='word_1_129' title='bbox 842 952 892 970; x_wconf 94'>Miss</span>
+      <span class='ocrx_word' id='word_1_130' title='bbox 906 952 1017 974; x_wconf 95'>Georgiana</span>
+      <span class='ocrx_word' id='word_1_131' title='bbox 1029 953 1090 971; x_wconf 96'>Maar,</span>
+     </span>
+     <span class='ocr_line' id='line_1_17' title="bbox 168 1002 1115 1025; baseline -0.002 -4; x_size 22; x_descenders 4; x_ascenders 4">
+      <span class='ocrx_word' id='word_1_132' title='bbox 168 1003 279 1022; x_wconf 96'>President</span>
+      <span class='ocrx_word' id='word_1_133' title='bbox 293 1003 354 1021; x_wconf 96'>elect</span>
+      <span class='ocrx_word' id='word_1_134' title='bbox 368 1003 391 1021; x_wconf 95'>of</span>
+      <span class='ocrx_word' id='word_1_135' title='bbox 405 1004 443 1021; x_wconf 95'>the</span>
+      <span class='ocrx_word' id='word_1_136' title='bbox 456 1004 494 1021; x_wconf 96'>New</span>
+      <span class='ocrx_word' id='word_1_137' title='bbox 504 1004 556 1021; x_wconf 96'>York</span>
+      <span class='ocrx_word' id='word_1_138' title='bbox 568 1003 656 1025; x_wconf 96'>Library</span>
+      <span class='ocrx_word' id='word_1_139' title='bbox 667 1002 815 1022; x_wconf 81'>Association,</span>
+      <span class='ocrx_word' id='word_1_140' title='bbox 831 1004 867 1020; x_wconf 95'>and</span>
+      <span class='ocrx_word' id='word_1_141' title='bbox 880 1004 928 1020; x_wconf 72'>Mrs.</span>
+      <span class='ocrx_word' id='word_1_142' title='bbox 943 1004 1031 1024; x_wconf 91'>Augusta</span>
+      <span class='ocrx_word' id='word_1_143' title='bbox 1042 1003 1115 1022; x_wconf 96'>Baker,</span>
+     </span>
+     <span class='ocr_line' id='line_1_18' title="bbox 168 1053 1106 1074; baseline -0.001 -2; x_size 23.606647; x_descenders 5.6066484; x_ascenders 4">
+      <span class='ocrx_word' id='word_1_144' title='bbox 168 1053 306 1072; x_wconf 86'>coordinator</span>
+      <span class='ocrx_word' id='word_1_145' title='bbox 318 1053 342 1071; x_wconf 96'>of</span>
+      <span class='ocrx_word' id='word_1_146' title='bbox 356 1053 480 1071; x_wconf 92'>Children’s</span>
+      <span class='ocrx_word' id='word_1_147' title='bbox 494 1053 603 1073; x_wconf 96'>Services,</span>
+      <span class='ocrx_word' id='word_1_148' title='bbox 618 1054 657 1071; x_wconf 96'>New</span>
+      <span class='ocrx_word' id='word_1_149' title='bbox 668 1054 719 1071; x_wconf 96'>York</span>
+      <span class='ocrx_word' id='word_1_150' title='bbox 731 1053 807 1071; x_wconf 95'>Public</span>
+      <span class='ocrx_word' id='word_1_151' title='bbox 819 1053 916 1074; x_wconf 94'>Library.</span>
+      <span class='ocrx_word' id='word_1_152' title='bbox 932 1054 982 1071; x_wconf 96'>Both</span>
+      <span class='ocrx_word' id='word_1_153' title='bbox 991 1053 1042 1071; x_wconf 93'>Miss</span>
+      <span class='ocrx_word' id='word_1_154' title='bbox 1054 1054 1106 1071; x_wconf 96'>Maar</span>
+     </span>
+     <span class='ocr_line' id='line_1_19' title="bbox 168 1102 1089 1125; baseline -0.001 -4; x_size 22; x_descenders 4; x_ascenders 4">
+      <span class='ocrx_word' id='word_1_155' title='bbox 168 1104 205 1121; x_wconf 92'>and</span>
+      <span class='ocrx_word' id='word_1_156' title='bbox 215 1104 264 1121; x_wconf 86'>Mre.</span>
+      <span class='ocrx_word' id='word_1_157' title='bbox 279 1103 343 1121; x_wconf 95'>Beker</span>
+      <span class='ocrx_word' id='word_1_158' title='bbox 356 1107 393 1121; x_wconf 94'>are</span>
+      <span class='ocrx_word' id='word_1_159' title='bbox 405 1104 517 1125; x_wconf 95'>graduates</span>
+      <span class='ocrx_word' id='word_1_160' title='bbox 530 1103 554 1121; x_wconf 96'>of</span>
+      <span class='ocrx_word' id='word_1_161' title='bbox 568 1104 606 1121; x_wconf 95'>the</span>
+      <span class='ocrx_word' id='word_1_162' title='bbox 620 1104 743 1124; x_wconf 71'>Department</span>
+      <span class='ocrx_word' id='word_1_163' title='bbox 756 1103 780 1120; x_wconf 96'>of</span>
+      <span class='ocrx_word' id='word_1_164' title='bbox 794 1102 957 1124; x_wconf 95'>Librarianship</span>
+      <span class='ocrx_word' id='word_1_165' title='bbox 968 1104 992 1120; x_wconf 96'>at</span>
+      <span class='ocrx_word' id='word_1_166' title='bbox 1004 1102 1089 1124; x_wconf 96'>Albany.</span>
+     </span>
+    </p>
+
+    <p class='ocr_par' id='par_1_7' lang='eng' title="bbox 166 1152 1069 1173">
+     <span class='ocr_line' id='line_1_20' title="bbox 166 1152 1069 1173; baseline -0.001 -2; x_size 24.606647; x_descenders 5.6066484; x_ascenders 5">
+      <span class='ocrx_word' id='word_1_167' title='bbox 166 1154 202 1171; x_wconf 94'>Mr.</span>
+      <span class='ocrx_word' id='word_1_168' title='bbox 218 1153 292 1171; x_wconf 96'>Robert</span>
+      <span class='ocrx_word' id='word_1_169' title='bbox 305 1153 440 1173; x_wconf 95'>Chatterton,</span>
+      <span class='ocrx_word' id='word_1_170' title='bbox 456 1152 569 1171; x_wconf 96'>Librarian</span>
+      <span class='ocrx_word' id='word_1_171' title='bbox 581 1154 605 1171; x_wconf 96'>of</span>
+      <span class='ocrx_word' id='word_1_172' title='bbox 620 1154 656 1171; x_wconf 96'>the</span>
+      <span class='ocrx_word' id='word_1_173' title='bbox 669 1153 794 1171; x_wconf 96'>Greenville</span>
+      <span class='ocrx_word' id='word_1_174' title='bbox 806 1153 894 1171; x_wconf 96'>Central</span>
+      <span class='ocrx_word' id='word_1_175' title='bbox 908 1153 980 1171; x_wconf 96'>School</span>
+      <span class='ocrx_word' id='word_1_176' title='bbox 996 1153 1017 1170; x_wconf 95'>is</span>
+      <span class='ocrx_word' id='word_1_177' title='bbox 1032 1153 1069 1171; x_wconf 95'>the</span>
+     </span>
+    </p>
+   </div>
+   <div class='ocr_carea' id='block_1_6' title="bbox 166 1203 629 1222">
+    <p class='ocr_par' id='par_1_8' lang='eng' title="bbox 166 1203 629 1222">
+     <span class='ocr_line' id='line_1_21' title="bbox 166 1203 629 1222; baseline -0.002 0; x_size 23.310345; x_descenders 5.3103447; x_ascenders 4">
+      <span class='ocrx_word' id='word_1_178' title='bbox 166 1205 281 1222; x_wconf 92'>Treasurer</span>
+      <span class='ocrx_word' id='word_1_179' title='bbox 293 1204 318 1221; x_wconf 95'>of</span>
+      <span class='ocrx_word' id='word_1_180' title='bbox 331 1203 380 1221; x_wconf 95'>this</span>
+      <span class='ocrx_word' id='word_1_181' title='bbox 392 1203 470 1221; x_wconf 96'>Alumni</span>
+      <span class='ocrx_word' id='word_1_182' title='bbox 480 1203 629 1222; x_wconf 85'>Association.</span>
+     </span>
+    </p>
+   </div>
+   <div class='ocr_separator' id='block_1_7' title="bbox 1274 2 1279 1282"></div>
+   <div class='ocr_carea' id='block_1_8' title="bbox 162 1297 1276 1645">
+    <p class='ocr_par' id='par_1_9' lang='eng' title="bbox 162 1297 1276 1648">
+     <span class='ocr_line' id='line_1_22' title="bbox 162 1297 1200 1319; baseline -0.001 -5; x_size 21; x_descenders 5; x_ascenders 5">
+      <span class='ocrx_word' id='word_1_183' title='bbox 162 1299 209 1315; x_wconf 96'>Same</span>
+      <span class='ocrx_word' id='word_1_184' title='bbox 224 1299 348 1314; x_wconf 96'>newsletter</span>
+      <span class='ocrx_word' id='word_1_185' title='bbox 363 1300 410 1314; x_wconf 96'>sent</span>
+      <span class='ocrx_word' id='word_1_186' title='bbox 425 1300 449 1314; x_wconf 96'>to</span>
+      <span class='ocrx_word' id='word_1_187' title='bbox 462 1298 584 1319; x_wconf 93'>following:</span>
+      <span class='ocrx_word' id='word_1_188' title='bbox 601 1300 674 1314; x_wconf 91'>Ravena</span>
+      <span class='ocrx_word' id='word_1_189' title='bbox 688 1299 834 1316; x_wconf 91'>News-Herald,</span>
+      <span class='ocrx_word' id='word_1_190' title='bbox 851 1298 924 1318; x_wconf 93'>George</span>
+      <span class='ocrx_word' id='word_1_191' title='bbox 940 1299 957 1314; x_wconf 89'>E.</span>
+      <span class='ocrx_word' id='word_1_192' title='bbox 976 1298 1096 1315; x_wconf 91'>Bleezarde,</span>
+      <span class='ocrx_word' id='word_1_193' title='bbox 1114 1297 1200 1315; x_wconf 89'>Ed.,164</span>
+     </span>
+     <span class='ocr_line' id='line_1_23' title="bbox 636 1322 921 1341; baseline 0 -2; x_size 22.501152; x_descenders 5.5011516; x_ascenders 5">
+      <span class='ocrx_word' id='word_1_194' title='bbox 636 1322 688 1339; x_wconf 93'>Main</span>
+      <span class='ocrx_word' id='word_1_195' title='bbox 704 1324 746 1341; x_wconf 91'>St.,</span>
+      <span class='ocrx_word' id='word_1_196' title='bbox 764 1324 847 1341; x_wconf 92'>Ravena,</span>
+      <span class='ocrx_word' id='word_1_197' title='bbox 864 1323 884 1339; x_wconf 90'>N.</span>
+      <span class='ocrx_word' id='word_1_198' title='bbox 900 1323 921 1339; x_wconf 86'>Y.</span>
+     </span>
+     <span class='ocr_line' id='line_1_24' title="bbox 600 1347 1163 1367; baseline -0.004 -3; x_size 21; x_descenders 5; x_ascenders 5">
+      <span class='ocrx_word' id='word_1_199' title='bbox 600 1348 762 1364; x_wconf 96'>Knickerbocker</span>
+      <span class='ocrx_word' id='word_1_200' title='bbox 776 1348 834 1366; x_wconf 93'>News,</span>
+      <span class='ocrx_word' id='word_1_201' title='bbox 852 1347 1009 1367; x_wconf 91'>R.Fichenburg,</span>
+      <span class='ocrx_word' id='word_1_202' title='bbox 1027 1347 1071 1365; x_wconf 91'>Ed.,</span>
+      <span class='ocrx_word' id='word_1_203' title='bbox 1087 1347 1163 1367; x_wconf 96'>Albany</span>
+     </span>
+     <span class='ocr_line' id='line_1_25' title="bbox 599 1373 1033 1392; baseline -0.002 -3; x_size 20; x_descenders 4; x_ascenders 4">
+      <span class='ocrx_word' id='word_1_204' title='bbox 599 1373 661 1389; x_wconf 96'>Times</span>
+      <span class='ocrx_word' id='word_1_205' title='bbox 674 1373 746 1391; x_wconf 95'>Union,</span>
+      <span class='ocrx_word' id='word_1_206' title='bbox 762 1373 784 1389; x_wconf 94'>J.</span>
+      <span class='ocrx_word' id='word_1_207' title='bbox 800 1374 872 1392; x_wconf 93'>Leary,</span>
+      <span class='ocrx_word' id='word_1_208' title='bbox 890 1373 934 1390; x_wconf 89'>Ed.,</span>
+      <span class='ocrx_word' id='word_1_209' title='bbox 950 1373 1033 1392; x_wconf 96'>Albany.</span>
+     </span>
+     <span class='ocr_line' id='line_1_26' title="bbox 601 1394 1276 1418; baseline 0 -5; x_size 19; x_descenders 3; x_ascenders 4">
+      <span class='ocrx_word' id='word_1_210' title='bbox 601 1398 650 1418; x_wconf 95'>Troy</span>
+      <span class='ocrx_word' id='word_1_211' title='bbox 664 1398 747 1415; x_wconf 95'>Record,</span>
+      <span class='ocrx_word' id='word_1_212' title='bbox 762 1398 825 1413; x_wconf 93'>Alton</span>
+      <span class='ocrx_word' id='word_1_213' title='bbox 838 1397 859 1414; x_wconf 61'>T.</span>
+      <span class='ocrx_word' id='word_1_214' title='bbox 877 1396 959 1415; x_wconf 92'>Sliter,</span>
+      <span class='ocrx_word' id='word_1_215' title='bbox 977 1397 1021 1415; x_wconf 91'>Ed.,</span>
+      <span class='ocrx_word' id='word_1_216' title='bbox 1039 1397 1074 1413; x_wconf 95'>501</span>
+      <span class='ocrx_word' id='word_1_217' title='bbox 1088 1397 1197 1416; x_wconf 95'>Broadway,</span>
+      <span class='ocrx_word' id='word_1_218' title='bbox 1214 1394 1276 1416; x_wconf 34'>Troy)</span>
+     </span>
+     <span class='ocr_line' id='line_1_27' title="bbox 601 1422 1276 1442; baseline 0 -3; x_size 20; x_descenders 4; x_ascenders 4">
+      <span class='ocrx_word' id='word_1_219' title='bbox 601 1423 737 1442; x_wconf 96'>Schenectady</span>
+      <span class='ocrx_word' id='word_1_220' title='bbox 750 1423 847 1440; x_wconf 96'>Gazette,</span>
+      <span class='ocrx_word' id='word_1_221' title='bbox 864 1422 913 1438; x_wconf 93'>John</span>
+      <span class='ocrx_word' id='word_1_222' title='bbox 927 1423 945 1438; x_wconf 87'>E,</span>
+      <span class='ocrx_word' id='word_1_223' title='bbox 962 1423 1022 1440; x_wconf 89'>Hume,</span>
+      <span class='ocrx_word' id='word_1_224' title='bbox 1039 1423 1084 1440; x_wconf 89'>Jr.,</span>
+      <span class='ocrx_word' id='word_1_225' title='bbox 1102 1422 1147 1440; x_wconf 91'>Ed.,</span>
+      <span class='ocrx_word' id='word_1_226' title='bbox 1274 1425 1276 1439; x_wconf 70'>|</span>
+     </span>
+     <span class='ocr_line' id='line_1_28' title="bbox 628 1443 1276 1467; baseline -0.005 -3; x_size 22; x_descenders 4; x_ascenders 6">
+      <span class='ocrx_word' id='word_1_227' title='bbox 628 1448 662 1464; x_wconf 96'>334</span>
+      <span class='ocrx_word' id='word_1_228' title='bbox 676 1448 738 1464; x_wconf 96'>State</span>
+      <span class='ocrx_word' id='word_1_229' title='bbox 752 1448 835 1466; x_wconf 96'>Street,</span>
+      <span class='ocrx_word' id='word_1_230' title='bbox 852 1447 996 1467; x_wconf 95'>Schenectady.</span>
+      <span class='ocrx_word' id='word_1_231' title='bbox 1275 1443 1276 1461; x_wconf 73'>|</span>
+     </span>
+     <span class='ocr_line' id='line_1_29' title="bbox 601 1472 1276 1497; baseline 0.007 -9; x_size 25; x_descenders 4; x_ascenders 9">
+      <span class='ocrx_word' id='word_1_232' title='bbox 601 1472 737 1493; x_wconf 96'>Schenectady</span>
+      <span class='ocrx_word' id='word_1_233' title='bbox 749 1473 812 1489; x_wconf 96'>Union</span>
+      <span class='ocrx_word' id='word_1_234' title='bbox 826 1474 883 1492; x_wconf 93'>Star,</span>
+      <span class='ocrx_word' id='word_1_235' title='bbox 899 1474 1020 1493; x_wconf 78'>H.R.Ekins,</span>
+      <span class='ocrx_word' id='word_1_236' title='bbox 1038 1476 1083 1493; x_wconf 92'>Ed.,</span>
+      <span class='ocrx_word' id='word_1_237' title='bbox 1101 1476 1136 1492; x_wconf 96'>211</span>
+      <span class='ocrx_word' id='word_1_238' title='bbox 1150 1476 1238 1493; x_wconf 96'>Clinton</span>
+      <span class='ocrx_word' id='word_1_239' title='bbox 1251 1472 1276 1497; x_wconf 90'>St</span>
+     </span>
+     <span class='ocr_line' id='line_1_30' title="bbox 597 1497 1276 1523; baseline 0.01 -11; x_size 27; x_descenders 6; x_ascenders 5">
+      <span class='ocrx_word' id='word_1_240' title='bbox 597 1497 724 1513; x_wconf 93'>Monticello</span>
+      <span class='ocrx_word' id='word_1_241' title='bbox 737 1498 958 1517; x_wconf 91'>Bulletin-Sentinel,</span>
+      <span class='ocrx_word' id='word_1_242' title='bbox 976 1499 1036 1515; x_wconf 96'>Rubin</span>
+      <span class='ocrx_word' id='word_1_243' title='bbox 1049 1501 1069 1517; x_wconf 85'>J.</span>
+      <span class='ocrx_word' id='word_1_244' title='bbox 1087 1501 1221 1519; x_wconf 87'>Katz,Publ.,</span>
+      <span class='ocrx_word' id='word_1_245' title='bbox 1274 1498 1276 1523; x_wconf 80'>|</span>
+     </span>
+     <span class='ocr_line' id='line_1_31' title="bbox 1073 1525 1276 1544; baseline 0.005 -3; x_size 22.501152; x_descenders 5.5011516; x_ascenders 5">
+      <span class='ocrx_word' id='word_1_246' title='bbox 1073 1525 1208 1544; x_wconf 95'>Monticello,</span>
+      <span class='ocrx_word' id='word_1_247' title='bbox 1226 1527 1276 1543; x_wconf 43'>N.Y.</span>
+     </span>
+     <span class='ocr_line' id='line_1_32' title="bbox 598 1546 1275 1570; baseline 0.007 -8; x_size 20; x_descenders 4; x_ascenders 5">
+      <span class='ocrx_word' id='word_1_248' title='bbox 598 1546 723 1563; x_wconf 95'>Monticello</span>
+      <span class='ocrx_word' id='word_1_249' title='bbox 737 1548 795 1566; x_wconf 96'>News,</span>
+      <span class='ocrx_word' id='word_1_250' title='bbox 812 1548 885 1564; x_wconf 92'>Gerald</span>
+      <span class='ocrx_word' id='word_1_251' title='bbox 900 1549 1006 1569; x_wconf 91'>Gunthrop,</span>
+      <span class='ocrx_word' id='word_1_252' title='bbox 1025 1550 1110 1568; x_wconf 91'>Ed.,203</span>
+      <span class='ocrx_word' id='word_1_253' title='bbox 1124 1551 1233 1570; x_wconf 93'>Broadway,</span>
+      <span class='ocrx_word' id='word_1_254' title='bbox 1273 1558 1275 1569; x_wconf 84'>|</span>
+     </span>
+     <span class='ocr_line' id='line_1_33' title="bbox 1072 1574 1276 1595; baseline 0.01 -5; x_size 22.042723; x_descenders 5.0427222; x_ascenders 6">
+      <span class='ocrx_word' id='word_1_255' title='bbox 1072 1574 1207 1593; x_wconf 95'>Monticello,</span>
+      <span class='ocrx_word' id='word_1_256' title='bbox 1224 1576 1276 1595; x_wconf 36'>N.Y.</span>
+     </span>
+     <span class='ocr_line' id='line_1_34' title="bbox 597 1595 1275 1618; baseline 0.007 -7; x_size 19; x_descenders 3; x_ascenders 4">
+      <span class='ocrx_word' id='word_1_257' title='bbox 597 1595 723 1612; x_wconf 96'>Monticello</span>
+      <span class='ocrx_word' id='word_1_258' title='bbox 738 1597 862 1616; x_wconf 93'>Republican</span>
+      <span class='ocrx_word' id='word_1_259' title='bbox 874 1599 1048 1617; x_wconf 91'>Watchman,Alvin</span>
+      <span class='ocrx_word' id='word_1_260' title='bbox 1061 1600 1207 1618; x_wconf 28'>O.Benton,</span>
+      <span class='ocrx_word' id='word_1_261' title='bbox 1176 1591 1211 1622; x_wconf 96'>Ed.</span>
+      <span class='ocrx_word' id='word_1_262' title='bbox 1273 1612 1275 1618; x_wconf 71'>|</span>
+     </span>
+     <span class='ocr_line' id='line_1_35' title="bbox 1073 1622 1246 1645; baseline 0.015 -8; x_size 26; x_descenders 6; x_ascenders 8">
+      <span class='ocrx_word' id='word_1_263' title='bbox 1073 1622 1208 1640; x_wconf 95'>Monticello,</span>
+      <span class='ocrx_word' id='word_1_264' title='bbox 1231 1636 1246 1645; x_wconf 65'>|,</span>
+      <span class='ocrx_word' id='word_1_265' title='bbox 1272 1620 1276 1648; x_wconf 93'>|</span>
+     </span>
+    </p>
+   </div>
+  </div>
+ </body>
+</html>

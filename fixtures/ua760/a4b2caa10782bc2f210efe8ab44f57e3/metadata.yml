@@ -1,0 +1,13 @@
+behavior: individuals
+coverage: whole
+date_uploaded: '2020-06-25T14:49:31+00:00'
+file_sets:
+  b85165998: 1961-09.pdf
+legacy_id: dr26zg116
+license: https://creativecommons.org/licenses/by/4.0/
+original_file_legacy: 1961-09.pdf
+preservation_package: ua760_RCwoAGm5FKevTijQ5fxESY
+processing_activity: 'Processing documentation available at: https://wiki.albany.edu/display/SCA/Processing+Ingested+Digital+Files'
+representative_id: b85165998
+resource_type: Document
+visibility: open
