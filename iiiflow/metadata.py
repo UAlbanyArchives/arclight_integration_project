@@ -154,8 +154,7 @@ def validate_metadata(collection_id, object_id, config_path="~/.iiiflow.yml"):
     			raise ValueError(f"Invalid metadata.yml for {object_path}. Invalid controlled field {field} value {metadata[field]}.")
 
     rights_statement_variants = {
-        "https://rightsstatements.org/vocab/inc-edu/1.0/",
-        "https://rightsstatements.org/page/inc-edu/1.0/",
+        "https://rightsstatements.org/vocab/inc-edu/1.0/"
     }
     if metadata["license"].strip().lower() == "unknown":
         rights_statement = metadata.get("rights_statement")
