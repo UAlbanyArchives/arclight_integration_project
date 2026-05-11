@@ -25,7 +25,7 @@ services:
       - '.:/code'
       - '//t/SPE_DAO:/media/Library/SPE_DAO'
     working_dir: /code
-    command: pytest tests/test_08_manifest.py -vv
+    command: pytest tests/test_08_manifest.py tests/test_08_manifest_builders.py tests/test_08_manifest_canvas.py tests/test_08_manifest_validation.py -vv
 
   test-pdf:
     image: arclight-integration:test

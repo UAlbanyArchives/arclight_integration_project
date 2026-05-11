@@ -192,7 +192,7 @@ Run individual test groups:
 
 `docker compose run --rm test-thumbnail`
 
-`docker compose run --rm test-manifest`
+`docker compose run --rm test-manifest` (runs `test_08_manifest.py`, `test_08_manifest_builders.py`, `test_08_manifest_canvas.py`, and `test_08_manifest_validation.py`)
 
 `docker compose run --rm test-pdf`
 
