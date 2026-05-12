@@ -28,6 +28,7 @@ MANIFEST
 
 fixtures/etd/39089010652715/*
 fixtures/ua600.007/d31b512cf15fb175cd50150637af7153/wacz/*
+fixtures/ua600.007/d31b512cf15fb175cd50150637af7153/warc.gz/*
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
