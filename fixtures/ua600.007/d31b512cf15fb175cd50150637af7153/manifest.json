@@ -1,0 +1,143 @@
+{
+  "@context": "http://iiif.io/api/presentation/3/context.json",
+  "provider": [
+    {
+      "id": "https://media.archives.albany.edu",
+      "type": "Agent",
+      "label": {
+        "en": [
+          "M.E. Grenander Department of Special Collections & Archives, University at Albany, SUNY"
+        ]
+      },
+      "logo": [
+        {
+          "id": "https://media.archives.albany.edu/logo.png",
+          "type": "Image",
+          "format": "image/png"
+        }
+      ]
+    }
+  ],
+  "id": "https://media.archives.albany.edu/ua600.007/d31b512cf15fb175cd50150637af7153/manifest.json",
+  "type": "Manifest",
+  "label": {
+    "en": [
+      "Web Archive"
+    ]
+  },
+  "metadata": [
+    {
+      "label": {
+        "en": [
+          "resource_type"
+        ]
+      },
+      "value": {
+        "en": [
+          "Web Archive"
+        ]
+      }
+    },
+    {
+      "label": {
+        "en": [
+          "preservation_package"
+        ]
+      },
+      "value": {
+        "en": [
+          "ua600.007_CSg9EN638P7QTbRTqMtfEt"
+        ]
+      }
+    },
+    {
+      "label": {
+        "en": [
+          "date_uploaded"
+        ]
+      },
+      "value": {
+        "en": [
+          "2025-10-24T05:00:28.159098-04:00"
+        ]
+      }
+    }
+  ],
+  "requiredStatement": {
+    "label": {
+      "en": [
+        "Attribution"
+      ]
+    },
+    "value": {
+      "en": [
+        "<span>M.E. Grenander Department of Special Collections and Archives, University Libraries, University at Albany, State University of New York <br/> <a href=\"https://rightsstatements.org/vocab/InC-EDU/1.0/\" title=\"In Copyright - Educational Use Permitted\"><img src=\"https://rightsstatements.org/files/buttons/InC-EDU.dark.svg\"/></a></span>"
+      ]
+    }
+  },
+  "rendering": [
+    {
+      "id": "https://media.archives.albany.edu/ua600.007/d31b512cf15fb175cd50150637af7153/content.txt",
+      "type": "Text",
+      "label": {
+        "en": [
+          "Automated Text transcription"
+        ]
+      },
+      "format": "text/plain"
+    },
+    {
+      "id": "https://media.archives.albany.edu/ua600.007/d31b512cf15fb175cd50150637af7153/pdf/Archive%20of%20On-Campus%20Anti-Abortion%20Demonstration%20Stirs%20Controversy.pdf",
+      "type": "Text",
+      "label": {
+        "en": [
+          "Archive of On-Campus Anti-Abortion Demonstration Stirs Controversy.pdf"
+        ]
+      },
+      "format": "application/pdf"
+    }
+  ],
+  "rights": "https://rightsstatements.org/vocab/InC-EDU/1.0/",
+  "behavior": [
+    "individuals"
+  ],
+  "items": [
+    {
+      "id": "https://media.archives.albany.edu/ua600.007/d31b512cf15fb175cd50150637af7153/canvas/p1",
+      "type": "Canvas",
+      "label": {
+        "en": [
+          "On-Campus Anti-Abortion Demonstration Stirs Controversy"
+        ]
+      },
+      "thumbnail": [
+        {
+          "id": "https://media.archives.albany.edu/ua600.007/d31b512cf15fb175cd50150637af7153/thumbnail.jpg",
+          "type": "Image",
+          "height": 980,
+          "width": 1920,
+          "format": "image/jpeg"
+        }
+      ],
+      "items": [
+        {
+          "id": "https://media.archives.albany.edu/ua600.007/d31b512cf15fb175cd50150637af7153/canvas/p1/page",
+          "type": "AnnotationPage",
+          "items": [
+            {
+              "id": "https://media.archives.albany.edu/ua600.007/d31b512cf15fb175cd50150637af7153/canvas/p1/page/annotation",
+              "type": "Annotation",
+              "motivation": "painting",
+              "body": {
+                "id": "https://replayweb.page/?source=https%3A%2F%2Fmedia.archives.albany.edu%2Fua600.007%2Fd31b512cf15fb175cd50150637af7153%2Fwacz%2Fapril_2023_protests.wacz#view=replay&url=https%3A%2F%2Fwww.albanystudentpress.online%2Fpost%2Fon-campus-anti-abortion-demonstration-stirs-controversy&ts=20250127162050",
+                "type": "Text",
+                "format": "text/html"
+              },
+              "target": "https://media.archives.albany.edu/ua600.007/d31b512cf15fb175cd50150637af7153/canvas/p1"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

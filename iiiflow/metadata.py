@@ -120,38 +120,44 @@ def validate_metadata(collection_id, object_id, config_path="~/.iiiflow.yml"):
             raise ValueError(f"The value for key '{key}' must be at least {min_length} characters long.")
     
     controlled_fields = {
-   		"coverage": ["whole", "part"],
-   		"license": [
-   			"https://creativecommons.org/licenses/by-nc-sa/4.0/",
+        "coverage": ["whole", "part"],
+        "license": [
+            "https://creativecommons.org/licenses/by-nc-sa/4.0/",
             "https://creativecommons.org/licenses/by/4.0/",
-   			"https://creativecommons.org/publicdomain/mark/1.0/",
-   			"Unknown"
-   			],
-   		"resource_type": [
-   			"Audio",
-   			"Bound Volume",
-   			"Dataset",
-   			"Document",
-   			"Image",
-   			"Map",
-   			"Mixed Materials",
-   			"Pamphlet",
-   			"Periodical",
-   			"Slides",
-   			"Video",
-   			"Other"
-   		],
-   		"behavior": [
-   			"unordered",
-   			"individuals",
-   			"continuous",
-   			"paged"
-   		]
-   	}
+            "https://creativecommons.org/publicdomain/mark/1.0/",
+            "Unknown",
+        ],
+        "resource_type": [
+            "Audio",
+            "Bound Volume",
+            "Dataset",
+            "Document",
+            "Image",
+            "Map",
+            "Mixed Materials",
+            "Pamphlet",
+            "Periodical",
+            "Slides",
+            "Video",
+            "Web Archive",
+            "Other",
+        ],
+        "behavior": [
+            "unordered",
+            "individuals",
+            "continuous",
+            "paged",
+        ],
+    }
+
     for field in controlled_fields.keys():
-    	if field in metadata.keys():
-    		if not metadata[field] in controlled_fields[field]:
-    			raise ValueError(f"Invalid metadata.yml for {object_path}. Invalid controlled field {field} value {metadata[field]}.")
+        if field in metadata.keys():
+            if field == "resource_type":
+                allowed_resource_types = {value.casefold() for value in controlled_fields[field]}
+                if str(metadata[field]).casefold() not in allowed_resource_types:
+                    raise ValueError(f"Invalid metadata.yml for {object_path}. Invalid controlled field {field} value {metadata[field]}.")
+            elif metadata[field] not in controlled_fields[field]:
+                raise ValueError(f"Invalid metadata.yml for {object_path}. Invalid controlled field {field} value {metadata[field]}.")
 
     rights_statement_variants = {
         "https://rightsstatements.org/vocab/inc-edu/1.0/"

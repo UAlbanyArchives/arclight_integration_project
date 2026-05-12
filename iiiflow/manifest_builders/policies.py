@@ -76,7 +76,9 @@ def build_manifest_label(metadata):
 
 
 def resolve_resource_source(object_path, resource_type):
-    if resource_type == "Audio":
+    normalized_resource_type = (resource_type or "").strip().casefold()
+
+    if normalized_resource_type == "audio":
         ogg_path = os.path.join(object_path, "ogg")
         mp3_path = os.path.join(object_path, "mp3")
         if os.path.isdir(ogg_path) and len(os.listdir(ogg_path)) > 0:
@@ -85,8 +87,11 @@ def resolve_resource_source(object_path, resource_type):
             return mp3_path, "mp3"
         return None, None
 
-    if resource_type == "Video":
+    if normalized_resource_type == "video":
         return os.path.join(object_path, "webm"), "webm"
+
+    if normalized_resource_type == "web archive":
+        return os.path.join(object_path, "wacz"), "wacz"
 
     ptif_path = os.path.join(object_path, "ptif")
     if os.path.isdir(ptif_path):

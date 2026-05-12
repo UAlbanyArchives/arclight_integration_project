@@ -39,6 +39,17 @@ def _generate_manifest(tmp_path, collection_id, object_id, config_overrides=None
         return json.load(manifest_file)
 
 
+def _set_metadata_value(object_path, key, value):
+    metadata_path = os.path.join(object_path, "metadata.yml")
+    with open(metadata_path, "r", encoding="utf-8") as metadata_file:
+        metadata = yaml.safe_load(metadata_file) or {}
+
+    metadata[key] = value
+
+    with open(metadata_path, "w", encoding="utf-8") as metadata_file:
+        yaml.safe_dump(metadata, metadata_file, sort_keys=False)
+
+
 def test_manifest(tmp_path):
     # Test creation of manifest.json against canonical fixture manifests.
 
@@ -146,3 +157,46 @@ def test_manifest_renderings_include_content_and_original_label(tmp_path):
         if isinstance(label, dict):
             labels.extend(label.get("en", []))
     assert any("(Original)" in label for label in labels), "Expected at least one rendering label marked as original."
+
+
+def test_manifest_web_archive_has_wacz_page_canvases(tmp_path):
+    manifest = _generate_manifest(tmp_path, "ua600.007", "d31b512cf15fb175cd50150637af7153")
+
+    items = manifest.get("items", [])
+    assert items, "Expected canvases generated from WACZ pages."
+    assert len(items) == 1, "Expected only the replay_url-matching WACZ page to become a canvas."
+
+    for canvas in items:
+        anno_page = canvas["items"][0]
+        anno = anno_page["items"][0]
+        body = anno.get("body", {})
+        assert "replayweb.page" in body.get("id", ""), (
+            f"Expected ReplayWeb.page URL as canvas body, got: {body.get('id')}"
+        )
+        assert "albanystudentpress.online" in body.get("id", ""), "Expected replay_url-matching page only."
+
+    # Renderings should include content.txt and the PDF, but no wacz/warc entries
+    renderings = manifest.get("rendering", [])
+    rendering_ids = [r.get("id", "") for r in renderings]
+    assert any(r_id.endswith("/content.txt") for r_id in rendering_ids), "Expected content.txt rendering."
+    assert any(r_id.endswith(".pdf") for r_id in rendering_ids), "Expected PDF rendering."
+    assert not any("/wacz/" in r_id for r_id in rendering_ids), "WACZ file should not appear as a rendering."
+
+
+def test_manifest_web_archive_resource_type_is_case_insensitive(tmp_path):
+    temp_discovery_storage_root, temp_config_path = create_temp_fixture_config(tmp_path, config_path)
+    object_path = os.path.join(temp_discovery_storage_root, "ua600.007", "d31b512cf15fb175cd50150637af7153")
+    manifest_path = os.path.join(object_path, "manifest.json")
+
+    _set_metadata_value(object_path, "resource_type", "web archive")
+
+    if os.path.isfile(manifest_path):
+        os.remove(manifest_path)
+
+    create_manifest("ua600.007", "d31b512cf15fb175cd50150637af7153", config_path=temp_config_path)
+
+    with open(manifest_path, "r", encoding="utf-8") as manifest_file:
+        manifest = json.load(manifest_file)
+
+    assert manifest.get("items"), "Expected canvases generated for lowercase web archive resource_type."
+    assert "replayweb.page" in manifest["items"][0]["items"][0]["items"][0]["body"].get("id", "")

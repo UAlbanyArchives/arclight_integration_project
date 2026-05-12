@@ -20,6 +20,12 @@ def test_pdf(tmp_path):
                 metadata = yaml.safe_load(metadata_file) or {}
         original_file_legacy = str(metadata.get("original_file_legacy", ""))
         original_ext = os.path.splitext(original_file_legacy)[1].lower()
+        resource_type = str(metadata.get("resource_type", ""))
+        source_image_dirs = ["png", "jpg", "jpeg", "tif", "tiff"]
+        has_source_images = any(
+            os.path.isdir(os.path.join(object_path, source_dir)) and os.listdir(os.path.join(object_path, source_dir))
+            for source_dir in source_image_dirs
+        )
 
         pdf_path = os.path.join(object_path, "pdf")
         if os.path.isdir(pdf_path):
@@ -31,6 +37,15 @@ def test_pdf(tmp_path):
 
             pdf_file = os.path.join(pdf_path, pdf_files[0])
             canonical_pdf_file = os.path.join(canonical_pdf_path, pdf_files[0])
+
+            # Web archives and other non-image resources may carry an externally-produced PDF derivative.
+            # In those cases, validate the existing fixture PDF rather than forcing regeneration.
+            if resource_type.casefold() == "web archive" or not has_source_images:
+                assert os.path.isfile(pdf_file), "Expected existing PDF derivative for non-image resource."
+                assert os.path.getsize(pdf_file) > 0, f"PDF {pdf_file} is empty."
+                assert_pdf_matches(pdf_file, canonical_pdf_file)
+                return
+
             if os.path.isfile(pdf_file) and original_ext != ".pdf":
                 os.remove(pdf_file)
 

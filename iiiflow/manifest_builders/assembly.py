@@ -7,6 +7,7 @@ from .canvas import create_iiif_canvas
 from .renderings import append_manifest_renderings
 from .services import attach_search_service_if_configured
 from .policies import build_rights_and_attribution, build_required_statement
+from .wacz import create_wacz_canvases
 
 
 def create_iiif_manifest(
@@ -38,48 +39,52 @@ def create_iiif_manifest(
     )
 
     manifest = update_metadata_fields(manifest, metadata, lang_code)
+    normalized_resource_type = (resource_type or "").strip().casefold()
 
-    page_count = 0
-    for resource_file in sorted(os.listdir(file_dir)):
-        resource_path = os.path.join(file_dir, resource_file)
-        filename = urllib.parse.quote(os.path.splitext(resource_file)[0])
-        quoted_file = urllib.parse.quote(resource_file.strip())
-        page_count += 1
+    if normalized_resource_type == "web archive":
+        create_wacz_canvases(manifest, file_dir, obj_url_root, thumbnail_data, lang_code, metadata)
+    else:
+        page_count = 0
+        for resource_file in sorted(os.listdir(file_dir)):
+            resource_path = os.path.join(file_dir, resource_file)
+            filename = urllib.parse.quote(os.path.splitext(resource_file)[0])
+            quoted_file = urllib.parse.quote(resource_file.strip())
+            page_count += 1
 
-        if resource_type in ["Audio", "Video"]:
-            media_url = f"{obj_url_root}/{os.path.basename(file_dir)}/{quoted_file}"
-            create_iiif_canvas(
-                manifest,
-                manifest_url_root,
-                obj_url_root,
-                resource_file,
-                resource_type,
-                resource_path,
-                page_count,
-                thumbnail_data,
-                media_url=media_url,
-                filename=filename,
-                lang_code=lang_code,
-            )
-        elif resource_file.lower().endswith(resource_format.lower()):
-            img_width, img_height = get_image_dimensions(resource_path)
-            image_url = f"{iiif_url_root}%2F{quoted_file}"
-            create_iiif_canvas(
-                manifest,
-                manifest_url_root,
-                obj_url_root,
-                resource_file,
-                "Image",
-                resource_path,
-                page_count,
-                thumbnail_data,
-                resource_format=resource_format,
-                height=img_height,
-                width=img_width,
-                image_url=image_url,
-                filename=filename,
-                lang_code=lang_code,
-            )
+            if normalized_resource_type in ["audio", "video"]:
+                media_url = f"{obj_url_root}/{os.path.basename(file_dir)}/{quoted_file}"
+                create_iiif_canvas(
+                    manifest,
+                    manifest_url_root,
+                    obj_url_root,
+                    resource_file,
+                    resource_type.title(),
+                    resource_path,
+                    page_count,
+                    thumbnail_data,
+                    media_url=media_url,
+                    filename=filename,
+                    lang_code=lang_code,
+                )
+            elif resource_file.lower().endswith(resource_format.lower()):
+                img_width, img_height = get_image_dimensions(resource_path)
+                image_url = f"{iiif_url_root}%2F{quoted_file}"
+                create_iiif_canvas(
+                    manifest,
+                    manifest_url_root,
+                    obj_url_root,
+                    resource_file,
+                    "Image",
+                    resource_path,
+                    page_count,
+                    thumbnail_data,
+                    resource_format=resource_format,
+                    height=img_height,
+                    width=img_width,
+                    image_url=image_url,
+                    filename=filename,
+                    lang_code=lang_code,
+                )
 
     append_manifest_renderings(manifest, file_dir, obj_url_root, metadata)
     attach_search_service_if_configured(manifest, file_dir, manifest_url_root, obj_url_root, lang_code, config_path)

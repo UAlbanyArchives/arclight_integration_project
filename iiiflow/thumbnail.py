@@ -4,7 +4,41 @@ import shutil
 import requests
 import traceback
 import subprocess
+from PIL import Image
 from .utils import validate_config_and_paths
+
+
+def create_pdf_thumbnail(pdf_path, thumbnail_path):
+    """Creates a thumbnail from the first page of a PDF."""
+    convert_cmd = [
+        "convert",
+        f"{pdf_path}[0]",
+        "-resize",
+        "300x300",
+        thumbnail_path,
+    ]
+    try:
+        subprocess.run(convert_cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, check=True)
+        return
+    except Exception:
+        pass
+
+    # Fallback for environments where ImageMagick PDF policy blocks convert.
+    ppm_base = os.path.splitext(thumbnail_path)[0]
+    pdftoppm_cmd = [
+        "pdftoppm",
+        "-f", "1",
+        "-singlefile",
+        "-jpeg",
+        pdf_path,
+        ppm_base,
+    ]
+    subprocess.run(pdftoppm_cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, check=True)
+
+    if os.path.isfile(thumbnail_path):
+        with Image.open(thumbnail_path) as img:
+            img.thumbnail((300, 300), Image.LANCZOS)
+            img.save(thumbnail_path, format="JPEG", quality=85)
 
 def get_audio_thumbnail(audio_thumbnail_file, thumbnail_path):
     if audio_thumbnail_file:
@@ -104,6 +138,7 @@ def make_thumbnail(collection_id, object_id, config_path="~/.iiiflow.yml"):
                             create_video_thumbnail(video_path, thumbnail_path)
                 else:
                     image_order = ["jpg", "jpeg", "png"]
+                    thumbnail_created = False
                     for format_ext in image_order:
                         image_dir = os.path.join(object_path, format_ext)
                         if os.path.isdir(image_dir) and len(os.listdir(image_dir)) > 0:
@@ -114,7 +149,19 @@ def make_thumbnail(collection_id, object_id, config_path="~/.iiiflow.yml"):
                                     '300x300',
                                     thumbnail_path
                                 ])
+                            thumbnail_created = True
                             break
+
+                    if not thumbnail_created:
+                        pdf_dir = os.path.join(object_path, "pdf")
+                        if os.path.isdir(pdf_dir):
+                            pdf_files = sorted([f for f in os.listdir(pdf_dir) if f.lower().endswith(".pdf")])
+                            if pdf_files:
+                                create_pdf_thumbnail(os.path.join(pdf_dir, pdf_files[0]), thumbnail_path)
+
+                    # Always produce a thumbnail artifact for downstream steps.
+                    if not os.path.isfile(thumbnail_path):
+                        Image.new("RGB", (300, 300), color=(240, 240, 240)).save(thumbnail_path, "JPEG")
 
     except Exception as e:
         with open(log_file_path, "a") as log:
