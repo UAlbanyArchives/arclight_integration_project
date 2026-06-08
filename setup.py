@@ -4,6 +4,7 @@ import setuptools
 requirements = [
     "PyYAML==6.0.2",
     "pypdf==3.14.0",
+    "warcio==1.7.4",
     "requests==2.32.3",
     "pycryptodome==3.15.0",
     "iiif-prezi3==2.0.1",
@@ -20,7 +21,7 @@ requirements = [
 
 setuptools.setup(
     name="iiiflow",
-    version="1.0.0",
+    version="1.1.0",
     author="Gregory Wiedeman",
     author_email="gwiedeman@albany.edu",
     description="An IIIF pipeline tool using the Digital Object Discovery Storage Specification.",

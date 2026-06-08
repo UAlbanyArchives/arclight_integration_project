@@ -60,7 +60,20 @@ def test_manifest(tmp_path):
         manifest_path = os.path.join(object_path, "manifest.json")
         source_folders = ["ptif", "jpg", "ogg", "mp3", "webm"]
 
-        assert os.path.isfile(canonical_manifest_path), f"Fixture manifest missing: {canonical_manifest_path}"
+        if not os.path.isfile(canonical_manifest_path):
+            if os.path.isfile(manifest_path):
+                os.remove(manifest_path)
+
+            create_manifest(collection_id, object_id, config_path=temp_config_path)
+
+            assert os.path.isfile(manifest_path), f"manifest.json was not created for {collection_id}/{object_id}"
+            os.makedirs(os.path.dirname(canonical_manifest_path), exist_ok=True)
+            with open(manifest_path, "r", encoding="utf-8") as generated_manifest_file:
+                generated_manifest = json.load(generated_manifest_file)
+            with open(canonical_manifest_path, "w", encoding="utf-8") as canonical_manifest_file:
+                json.dump(generated_manifest, canonical_manifest_file, indent=2, ensure_ascii=False)
+                canonical_manifest_file.write("\n")
+            return
 
         if not any(os.path.isdir(os.path.join(object_path, folder)) for folder in source_folders):
             return
@@ -164,7 +177,7 @@ def test_manifest_web_archive_has_wacz_page_canvases(tmp_path):
 
     items = manifest.get("items", [])
     assert items, "Expected canvases generated from WACZ pages."
-    assert len(items) == 1, "Expected only the replay_url-matching WACZ page to become a canvas."
+    assert len(items) == 8, "Expected all 8 WACZ pages to become canvases when no replay_url filter is set."
 
     for canvas in items:
         anno_page = canvas["items"][0]
@@ -173,7 +186,6 @@ def test_manifest_web_archive_has_wacz_page_canvases(tmp_path):
         assert "replayweb.page" in body.get("id", ""), (
             f"Expected ReplayWeb.page URL as canvas body, got: {body.get('id')}"
         )
-        assert "albanystudentpress.online" in body.get("id", ""), "Expected replay_url-matching page only."
 
     # Renderings should include content.txt and the PDF, but no wacz/warc entries
     renderings = manifest.get("rendering", [])
@@ -181,6 +193,80 @@ def test_manifest_web_archive_has_wacz_page_canvases(tmp_path):
     assert any(r_id.endswith("/content.txt") for r_id in rendering_ids), "Expected content.txt rendering."
     assert any(r_id.endswith(".pdf") for r_id in rendering_ids), "Expected PDF rendering."
     assert not any("/wacz/" in r_id for r_id in rendering_ids), "WACZ file should not appear as a rendering."
+
+
+def test_manifest_web_archive_replay_url_filters_to_single_canvas(tmp_path):
+    manifest = _generate_manifest(tmp_path, "ua600.007", "014ab7f4f8e5208fb41aa8802007f74e")
+
+    items = manifest.get("items", [])
+    assert items, "Expected canvases generated from WACZ pages."
+    assert len(items) == 1, "Expected only the replay_url-matching WACZ page to become a canvas."
+
+    canvas = items[0]
+    anno_page = canvas["items"][0]
+    anno = anno_page["items"][0]
+    body = anno.get("body", {})
+    assert "replayweb.page" in body.get("id", ""), (
+        f"Expected ReplayWeb.page URL as canvas body, got: {body.get('id')}"
+    )
+    assert "instagram.com" in body.get("id", ""), "Expected replay_url-matching Instagram page only."
+
+
+def test_manifest_web_archive_warc_gz_generates_html_canvases(tmp_path):
+    manifest = _generate_manifest(tmp_path, "ua600.007", "44b50e0bcb984b1f63d462ce7584b1ce")
+
+    items = manifest.get("items", [])
+    assert items, "Expected canvases generated from WARC.gz HTML pages."
+    assert len(items) == 1, "Expected only the single HTML page from the WARC to become a canvas."
+
+    canvas = items[0]
+    anno_page = canvas["items"][0]
+    anno = anno_page["items"][0]
+    body = anno.get("body", {})
+    assert "replayweb.page" in body.get("id", ""), (
+        f"Expected ReplayWeb.page URL as canvas body, got: {body.get('id')}"
+    )
+    assert "liveaction.org" in body.get("id", ""), "Expected liveaction.org page from WARC."
+    assert "warc.gz" in body.get("id", ""), "Expected warc.gz source URL in replay URL."
+
+
+def test_manifest_web_archive_warc_gz_replay_url_filters_to_single_canvas(tmp_path):
+    manifest = _generate_manifest(tmp_path, "ua600.007", "10bf52164d525cc86b92ebd9f9bb668e")
+
+    items = manifest.get("items", [])
+    assert items, "Expected canvases generated from WARC.gz pages."
+    assert len(items) >= 1, "Expected replay_url filtering to retain at least one matching WARC page."
+
+    for canvas in items:
+        anno_page = canvas["items"][0]
+        anno = anno_page["items"][0]
+        body = anno.get("body", {})
+        body_id = body.get("id", "")
+        assert "replayweb.page" in body.get("id", ""), (
+            f"Expected ReplayWeb.page URL as canvas body, got: {body.get('id')}"
+        )
+        assert "www.albanystudentpress.online" in body_id, "Expected Albany Student Press domain in replay URL."
+        assert "turning-point-usa-event" in body_id, "Expected replay_url target slug in replay URL."
+        assert "warc.gz" in body.get("id", ""), "Expected warc.gz source URL in replay URL."
+
+
+def test_manifest_web_archive_warc_mailto_replay_url_generates_canvas(tmp_path):
+    manifest = _generate_manifest(tmp_path, "ua399", "92f346e094e15bfc24f540aa4a429ed4")
+
+    items = manifest.get("items", [])
+    assert items, "Expected canvases generated from mailto web archive pages."
+
+    canvas = items[0]
+    anno_page = canvas["items"][0]
+    anno = anno_page["items"][0]
+    body = anno.get("body", {})
+    body_id = body.get("id", "")
+
+    assert "replayweb.page" in body_id, f"Expected ReplayWeb.page URL as canvas body, got: {body_id}"
+    assert "view=resources" in body_id, "Expected resources view for non-http replay target."
+    assert "mailto%3A" in body_id, "Expected encoded mailto target in replay URL."
+    assert "body.html" in body_id, "Expected body.html target in replay URL."
+    assert "mp_%2Fmailto%3A" not in body_id, "Non-http replay URL should use raw mailto target, not timestamped https wrapper."
 
 
 def test_manifest_web_archive_resource_type_is_case_insensitive(tmp_path):

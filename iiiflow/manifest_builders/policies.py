@@ -91,7 +91,13 @@ def resolve_resource_source(object_path, resource_type):
         return os.path.join(object_path, "webm"), "webm"
 
     if normalized_resource_type == "web archive":
-        return os.path.join(object_path, "wacz"), "wacz"
+        wacz_path = os.path.join(object_path, "wacz")
+        if os.path.isdir(wacz_path):
+            return wacz_path, "wacz"
+        warc_path = os.path.join(object_path, "warc.gz")
+        if os.path.isdir(warc_path):
+            return warc_path, "warc.gz"
+        return None, None
 
     ptif_path = os.path.join(object_path, "ptif")
     if os.path.isdir(ptif_path):

@@ -7,7 +7,7 @@ from .canvas import create_iiif_canvas
 from .renderings import append_manifest_renderings
 from .services import attach_search_service_if_configured
 from .policies import build_rights_and_attribution, build_required_statement
-from .wacz import create_wacz_canvases
+from .web_archive import create_web_archive_canvases
 
 
 def create_iiif_manifest(
@@ -42,7 +42,7 @@ def create_iiif_manifest(
     normalized_resource_type = (resource_type or "").strip().casefold()
 
     if normalized_resource_type == "web archive":
-        create_wacz_canvases(manifest, file_dir, obj_url_root, thumbnail_data, lang_code, metadata)
+        create_web_archive_canvases(manifest, file_dir, obj_url_root, thumbnail_data, lang_code, metadata)
     else:
         page_count = 0
         for resource_file in sorted(os.listdir(file_dir)):

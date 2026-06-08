@@ -81,4 +81,33 @@ def test_tesseract(tmp_path):
                 break
 
     iterate_collections_and_objects(temp_discovery_storage_root, test_action)
+
+
+def test_tesseract_web_archive_text_extraction(tmp_path):
+    temp_discovery_storage_root, temp_config_path = create_temp_fixture_config(tmp_path, config_path)
+
+    web_archive_objects = [
+        ("ua600.007", "d31b512cf15fb175cd50150637af7153"),
+        ("ua600.007", "10bf52164d525cc86b92ebd9f9bb668e"),
+    ]
+
+    for collection_id, object_id in web_archive_objects:
+        object_path = os.path.join(temp_discovery_storage_root, collection_id, object_id)
+        txt_path = os.path.join(object_path, "txt")
+        content_path = os.path.join(object_path, "content.txt")
+
+        if os.path.isdir(txt_path):
+            for filename in os.listdir(txt_path):
+                os.remove(os.path.join(txt_path, filename))
+        if os.path.isfile(content_path):
+            os.remove(content_path)
+
+        create_hocr(collection_id, object_id, config_path=temp_config_path)
+        
+        assert os.path.isdir(txt_path), f"Missing txt directory for {collection_id}/{object_id}"
+        generated_txt_files = [f for f in os.listdir(txt_path) if f.lower().endswith(".txt")]
+        assert generated_txt_files, f"No per-page txt files generated for {collection_id}/{object_id}"
+
+        assert os.path.isfile(content_path), f"Missing content.txt for {collection_id}/{object_id}"
+        assert os.path.getsize(content_path) > 0, f"content.txt is empty for {collection_id}/{object_id}"
     

@@ -1,0 +1,143 @@
+{
+  "@context": "http://iiif.io/api/presentation/3/context.json",
+  "provider": [
+    {
+      "id": "https://media.archives.albany.edu",
+      "type": "Agent",
+      "label": {
+        "en": [
+          "M.E. Grenander Department of Special Collections & Archives, University at Albany, SUNY"
+        ]
+      },
+      "logo": [
+        {
+          "id": "https://media.archives.albany.edu/logo.png",
+          "type": "Image",
+          "format": "image/png"
+        }
+      ]
+    }
+  ],
+  "id": "https://media.archives.albany.edu/ua600.007/10bf52164d525cc86b92ebd9f9bb668e/manifest.json",
+  "type": "Manifest",
+  "label": {
+    "en": [
+      "Web Archive"
+    ]
+  },
+  "metadata": [
+    {
+      "label": {
+        "en": [
+          "resource_type"
+        ]
+      },
+      "value": {
+        "en": [
+          "Web Archive"
+        ]
+      }
+    },
+    {
+      "label": {
+        "en": [
+          "preservation_package"
+        ]
+      },
+      "value": {
+        "en": [
+          "ua600.007_CSg9EN638P7QTbRTqMtfEt"
+        ]
+      }
+    },
+    {
+      "label": {
+        "en": [
+          "date_uploaded"
+        ]
+      },
+      "value": {
+        "en": [
+          "2025-10-24T05:15:28.159098-04:00"
+        ]
+      }
+    }
+  ],
+  "requiredStatement": {
+    "label": {
+      "en": [
+        "Attribution"
+      ]
+    },
+    "value": {
+      "en": [
+        "<span>M.E. Grenander Department of Special Collections and Archives, University Libraries, University at Albany, State University of New York <br/> <a href=\"https://rightsstatements.org/vocab/InC-EDU/1.0/\" title=\"In Copyright - Educational Use Permitted\"><img src=\"https://rightsstatements.org/files/buttons/InC-EDU.dark.svg\"/></a></span>"
+      ]
+    }
+  },
+  "rendering": [
+    {
+      "id": "https://media.archives.albany.edu/ua600.007/10bf52164d525cc86b92ebd9f9bb668e/content.txt",
+      "type": "Text",
+      "label": {
+        "en": [
+          "Automated Text transcription"
+        ]
+      },
+      "format": "text/plain"
+    },
+    {
+      "id": "https://media.archives.albany.edu/ua600.007/10bf52164d525cc86b92ebd9f9bb668e/pdf/Archive%20of%20UAlbany%20Students%20Protest%20During%20On-Campus%20Turning%20Point%20USA%20Event.pdf",
+      "type": "Text",
+      "label": {
+        "en": [
+          "Archive of UAlbany Students Protest During On-Campus Turning Point USA Event.pdf"
+        ]
+      },
+      "format": "application/pdf"
+    }
+  ],
+  "rights": "https://rightsstatements.org/vocab/InC-EDU/1.0/",
+  "behavior": [
+    "individuals"
+  ],
+  "items": [
+    {
+      "id": "https://media.archives.albany.edu/ua600.007/10bf52164d525cc86b92ebd9f9bb668e/canvas/p1",
+      "type": "Canvas",
+      "label": {
+        "en": [
+          "UAlbany Students Protest During On-Campus Turning Point USA Event"
+        ]
+      },
+      "thumbnail": [
+        {
+          "id": "https://media.archives.albany.edu/ua600.007/10bf52164d525cc86b92ebd9f9bb668e/thumbnail.jpg",
+          "type": "Image",
+          "height": 971,
+          "width": 1920,
+          "format": "image/jpeg"
+        }
+      ],
+      "items": [
+        {
+          "id": "https://media.archives.albany.edu/ua600.007/10bf52164d525cc86b92ebd9f9bb668e/canvas/p1/page",
+          "type": "AnnotationPage",
+          "items": [
+            {
+              "id": "https://media.archives.albany.edu/ua600.007/10bf52164d525cc86b92ebd9f9bb668e/canvas/p1/page/annotation",
+              "type": "Annotation",
+              "motivation": "painting",
+              "body": {
+                "id": "https://replayweb.page/?source=https%3A%2F%2Fmedia.archives.albany.edu%2Fua600.007%2F10bf52164d525cc86b92ebd9f9bb668e%2Fwacz%2Fapril_2023_protests.wacz#view=replay&url=https%3A%2F%2Fwww.albanystudentpress.online%2Fpost%2Fualbany-students-protest-during-on-campus-turning-point-usa-event&ts=20250127161834",
+                "type": "Text",
+                "format": "text/html"
+              },
+              "target": "https://media.archives.albany.edu/ua600.007/10bf52164d525cc86b92ebd9f9bb668e/canvas/p1"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

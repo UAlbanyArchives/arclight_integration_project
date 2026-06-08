@@ -1,0 +1,119 @@
+{
+  "@context": "http://iiif.io/api/presentation/3/context.json",
+  "provider": [
+    {
+      "id": "https://media.archives.albany.edu",
+      "type": "Agent",
+      "label": {
+        "en": [
+          "M.E. Grenander Department of Special Collections & Archives, University at Albany, SUNY"
+        ]
+      },
+      "logo": [
+        {
+          "id": "https://media.archives.albany.edu/logo.png",
+          "type": "Image",
+          "format": "image/png"
+        }
+      ]
+    }
+  ],
+  "id": "https://media.archives.albany.edu/ua399/92f346e094e15bfc24f540aa4a429ed4/manifest.json",
+  "type": "Manifest",
+  "label": {
+    "en": [
+      "Web Archive"
+    ]
+  },
+  "metadata": [
+    {
+      "label": {
+        "en": [
+          "resource_type"
+        ]
+      },
+      "value": {
+        "en": [
+          "Web Archive"
+        ]
+      }
+    },
+    {
+      "label": {
+        "en": [
+          "date_uploaded"
+        ]
+      },
+      "value": {
+        "en": [
+          "2026-06-08T05:00:28.159098-04:00"
+        ]
+      }
+    }
+  ],
+  "requiredStatement": {
+    "label": {
+      "en": [
+        "Attribution"
+      ]
+    },
+    "value": {
+      "en": [
+        "<span>M.E. Grenander Department of Special Collections and Archives, University Libraries, University at Albany, State University of New York <br/> <a href=\"https://rightsstatements.org/vocab/InC-EDU/1.0/\" title=\"In Copyright - Educational Use Permitted\"><img src=\"https://rightsstatements.org/files/buttons/InC-EDU.dark.svg\"/></a></span>"
+      ]
+    }
+  },
+  "rendering": [
+    {
+      "id": "https://media.archives.albany.edu/ua399/92f346e094e15bfc24f540aa4a429ed4/pdf/2408.pdf",
+      "type": "Text",
+      "label": {
+        "en": [
+          "2408.pdf"
+        ]
+      },
+      "format": "application/pdf"
+    }
+  ],
+  "rights": "https://rightsstatements.org/vocab/InC-EDU/1.0/",
+  "behavior": [
+    "individuals"
+  ],
+  "items": [
+    {
+      "id": "https://media.archives.albany.edu/ua399/92f346e094e15bfc24f540aa4a429ed4/canvas/p1",
+      "type": "Canvas",
+      "label": {
+        "en": [
+          "mailto:BN3PR04MB2292F1F18B8572557DD65AD8D79A0@BN3PR04MB2292.namprd04.prod.outlook.com/body.html"
+        ]
+      },
+      "thumbnail": [
+        {
+          "id": "https://media.archives.albany.edu/ua399/92f346e094e15bfc24f540aa4a429ed4/thumbnail.jpg",
+          "type": "Image",
+          "format": "image/jpeg"
+        }
+      ],
+      "items": [
+        {
+          "id": "https://media.archives.albany.edu/ua399/92f346e094e15bfc24f540aa4a429ed4/canvas/p1/page",
+          "type": "AnnotationPage",
+          "items": [
+            {
+              "id": "https://media.archives.albany.edu/ua399/92f346e094e15bfc24f540aa4a429ed4/canvas/p1/page/annotation",
+              "type": "Annotation",
+              "motivation": "painting",
+              "body": {
+                "id": "https://replayweb.page/?source=https%3A%2F%2Fmedia.archives.albany.edu%2Fua399%2F92f346e094e15bfc24f540aa4a429ed4%2Fwarc.gz%2F2408.warc.gz#view=resources&urlSearchType=prefix&url=mailto%3ABN3PR04MB2292F1F18B8572557DD65AD8D79A0%40BN3PR04MB2292.namprd04.prod.outlook.com%2Fbody.html&ts=20240409174824",
+                "type": "Text",
+                "format": "text/html"
+              },
+              "target": "https://media.archives.albany.edu/ua399/92f346e094e15bfc24f540aa4a429ed4/canvas/p1"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

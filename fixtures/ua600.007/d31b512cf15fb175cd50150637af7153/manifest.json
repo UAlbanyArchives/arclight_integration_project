@@ -107,7 +107,7 @@
       "type": "Canvas",
       "label": {
         "en": [
-          "On-Campus Anti-Abortion Demonstration Stirs Controversy"
+          "SUNY Albany protesters destroy Bible at free speech event: 'The tolerant left, ladies and gentlemen' | Fox News"
         ]
       },
       "thumbnail": [
@@ -129,11 +129,207 @@
               "type": "Annotation",
               "motivation": "painting",
               "body": {
-                "id": "https://replayweb.page/?source=https%3A%2F%2Fmedia.archives.albany.edu%2Fua600.007%2Fd31b512cf15fb175cd50150637af7153%2Fwacz%2Fapril_2023_protests.wacz#view=replay&url=https%3A%2F%2Fwww.albanystudentpress.online%2Fpost%2Fon-campus-anti-abortion-demonstration-stirs-controversy&ts=20250127162050",
+                "id": "https://replayweb.page/?source=https%3A%2F%2Fmedia.archives.albany.edu%2Fua600.007%2Fd31b512cf15fb175cd50150637af7153%2Fwacz%2Fapril_2023_protests.wacz#view=replay&url=https%3A%2F%2Fwww.foxnews.com%2Fmedia%2Fsuny-albany-protesters-destroy-bible-free-speech-event-tolerant-left-ladies-gentlemen&ts=20250127160337",
                 "type": "Text",
                 "format": "text/html"
               },
               "target": "https://media.archives.albany.edu/ua600.007/d31b512cf15fb175cd50150637af7153/canvas/p1"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "https://media.archives.albany.edu/ua600.007/d31b512cf15fb175cd50150637af7153/canvas/p2",
+      "type": "Canvas",
+      "label": {
+        "en": [
+          "Pro-Abortion Professor Screeches, Resists Arrest After Allegedly Trying To Knock Down Pro-Life Display | The Daily Caller"
+        ]
+      },
+      "items": [
+        {
+          "id": "https://media.archives.albany.edu/ua600.007/d31b512cf15fb175cd50150637af7153/canvas/p2/page",
+          "type": "AnnotationPage",
+          "items": [
+            {
+              "id": "https://media.archives.albany.edu/ua600.007/d31b512cf15fb175cd50150637af7153/canvas/p2/page/annotation",
+              "type": "Annotation",
+              "motivation": "painting",
+              "body": {
+                "id": "https://replayweb.page/?source=https%3A%2F%2Fmedia.archives.albany.edu%2Fua600.007%2Fd31b512cf15fb175cd50150637af7153%2Fwacz%2Fapril_2023_protests.wacz#view=replay&url=https%3A%2F%2Fdailycaller.com%2F2023%2F04%2F21%2Fpro-abortion-professor-university-albany-arrest-knock-down-life-display%2F&ts=20250127161025",
+                "type": "Text",
+                "format": "text/html"
+              },
+              "target": "https://media.archives.albany.edu/ua600.007/d31b512cf15fb175cd50150637af7153/canvas/p2"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "https://media.archives.albany.edu/ua600.007/d31b512cf15fb175cd50150637af7153/canvas/p3",
+      "type": "Canvas",
+      "label": {
+        "en": [
+          "X"
+        ]
+      },
+      "items": [
+        {
+          "id": "https://media.archives.albany.edu/ua600.007/d31b512cf15fb175cd50150637af7153/canvas/p3/page",
+          "type": "AnnotationPage",
+          "items": [
+            {
+              "id": "https://media.archives.albany.edu/ua600.007/d31b512cf15fb175cd50150637af7153/canvas/p3/page/annotation",
+              "type": "Annotation",
+              "motivation": "painting",
+              "body": {
+                "id": "https://replayweb.page/?source=https%3A%2F%2Fmedia.archives.albany.edu%2Fua600.007%2Fd31b512cf15fb175cd50150637af7153%2Fwacz%2Fapril_2023_protests.wacz#view=replay&url=https%3A%2F%2Ftwitter.com%2Fighaworth%2Fstatus%2F1643615616501178369%3Fs%3D43%26t%3DfFi_eYW1eEN2Ubj4szhO6g&ts=20250127161216",
+                "type": "Text",
+                "format": "text/html"
+              },
+              "target": "https://media.archives.albany.edu/ua600.007/d31b512cf15fb175cd50150637af7153/canvas/p3"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "https://media.archives.albany.edu/ua600.007/d31b512cf15fb175cd50150637af7153/canvas/p4",
+      "type": "Canvas",
+      "label": {
+        "en": [
+          "Police Arrest Shrieking Professor Accused of Disrupting Pro-Life Event"
+        ]
+      },
+      "items": [
+        {
+          "id": "https://media.archives.albany.edu/ua600.007/d31b512cf15fb175cd50150637af7153/canvas/p4/page",
+          "type": "AnnotationPage",
+          "items": [
+            {
+              "id": "https://media.archives.albany.edu/ua600.007/d31b512cf15fb175cd50150637af7153/canvas/p4/page/annotation",
+              "type": "Annotation",
+              "motivation": "painting",
+              "body": {
+                "id": "https://replayweb.page/?source=https%3A%2F%2Fmedia.archives.albany.edu%2Fua600.007%2Fd31b512cf15fb175cd50150637af7153%2Fwacz%2Fapril_2023_protests.wacz#view=replay&url=https%3A%2F%2Fwww.breitbart.com%2Fpolitics%2F2023%2F04%2F21%2Fpolice-arrest-shrieking-left-wing-professor-accused-disrupting-pro-life-event%2F&ts=20250127161240",
+                "type": "Text",
+                "format": "text/html"
+              },
+              "target": "https://media.archives.albany.edu/ua600.007/d31b512cf15fb175cd50150637af7153/canvas/p4"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "https://media.archives.albany.edu/ua600.007/d31b512cf15fb175cd50150637af7153/canvas/p5",
+      "type": "Canvas",
+      "label": {
+        "en": [
+          "Professor arrested for allegedly disrupting pro-life event at University at Albany"
+        ]
+      },
+      "items": [
+        {
+          "id": "https://media.archives.albany.edu/ua600.007/d31b512cf15fb175cd50150637af7153/canvas/p5/page",
+          "type": "AnnotationPage",
+          "items": [
+            {
+              "id": "https://media.archives.albany.edu/ua600.007/d31b512cf15fb175cd50150637af7153/canvas/p5/page/annotation",
+              "type": "Annotation",
+              "motivation": "painting",
+              "body": {
+                "id": "https://replayweb.page/?source=https%3A%2F%2Fmedia.archives.albany.edu%2Fua600.007%2Fd31b512cf15fb175cd50150637af7153%2Fwacz%2Fapril_2023_protests.wacz#view=replay&url=https%3A%2F%2Fwww.liveaction.org%2Fnews%2Fprofessor-arrested-pro-life-albany%2F&ts=20250127161304",
+                "type": "Text",
+                "format": "text/html"
+              },
+              "target": "https://media.archives.albany.edu/ua600.007/d31b512cf15fb175cd50150637af7153/canvas/p5"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "https://media.archives.albany.edu/ua600.007/d31b512cf15fb175cd50150637af7153/canvas/p6",
+      "type": "Canvas",
+      "label": {
+        "en": [
+          "Sociology adjunct screeches while being arrested for unplugging pro-life display | The College Fix"
+        ]
+      },
+      "items": [
+        {
+          "id": "https://media.archives.albany.edu/ua600.007/d31b512cf15fb175cd50150637af7153/canvas/p6/page",
+          "type": "AnnotationPage",
+          "items": [
+            {
+              "id": "https://media.archives.albany.edu/ua600.007/d31b512cf15fb175cd50150637af7153/canvas/p6/page/annotation",
+              "type": "Annotation",
+              "motivation": "painting",
+              "body": {
+                "id": "https://replayweb.page/?source=https%3A%2F%2Fmedia.archives.albany.edu%2Fua600.007%2Fd31b512cf15fb175cd50150637af7153%2Fwacz%2Fapril_2023_protests.wacz#view=replay&url=https%3A%2F%2Fwww.thecollegefix.com%2Fsociology-adjunct-screeches-while-being-arrested-for-unplugging-pro-life-display%2F&ts=20250127161410",
+                "type": "Text",
+                "format": "text/html"
+              },
+              "target": "https://media.archives.albany.edu/ua600.007/d31b512cf15fb175cd50150637af7153/canvas/p6"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "https://media.archives.albany.edu/ua600.007/d31b512cf15fb175cd50150637af7153/canvas/p7",
+      "type": "Canvas",
+      "label": {
+        "en": [
+          "UAlbany Students Protest During On-Campus Turning Point USA Event"
+        ]
+      },
+      "items": [
+        {
+          "id": "https://media.archives.albany.edu/ua600.007/d31b512cf15fb175cd50150637af7153/canvas/p7/page",
+          "type": "AnnotationPage",
+          "items": [
+            {
+              "id": "https://media.archives.albany.edu/ua600.007/d31b512cf15fb175cd50150637af7153/canvas/p7/page/annotation",
+              "type": "Annotation",
+              "motivation": "painting",
+              "body": {
+                "id": "https://replayweb.page/?source=https%3A%2F%2Fmedia.archives.albany.edu%2Fua600.007%2Fd31b512cf15fb175cd50150637af7153%2Fwacz%2Fapril_2023_protests.wacz#view=replay&url=https%3A%2F%2Fwww.albanystudentpress.online%2Fpost%2Fualbany-students-protest-during-on-campus-turning-point-usa-event&ts=20250127161834",
+                "type": "Text",
+                "format": "text/html"
+              },
+              "target": "https://media.archives.albany.edu/ua600.007/d31b512cf15fb175cd50150637af7153/canvas/p7"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "https://media.archives.albany.edu/ua600.007/d31b512cf15fb175cd50150637af7153/canvas/p8",
+      "type": "Canvas",
+      "label": {
+        "en": [
+          "On-Campus Anti-Abortion Demonstration Stirs Controversy"
+        ]
+      },
+      "items": [
+        {
+          "id": "https://media.archives.albany.edu/ua600.007/d31b512cf15fb175cd50150637af7153/canvas/p8/page",
+          "type": "AnnotationPage",
+          "items": [
+            {
+              "id": "https://media.archives.albany.edu/ua600.007/d31b512cf15fb175cd50150637af7153/canvas/p8/page/annotation",
+              "type": "Annotation",
+              "motivation": "painting",
+              "body": {
+                "id": "https://replayweb.page/?source=https%3A%2F%2Fmedia.archives.albany.edu%2Fua600.007%2Fd31b512cf15fb175cd50150637af7153%2Fwacz%2Fapril_2023_protests.wacz#view=replay&url=https%3A%2F%2Fwww.albanystudentpress.online%2Fpost%2Fon-campus-anti-abortion-demonstration-stirs-controversy&ts=20250127162050",
+                "type": "Text",
+                "format": "text/html"
+              },
+              "target": "https://media.archives.albany.edu/ua600.007/d31b512cf15fb175cd50150637af7153/canvas/p8"
             }
           ]
         }
