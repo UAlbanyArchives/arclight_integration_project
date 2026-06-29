@@ -21,7 +21,7 @@ requirements = [
 
 setuptools.setup(
     name="iiiflow",
-    version="1.1.0",
+    version="1.1.1",
     author="Gregory Wiedeman",
     author_email="gwiedeman@albany.edu",
     description="An IIIF pipeline tool using the Digital Object Discovery Storage Specification.",

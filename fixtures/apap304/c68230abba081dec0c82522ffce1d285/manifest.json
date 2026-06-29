@@ -1,0 +1,181 @@
+{
+  "@context": "http://iiif.io/api/presentation/3/context.json",
+  "provider": [
+    {
+      "id": "https://media.archives.albany.edu",
+      "type": "Agent",
+      "label": {
+        "en": [
+          "M.E. Grenander Department of Special Collections & Archives, University at Albany, SUNY"
+        ]
+      },
+      "logo": [
+        {
+          "id": "https://media.archives.albany.edu/logo.png",
+          "type": "Image",
+          "format": "image/png"
+        }
+      ]
+    }
+  ],
+  "id": "https://media.archives.albany.edu/apap304/c68230abba081dec0c82522ffce1d285/manifest.json",
+  "type": "Manifest",
+  "label": {
+    "en": [
+      "Subject Files/2021-03-29 VADP Interview on Monday Morning QB - WPFW Radio in DC.mp3"
+    ]
+  },
+  "metadata": [
+    {
+      "label": {
+        "en": [
+          "resource_type"
+        ]
+      },
+      "value": {
+        "en": [
+          "Video"
+        ]
+      }
+    },
+    {
+      "label": {
+        "en": [
+          "preservation_package"
+        ]
+      },
+      "value": {
+        "en": [
+          "apap304_bbAJu5vrmAyFzcrXTZkT5S"
+        ]
+      }
+    },
+    {
+      "label": {
+        "en": [
+          "date_uploaded"
+        ]
+      },
+      "value": {
+        "en": [
+          "2025-12-29T22:34:52.446157+00:00"
+        ]
+      }
+    }
+  ],
+  "requiredStatement": {
+    "label": {
+      "en": [
+        "Attribution"
+      ]
+    },
+    "value": {
+      "en": [
+        "<span>M.E. Grenander Department of Special Collections and Archives, University Libraries, University at Albany, State University of New York <br/> <a href=\"https://creativecommons.org/licenses/by-nc-sa/4.0/\" title=\"CC BY-NC-SA 4.0\"><img src=\"https://licensebuttons.net/l/by-nc-sa/4.0/88x31.png\"/></a></span>"
+      ]
+    }
+  },
+  "rendering": [
+    {
+      "id": "https://media.archives.albany.edu/apap304/c68230abba081dec0c82522ffce1d285/content.txt",
+      "type": "Text",
+      "label": {
+        "en": [
+          "Automated Text transcription"
+        ]
+      },
+      "format": "text/plain"
+    },
+    {
+      "id": "https://media.archives.albany.edu/apap304/c68230abba081dec0c82522ffce1d285/mp3/2021-03-29%20VADP%20Interview%20on%20Monday%20Morning%20QB%20-%20WPFW%20Radio%20in%20DC.mp3",
+      "type": "Text",
+      "label": {
+        "en": [
+          "2021-03-29 VADP Interview on Monday Morning QB - WPFW Radio in DC.mp3"
+        ]
+      },
+      "format": "audio/mpeg"
+    }
+  ],
+  "rights": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+  "behavior": [
+    "individuals"
+  ],
+  "items": [
+    {
+      "id": "https://media.archives.albany.edu/apap304/c68230abba081dec0c82522ffce1d285/canvas/p1",
+      "type": "Canvas",
+      "label": {
+        "en": [
+          "2021-03-29 VADP Interview on Monday Morning QB - WPFW Radio in DC.ogg"
+        ]
+      },
+      "duration": 3607.797551,
+      "thumbnail": [
+        {
+          "id": "https://media.archives.albany.edu/apap304/c68230abba081dec0c82522ffce1d285/thumbnail.jpg",
+          "type": "Image",
+          "format": "image/jpeg"
+        }
+      ],
+      "items": [
+        {
+          "id": "https://media.archives.albany.edu/apap304/c68230abba081dec0c82522ffce1d285/canvas/page/p11",
+          "type": "AnnotationPage",
+          "items": [
+            {
+              "id": "https://media.archives.albany.edu/apap304/c68230abba081dec0c82522ffce1d285/canvas/1/page/annotation",
+              "type": "Annotation",
+              "motivation": "painting",
+              "body": {
+                "id": "https://media.archives.albany.edu/apap304/c68230abba081dec0c82522ffce1d285/ogg/2021-03-29%20VADP%20Interview%20on%20Monday%20Morning%20QB%20-%20WPFW%20Radio%20in%20DC.ogg",
+                "type": "Sound",
+                "duration": 3607.797551,
+                "format": "audio/ogg"
+              },
+              "target": "https://media.archives.albany.edu/apap304/c68230abba081dec0c82522ffce1d285/canvas/p1"
+            },
+            {
+              "id": "https://media.archives.albany.edu/apap304/c68230abba081dec0c82522ffce1d285/canvas/1/page/annotation/mp3",
+              "type": "Annotation",
+              "motivation": "painting",
+              "body": {
+                "id": "https://media.archives.albany.edu/apap304/c68230abba081dec0c82522ffce1d285/mp3/2021-03-29%20VADP%20Interview%20on%20Monday%20Morning%20QB%20-%20WPFW%20Radio%20in%20DC.mp3",
+                "type": "Sound",
+                "duration": 3607.797551,
+                "format": "audio/mpeg"
+              },
+              "target": "https://media.archives.albany.edu/canvas/p1"
+            }
+          ]
+        }
+      ],
+      "annotations": [
+        {
+          "id": "https://media.archives.albany.edu/apap304/c68230abba081dec0c82522ffce1d285/canvas/1/supplementing",
+          "type": "AnnotationPage",
+          "items": [
+            {
+              "id": "https://media.archives.albany.edu/apap304/c68230abba081dec0c82522ffce1d285/canvas/1/annotation",
+              "type": "Annotation",
+              "motivation": "supplementing",
+              "body": [
+                {
+                  "id": "https://media.archives.albany.edu/apap304/c68230abba081dec0c82522ffce1d285/vtt/2021-03-29 VADP Interview on Monday Morning QB - WPFW Radio in DC.vtt",
+                  "type": "Text",
+                  "format": "text/vtt",
+                  "label": {
+                    "en": [
+                      "WebVTT (captions)"
+                    ]
+                  }
+                }
+              ],
+              "target": "https://media.archives.albany.edu/apap304/c68230abba081dec0c82522ffce1d285/canvas/p1"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

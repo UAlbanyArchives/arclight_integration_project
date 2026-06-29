@@ -55,6 +55,15 @@ def test_resolve_resource_source_prefers_ogg_for_audio_fixture(tmp_path):
     assert files_path.endswith(os.path.join("56b3ab1c00ac03862ef0f47650905013", "ogg"))
 
 
+def test_resolve_resource_source_falls_back_to_audio_for_video_fixture_without_webm(tmp_path):
+    object_path, metadata, _ = _prepare_fixture(tmp_path, "apap304", "c68230abba081dec0c82522ffce1d285")
+
+    files_path, resource_format = resolve_resource_source(object_path, metadata["resource_type"])
+
+    assert resource_format in {"ogg", "mp3"}
+    assert files_path.endswith(os.path.join("c68230abba081dec0c82522ffce1d285", resource_format))
+
+
 def test_thumbnail_data_reads_real_fixture_dimensions(tmp_path):
     object_path, metadata, _ = _prepare_fixture(tmp_path, "ua200", "fd198d1a2ebfdddad630c9698a38df29")
 

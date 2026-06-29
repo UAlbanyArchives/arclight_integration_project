@@ -88,7 +88,19 @@ def resolve_resource_source(object_path, resource_type):
         return None, None
 
     if normalized_resource_type == "video":
-        return os.path.join(object_path, "webm"), "webm"
+        # Prefer video derivatives, but gracefully fall back to audio-only derivatives.
+        video_formats = ["webm", "mp4", "mov", "mpeg", "avi"]
+        for fmt in video_formats:
+            candidate_path = os.path.join(object_path, fmt)
+            if os.path.isdir(candidate_path) and len(os.listdir(candidate_path)) > 0:
+                return candidate_path, fmt
+
+        for fmt in ["ogg", "mp3"]:
+            candidate_path = os.path.join(object_path, fmt)
+            if os.path.isdir(candidate_path) and len(os.listdir(candidate_path)) > 0:
+                return candidate_path, fmt
+
+        return None, None
 
     if normalized_resource_type == "web archive":
         wacz_path = os.path.join(object_path, "wacz")

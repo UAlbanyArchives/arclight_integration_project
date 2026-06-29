@@ -47,6 +47,11 @@ def create_manifest(collection_id, object_id, config_path="~/.iiiflow.yml"):
 
     resource_type = metadata["resource_type"]
     files_path, resource_format = resolve_resource_source(object_path, resource_type)
+    normalized_resource_type = (resource_type or "").strip().casefold()
+    effective_resource_type = resource_type
+
+    if normalized_resource_type == "video" and resource_format in {"ogg", "mp3"}:
+        effective_resource_type = "Audio"
 
     if files_path and os.path.isdir(files_path):
         print(f"{collection_id}/{object_id}")
@@ -66,7 +71,7 @@ def create_manifest(collection_id, object_id, config_path="~/.iiiflow.yml"):
             manifest_label,
             metadata,
             thumb_data,
-            resource_type,
+            effective_resource_type,
             lang_code,
             config_path,
         )
