@@ -19,6 +19,11 @@ def _is_supported_page_url(url):
 def _read_warc_pages(warc_path):
     """Extract HTML pages from a WARC or WARC.gz file, mimicking py-wacz --detect-pages logic."""
     from warcio.archiveiterator import ArchiveIterator
+    from warcio.statusandheaders import StatusAndHeadersParser
+
+    # warcio only auto-parses HTTP headers for http(s) target URIs, so mailto: (email) captures
+    # need their embedded "HTTP/1.x ..." status line and headers parsed manually.
+    http_status_parser = StatusAndHeadersParser(["HTTP/1.0", "HTTP/1.1"])
 
     pages = []
     # warcio handles both plain and gzip-compressed WARCs automatically from a raw binary stream
@@ -29,14 +34,19 @@ def _read_warc_pages(warc_path):
             url = record.rec_headers.get_header("WARC-Target-URI")
             if not _is_supported_page_url(url):
                 continue
-            # Skip non-2xx responses
-            if record.http_headers:
-                status = record.http_headers.get_statuscode()
-                if not status.startswith("2"):
+
+            http_headers = record.http_headers
+            if http_headers is None:
+                try:
+                    http_headers = http_status_parser.parse(record.content_stream())
+                except Exception:
+                    http_headers = None
+
+            if http_headers:
+                status = http_headers.get_statuscode()
+                if status and not status.startswith("2"):
                     continue
-            # Only HTML content types
-            if record.http_headers:
-                content_type = record.http_headers.get_header("Content-Type") or ""
+                content_type = http_headers.get_header("Content-Type") or ""
             else:
                 content_type = record.rec_headers.get_header("Content-Type") or ""
             mime = content_type.split(";")[0].strip()
