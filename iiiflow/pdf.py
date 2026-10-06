@@ -4,7 +4,7 @@ import shutil
 import traceback
 from PIL import Image
 from PIL import ImageOps
-from pypdf import PdfMerger
+from pypdf import PdfWriter
 from subprocess import Popen, PIPE
 from .utils import check_no_image_type
 from .utils import validate_config_and_paths
@@ -145,14 +145,15 @@ def create_pdf(collection_id, object_id, config_path="~/.iiiflow.yml"):
 
     # Merge all the individual PDFs into one
     final_pdf_path = os.path.join(pdf_path, "binder.pdf")
-    pdf_merger = PdfMerger()
+    pdf_writer = PdfWriter()
 
     for pdf in pdf_files_to_merge:
-        pdf_merger.append(pdf)
+        pdf_writer.append(pdf)
 
     # Write the final combined PDF
-    pdf_merger.write(final_pdf_path)
-    pdf_merger.close()
+    with open(final_pdf_path, "wb") as output_file:
+        pdf_writer.write(output_file)  
+    pdf_writer.close()
 
     # Cleanup: Remove individual PDFs
     print("Cleaning up temporary files...")
