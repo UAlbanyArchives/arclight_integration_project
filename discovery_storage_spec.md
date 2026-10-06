@@ -1,5 +1,5 @@
 # Digital Object Discovery Storage Specification (0.2)
-This is a display version of the specification, which is managed and versioned with markdown in a [Github repository](https://github.com/UAlbanyArchives/arclight_intergration_project).
+This is a display version of the specification, which is managed and versioned with markdown in a [GitHub repository](https://github.com/UAlbanyArchives/arclight_integration_project).
 
 ## Contributors
 * Gregory Wiedeman
@@ -33,9 +33,9 @@ The following terms have precise definitions as used in this document:
 
 **SPE_DAO:** This is the storage location defined in this specification. It is a shortened name for Digital Object Discovery Storage based on abbrevations for Special Collections Digital Archival Objects which is a term from [EAD](https://www.loc.gov/ead/tglib1998/tlin044.html). 
 
-**archival component:** A unit of archival description, governed by [Describing Archives: A Content Standard](https://saa-ts-dacs.github.io/dacs/06_part_I/02_chapter_01.html) (TS-DACS). In common parlance, this could be an archival collection, series, subseries, file, or item. ArchivesSpace is the system of record for archival components. Each archival component may be described as a Resource or Archival Object in ArchivesSpace. Each archival component is a node in a hierarchical graph structure and may describe any meaningful aggregate of physical or digital objects. An archival component may have no linked digital objects or many linked digital objects.
+**archival component:** A unit of archival description, governed by [Describing Archives: A Content Standard](https://saa-ts-dacs.github.io/dacs/06_part_I/02_chapter_01.html) (TS-DACS). In common parlance, this could be an archival collection, series, subseries, file, or item. ArchivesSpace is the system of record for archival components. Each archival component may be described as a Resource or Archival Object in ArchivesSpace. Each archival component is a node in a hierarchical graph structure and may describe any meaningful aggregate of physical or digital objects. An archival component MAY only have at most one linked digital object.
 
-**archival collection:** The top level "collection" containing many described or undescribed archival components. An archival collection is also an archival component and may have linked digital objects. Each archival collection MUST have a resource record in ArchivesSpace and a [collection identifier](#2-collection-identifiers) as described below.
+**archival collection:** The top level "collection" containing many described or undescribed archival components. An archival collection is also an archival component and MAY have at most one linked digital object. Each archival collection MUST have a resource record in ArchivesSpace and a [collection identifier](#2-collection-identifiers) as described below.
 
 **digital object:** A meaningful package or aggregate of digital content with accompanying metadata. Digital objects are a useful abstraction and can contain one or more works with or without a significant and meaningful structure or relationshipas between works. This could be a single JPG, a book or other object containing multiple files in a simple structure, or the contents of an entire hard drive with a complex hierarchical structure and works in many types of file formats. A single digital object MUST link to a single archival component.
 
@@ -51,7 +51,7 @@ The following terms have precise definitions as used in this document:
 
 Each archival collection managed by UAlbany Libraries MUST have a collection identifier that is unique within Special Collections & Archives.
 
-Each collection identifier must start with a two to four character prefix from this set: "apap", "ger", "mss", or "ua".
+Each collection identifier MUST start with a two to four character prefix from this set: "apap", "ger", "mss", or "ua".
 * Prefixes MUST be lower case.
 * This prefix denoting the relevant collecting area. Collections within the Modern Political Archive, as well as the National Death Penalty Archive use the legacy "apap" code.
 
@@ -84,17 +84,17 @@ All digital object identifiers MUST be the same as the associated archival compo
 	* ff9e51e1a961607c55094ad148fed550
 
 
-All digital object identifiers MUST be valid directory names in both Unix-based and Windows operating systems. Thus, they cannot contain characters such as `< > : " / \ | ? *` and are RECOMMENDED to be 36 characters or less.
+All digital object identifiers MUST be valid directory names in both Unix-based and Windows operating systems. Identifiers MUST consist only of ASCII letters, digits, periods, underscores, and hyphens; MUST NOT begin or end with a period; and MUST NOT end with a space. They MUST NOT match Windows reserved device names, including those followed by an extension (for example, `CON`, `NUL`, `COM1`, or `LPT1`), without regard to case. Identifiers MUST be unique within their collection when compared without regard to case. Identifiers are RECOMMENDED to be 36 characters or less.
 
 Prior to SPE_DAO, digital objects used NOID identifiers from [noid-rails](https://github.com/samvera/noid-rails). These identifiers will be added to each object's `metadata.yml` as the `legacy_id` field. Any new objects uploaded after the transition will not have the `legacy_id` field.
 
 ## 4. Overview of SPE_DAO
 
-SPE_DAO root MUST only contain collection folders named for valid Collection identifiers. Each collection folder must have an associated resource record in ArchivesSpace.
+SPE_DAO root MUST only contain collection folders named for valid Collection identifiers. Each collection folder MUST have an associated resource record in ArchivesSpace.
 
-Each Collection folder may contain any number of Digital Object folders named using each object's digital object identifier.
+Each collection folder MAY contain any number of digital object folders named using each object's digital object identifier. Each digital object folder MUST be associated with the ArchivesSpace component whose `ref_id` is the folder name.
 
-### 4.2 Digital object generic structure example
+### 4.1 Digital object generic structure example
 
 	└── SPE_DAO/ (root)
 		├── collection folder/
@@ -140,7 +140,6 @@ Each Collection folder may contain any number of Digital Object folders named us
 		│	└── 8c63e8002860e0ebfc90af60e731027e/
 		└── ua902.012/
 			└── 96369731598e43ee001edac1b10487a2/
-
 
 ## 5. Representation folders
 
@@ -256,7 +255,7 @@ For multi-page objects, it is also RECOMMENDED to include canvas level alternati
 
 #### 5.4.1 Associations between Canvas-level Alternative Renderings
 
-Associated HOCR and TXT file MUST have the same case-sensative filename as the files they represent.
+Associated HOCR and TXT files MUST have the same case-sensitive filename stem as the canvas image files they represent. The representation-specific file extension MUST be used (for example, `page1.jpg`, `page1.hocr`, and `page1.txt`).
 
 #### 5.4.2 Examples of Associations between Canvas-level Alternative Renderings
 
@@ -302,26 +301,28 @@ All text files within a digital object, such as `metadata.yml`, `content.txt`, `
 
 ### 6.2 `metadata.yml`
 
-* `metadata.yml` must be a valid [YAML file](https://yaml.org/spec/1.2.2/).
+* `metadata.yml` MUST be a valid [YAML file](https://yaml.org/spec/1.2.2/).
 
-Fields contained in `metadata.yml` are defined in [5. `metadata.yml` fields](#5.)
+Fields contained in `metadata.yml` are defined in [8. `metadata.yml` fields](#8.)
 
 ### 6.3 `manifest.json`
 
-* `manifest.json` must be a valid JSON file according to [[rfc7159]](https://tools.ietf.org/html/rfc7159).
-* `manifest.json` must be a valid IIIF manifest according to the [IIIF Presentation API 3.0](https://iiif.io/api/presentation/3.0/)
+* `manifest.json` MUST be a valid JSON file according to [RFC 8259](https://www.rfc-editor.org/rfc/rfc8259.html).
+* `manifest.json` MUST be a valid IIIF manifest according to the [IIIF Presentation API 3.0](https://iiif.io/api/presentation/3.0/).
 
 ### 6.4 `content.txt`
 
-Content files contain plain text that represents the digital object and should be indexed into Solr for discovery. If a digital object has any representative text, then it MUST contain a `content.txt` file. The object SHOULD also have canvas-level text in representation folders such as `txt` for unstructured per-canvas text, or `hocr` for HOCR or `vtt` for VTT captions to support text highlighing and captioning.
+The `content.txt` file contains plain text that represents the digital object and SHOULD be indexed into Solr for discovery. If a digital object has representative text, it SHOULD contain a `content.txt` file. The object SHOULD also have canvas-level text in representation folders such as `txt` for unstructured per-canvas text, `hocr` for HOCR, or `vtt` for VTT captions to support text highlighting and captioning.
 
 ## 7. Full-Text Indexing Prioritization
 
-All digital objects will be indexed into ArcLight's Solr core for full-text discovery. This is the order of prioritization:
+Digital objects with `visibility` set to `open` will be indexed into ArcLight's Solr core for full-text discovery. Text sources MUST be selected in this order, using the first available source containing non-empty text:
 
-1. The `context.txt` file if it is present within a digital object folder.
-2. A single file within a `txt` representation folder. This will be skipped if there is multiple per-canvas files.
-3. All the text from HOCR files within a `hocr` representation folder.
+1. `content.txt`.
+2. A single file in the `txt` representation folder. This source MUST be skipped when that folder contains multiple per-canvas files.
+3. All text from files in the `hocr` representation folder.
+
+If none of these sources is available, the digital object has no full text to index. Implementations MAY accept `context.txt` as a compatibility alias for `content.txt`; if both files are present, `content.txt` MUST take precedence.
 
 ## 8. `metadata.yml` fields
 
@@ -343,9 +344,9 @@ These fields have strict requirements as they support for automated processes.
 * Video
 * Other (Avoid)
 
-**preservation_package**: (REQUIRED) Identifier for the preservation package that includes the presevation files used for the digital object. This field was previously named "accession".
+**preservation_package**: (REQUIRED) Non-empty string identifier for the preservation package that includes the preservation files used for the digital object. This field was previously named "accession".
 
-**date_uploaded**: (REQUIRED) The date the digital object was first made publicly available. Previously, this field was named date_uploaded. This field MUST be an ISO 8601 compliant date with the "T" separator, such as "2018-12-21T15:30:08+00:00".
+**date_uploaded**: (REQUIRED) The date and time the digital object was first made publicly available. This field MUST be a quoted [RFC 3339](https://www.rfc-editor.org/rfc/rfc3339.html) timestamp including a time-zone offset, such as `"2018-12-21T15:30:08+00:00"`.
 
 **license**: (REQUIRED) Licensing and distribution information governing access to the digital object. This field MUST be the canonical URL for a Creative Commons license or "Unknown". If "Unknown" is used, a valid rights_statement field is REQUIRED. Examples:
 * https://creativecommons.org/licenses/by-nc-sa/4.0/
@@ -369,16 +370,18 @@ These fields have strict requirements as they support for automated processes.
 * open
 * closed
 
-**original_file**: (OPTIONAL) This field is REQUIRED for born-digital files. Name of original file that was created and used.
+This field controls ArcLight ingestion and indexing only; it MUST NOT be treated as an access-control setting for IIIF or direct file access. Access restrictions MUST be enforced by the services that provide those resources.
+
+**original_file**: (OPTIONAL) This field is REQUIRED for born-digital files. Non-empty string containing the name of the original file that was created and used.
 
 **original_file_legacy**: (OPTIONAL) Name of original file for a born-digital file. In legacy use, this field denotes the file that was uploaded to Hyrax for both digitized and born-digital objects. For example, this was often the name of a PDF created after the digitization of a physical object and may not be meaningful. This field is deprecated and will be replaced by original_file and original_format post-Hyrax.
 
-**original_format**: (OPTIONAL) Format (Doc, Png, Jpg, Ppt etc.) of the file before it was uploaded to Hyrax
+**original_format**: (OPTIONAL) Non-empty string identifying the format (Doc, Png, Jpg, Ppt, etc.) of the file before it was uploaded to Hyrax.
 
 **legacy_id**: (OPTIONAL) The legacy NOID ID for the object minted by Hyrax.
 
-**coverage**: (OPTIONAL) Determines if the digital object is the only file that represents the archival object (the whole) or if it is one component of multiple (a part) that make up the archival object. This value is used in ArcLight to determine if the digital object is fully representative of the archival component. If the coverage field is not present, the coverage value will be treated as `whole`. 
-  
+Controlled metadata values MUST be represented as YAML strings, and each controlled field MUST occur no more than once. A `date_uploaded` value MUST be quoted so YAML parsers do not interpret it as another data type. `resource_type`, `behavior`, `visibility`, and `coverage` MUST each contain exactly one of their listed values.
+
 ### 8.2 Uncontrolled `metadata.yml` fields
 
 `metadata.yml` MAY have any number of metadata fields that are not used for automated purposes, but will be included in the `manifest.json` and later indexed into ArcLight. None of these fields are required and many are present due to legacy systems and practices.
@@ -464,9 +467,11 @@ These fields have strict requirements as they support for automated processes.
 
 ## Change log
 
-### 0.2 
+### 0.2
 
 * Removed support for legacy part digital objects that did not fully represent an archival component in a one-to-one relationship.
+* Addressed some minor internal inconsistencies.
+* Clarified identifier portability, text-indexing precedence, visibility scope, and IIIF-related requirements.
 
 ### 0.1
 
@@ -484,13 +489,16 @@ Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words", IETF, Ma
 DOI 10.17487/RFC8174
 URL: [https://tools.ietf.org/html/rfc8174](https://tools.ietf.org/html/rfc8174)
 
-**[RFC7159]**
-Bray, T., "JavaScript Object Notation (JSON)", RFC 7159, March 2014.
-URL: [https://tools.ietf.org/html/rfc7159](https://tools.ietf.org/html/rfc7159
+**[RFC8259]**
+Bray, T., "The JavaScript Object Notation (JSON) Data Interchange Format", RFC 8259, December 2017.
+URL: [https://www.rfc-editor.org/rfc/rfc8259.html](https://www.rfc-editor.org/rfc/rfc8259.html)
+
+**[RFC3339]**
+Newman, C. and G. Klyne, "Date and Time on the Internet: Timestamps", RFC 3339, July 2002.
+URL: [https://www.rfc-editor.org/rfc/rfc3339.html](https://www.rfc-editor.org/rfc/rfc3339.html)
 
 **[IIIF-Presentation-3.0]**
 International Image Interoperability Framework (IIIF), "IIIF Presentation API 3.0", version 3.0, January 2023
 URL: [https://iiif.io/api/presentation/3.0/](https://iiif.io/api/presentation/3.0/)
 
 **[Wiedeman, 2023]** Wiedeman, Gregory. "Designing Digital Discovery and Access Systems for Archival Description," Issue 55, 2023-1-20. Available at: [https://journal.code4lib.org/articles/16963](https://journal.code4lib.org/articles/16963).
-
