@@ -1,4 +1,4 @@
-# Digital Object Discovery Storage Specification (0.1)
+# Digital Object Discovery Storage Specification (0.2)
 This is a display version of the specification, which is managed and versioned with markdown in a [Github repository](https://github.com/UAlbanyArchives/arclight_intergration_project).
 
 ## Contributors
@@ -76,22 +76,13 @@ Each collection identifier MUST have a three digit sequential number directly fo
 
 ## 3. Digital object identifiers
 
-All digital object identifiers MUST be the same, or a derivative of, the associated archival component's ref_id.
+All digital object identifiers MUST be the same as the associated archival component's ref_id. This is because [DadoCM](https://dadocm.github.io/) recommends that digial object and archival components have a one-to-one relationship
 
-It is RECOMMENDED that since digial object and archival components will ideally have a one-to-one relationship, that a digital object identifiers is the exactly the same as the associated archival component's ref_id. However, to support legacy cases where digital objects only represent part of an archival component, digital object identifiers MAY also be the archival component's ref_id followed by an underscore (_) and a sequential identifier. For example:
+	* 9dfb7fea77045eddb9fc90aca79ad3a7
+	* a78c11a7a75a410d605ad1b4dae1d3e7
+	* 1a4c3e5084956533258b2b55a8bb5a74
+	* ff9e51e1a961607c55094ad148fed550
 
-	* 9dfb7fea77045eddb9fc90aca79ad3a7_1
-	* 9dfb7fea77045eddb9fc90aca79ad3a7_2
-	* 9dfb7fea77045eddb9fc90aca79ad3a7_3
-	* 9dfb7fea77045eddb9fc90aca79ad3a7_4
-	* 9dfb7fea77045eddb9fc90aca79ad3a7_5
-	* 9dfb7fea77045eddb9fc90aca79ad3a7_6
-	* 9dfb7fea77045eddb9fc90aca79ad3a7_7
-	* 9dfb7fea77045eddb9fc90aca79ad3a7_8
-	* 9dfb7fea77045eddb9fc90aca79ad3a7_9
-	* 9dfb7fea77045eddb9fc90aca79ad3a7_10
-	* 9dfb7fea77045eddb9fc90aca79ad3a7_11
-	...
 
 All digital object identifiers MUST be valid directory names in both Unix-based and Windows operating systems. Thus, they cannot contain characters such as `< > : " / \ | ? *` and are RECOMMENDED to be 36 characters or less.
 
@@ -101,7 +92,7 @@ Prior to SPE_DAO, digital objects used NOID identifiers from [noid-rails](https:
 
 SPE_DAO root MUST only contain collection folders named for valid Collection identifiers. Each collection folder must have an associated resource record in ArchivesSpace.
 
-Each Collection folder may contain any number of Digital Object folders named using each object's NOID identifier.
+Each Collection folder may contain any number of Digital Object folders named using each object's digital object identifier.
 
 ### 4.2 Digital object generic structure example
 
@@ -161,7 +152,6 @@ Pyramidal tiff files MUST use the `.ptif` file extension and thus MUST use the `
 
 Each representation folder SHOULD contain a complete representation, but some formats may be lossy. For example, the `txt` representation of a document will not contain the entire content for the object since it does not contain the visual representation, but it SHOULD contain the entire plain text representation of the object, instead of only some pages of the document.
 
-Representations folders typically have object-level formats with a single file per digital object, or be split into [canvas-level](https://iiif.io/api/presentation/3.0/#53-canvas) represenations, such as a set of files per page.
 
 *Object-level representation folders*
 * pdf
@@ -472,7 +462,15 @@ These fields have strict requirements as they support for automated processes.
 			└── thumbnail.jpg
 ```
 
+## Change log
 
+### 0.2 
+
+* Removed support for legacy part digital objects that did not fully represent an archival component in a one-to-one relationship.
+
+### 0.1
+
+* Initial draft
 
 ## References
 
